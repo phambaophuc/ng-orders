@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { User } from '../common/user';
-import { environment } from 'src/environments/environment';
+import * as auth from 'firebase/auth';
 
 @Injectable({
     providedIn: 'root'
@@ -33,10 +33,10 @@ export class AuthService {
     }
 
     // sign in with email/password
-    SignIn(email: string, password: string) {
+    signIn(email: string, password: string) {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then((result) => {
-                this.SetUserData(result.user);
+                this.setUserData(result.user);
                 this.afAuth.authState.subscribe((user) => {
                     if (user) {
                         this.router.navigate(['/dashboard']);
@@ -48,12 +48,12 @@ export class AuthService {
     }
 
     // sign up with email/password
-    SignUp(email: string, password: string) {
+    signUp(email: string, password: string) {
         return this.afAuth
             .createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                this.SendVerificationMail();
-                this.SetUserData(result.user);
+                this.sendVerificationMail();
+                this.setUserData(result.user);
             })
             .catch((error) => {
                 window.alert(error.message);
@@ -61,7 +61,7 @@ export class AuthService {
     }
 
     // send email verfificaiton when new user sign up
-    SendVerificationMail() {
+    sendVerificationMail() {
         return this.afAuth.currentUser
             .then((u: any) => u.sendEmailVerification())
             .then(() => {
@@ -70,7 +70,7 @@ export class AuthService {
     }
 
     // reset Forggot password
-    ForgotPassword(password: string) {
+    forgotPassword(password: string) {
         return this.afAuth
             .sendPasswordResetEmail(password)
             .then(() => {
@@ -87,7 +87,7 @@ export class AuthService {
         return user !== null && user.emailVerified !== false ? true : false;
     }
 
-    SetUserData(user: any) {
+    setUserData(user: any) {
         const userRef = this.afDb.object(`Users/${user.uid}`);
 
         const userData: User = {
@@ -102,10 +102,34 @@ export class AuthService {
     }
 
     // signout
-    SignOut() {
+    signOut() {
         return this.afAuth.signOut().then(() => {
             localStorage.removeItem('user');
             this.router.navigate(['/auth/sign-in']);
         })
+    }
+
+    signInWithGoogle() {
+        return this.authLogin(new auth.GoogleAuthProvider())
+            .then(() => {
+                this.afAuth.authState.subscribe(
+                    (user) => {
+                        if (user) {
+                            this.router.navigate(['/dashboard']);
+                        }
+                    }
+                )
+            })
+    }
+
+    authLogin(provider: any) {
+        return this.afAuth
+            .signInWithPopup(provider)
+            .then((result) => {
+                this.setUserData(result.user);
+            })
+            .catch((error) => {
+                window.alert(error);
+            })
     }
 }

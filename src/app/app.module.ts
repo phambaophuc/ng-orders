@@ -29,6 +29,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { environment } from 'src/environments/environment';
         NavCollapseComponent,
         NavGroupComponent,
         NavItemComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,

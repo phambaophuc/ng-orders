@@ -23,9 +23,14 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button class="btn btn-block btn-primary mb-4"
+                            <button class="btn btn-block btn-outline-primary mb-2"
                                 (click)="signIn(email.value, password.value)">
-                                Signin
+                                Sign in
+                            </button>
+                            <strong>Or</strong>
+                            <button class="btn btn-primary mt-2 mb-4" (click)="signInWithGoogle()">
+                                <i class="fa-brands fa-google me-1"></i>
+                                Sign in with google
                             </button>
                         </div>
                         <p class="mb-2 text-muted">Forgot password? <a href="javascriprt:" class="f-w-400">Reset</a></p>

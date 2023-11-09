@@ -6,11 +6,14 @@ import { DashAnalyticsComponent } from './pages/dashboard/dash-analytics/dash-an
 import { SignInComponent } from './pages/authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/authentication/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './pages/authentication/verify-email/verify-email.component';
+import { AuthGuard } from './guard/auth.guard';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
     {
         path: '',
         component: AdminComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
@@ -44,7 +47,8 @@ const routes: Routes = [
                 component: VerifyEmailComponent
             }
         ]
-    }
+    },
+    { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

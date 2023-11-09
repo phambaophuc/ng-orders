@@ -56,6 +56,6 @@ export class NavRightComponent implements DoCheck, OnInit {
     }
 
     signOut() {
-        this.authService.SignOut();
+        this.authService.signOut();
     }
 }
