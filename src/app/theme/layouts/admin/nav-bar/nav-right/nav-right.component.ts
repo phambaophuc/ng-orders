@@ -1,9 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 
 // bootstrap
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { GradientConfig } from 'src/app/app-config';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-nav-right',
@@ -21,7 +22,7 @@ import { GradientConfig } from 'src/app/app-config';
         ])
     ]
 })
-export class NavRightComponent implements DoCheck {
+export class NavRightComponent implements DoCheck, OnInit {
 
     // public props
     visibleUserList: boolean;
@@ -29,7 +30,9 @@ export class NavRightComponent implements DoCheck {
     friendId!: number;
     gradientConfig = GradientConfig;
 
-    constructor() {
+    isLoggedIn?: boolean;
+
+    constructor(public authService: AuthService) {
         this.visibleUserList = false;
         this.chatMessage = false;
     }
@@ -42,9 +45,17 @@ export class NavRightComponent implements DoCheck {
         }
     }
 
+    ngOnInit(): void {
+        this.isLoggedIn = this.authService.isLoggedIn;
+    }
+
     // public method
     onChatToggle(friendID: number) {
         this.friendId = friendID;
         this.chatMessage = !this.chatMessage;
+    }
+
+    signOut() {
+        this.authService.SignOut();
     }
 }

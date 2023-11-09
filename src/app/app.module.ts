@@ -21,10 +21,14 @@ import { NavContentComponent } from './theme/layouts/admin/navigation/nav-conten
 import { NavCollapseComponent } from './theme/layouts/admin/navigation/nav-content/nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './theme/layouts/admin/navigation/nav-content/nav-group/nav-group.component';
 import { NavItemComponent } from './theme/layouts/admin/navigation/nav-content/nav-item/nav-item.component';
-import { SamplePageComponent } from './pages/sample-page/sample-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
     declarations: [
@@ -43,7 +47,6 @@ import { MatButtonModule } from '@angular/material/button';
         NavCollapseComponent,
         NavGroupComponent,
         NavItemComponent,
-        SamplePageComponent
     ],
     imports: [
         BrowserModule,
@@ -52,7 +55,14 @@ import { MatButtonModule } from '@angular/material/button';
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatIconModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule,
+        AngularFireStorageModule
     ],
     providers: [],
     bootstrap: [AppComponent]

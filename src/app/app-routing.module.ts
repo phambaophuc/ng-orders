@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layouts/admin/admin.component';
 import { GuestComponent } from './theme/layouts/guest/guest.component';
 import { DashAnalyticsComponent } from './pages/dashboard/dash-analytics/dash-analytics.component';
-import { SamplePageComponent } from './pages/sample-page/sample-page.component';
+import { SignInComponent } from './pages/authentication/sign-in/sign-in.component';
+import { SignUpComponent } from './pages/authentication/sign-up/sign-up.component';
+import { VerifyEmailComponent } from './pages/authentication/verify-email/verify-email.component';
 
 const routes: Routes = [
     {
@@ -12,23 +14,36 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: '/analytics',
+                redirectTo: '/dashboard',
                 pathMatch: 'full'
             },
             {
-                path: 'analytics',
+                path: 'dashboard',
                 component: DashAnalyticsComponent
             },
             {
-                path: 'sample-page',
-                component: SamplePageComponent
+                path: 'food',
+                loadChildren: () => import('./pages/food/food.module').then(m => m.FoodModule)
             }
         ]
     },
     {
         path: '',
         component: GuestComponent,
-        children: []
+        children: [
+            {
+                path: 'auth/sign-in',
+                component: SignInComponent
+            },
+            {
+                path: 'auth/sign-up',
+                component: SignUpComponent
+            },
+            {
+                path: 'auth/verify-email',
+                component: VerifyEmailComponent
+            }
+        ]
     }
 ];
 

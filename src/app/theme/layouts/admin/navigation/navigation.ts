@@ -18,6 +18,8 @@ export interface NavigationItem {
     children?: NavigationItem[];
 }
 
+// Lưu ý: external = true --> sẽ tải lại trang
+
 export const NavigationItems: NavigationItem[] = [
     {
         id: 'manager',
@@ -29,7 +31,7 @@ export const NavigationItems: NavigationItem[] = [
                 id: 'dashboard',
                 title: 'Dashboard',
                 type: 'item',
-                url: '/analytics',
+                url: '/dashboard',
                 icon: 'feather icon-home'
             },
             {
@@ -43,7 +45,6 @@ export const NavigationItems: NavigationItem[] = [
                         title: 'Danh sách',
                         type: 'item',
                         url: '#',
-                        external: true,
                         icon: 'fas fa-list-ul'
                     }
                 ]
@@ -58,9 +59,15 @@ export const NavigationItems: NavigationItem[] = [
                         id: 'danh-sach-san-pham',
                         title: 'Danh sách',
                         type: 'item',
-                        url: '#',
-                        external: true,
+                        url: '/food',
                         icon: 'fas fa-list-ul'
+                    },
+                    {
+                        id: 'them-san-pham',
+                        title: 'Thêm sản phẩm',
+                        type: 'item',
+                        url: '#',
+                        icon: 'fas fa-plus-circle'
                     }
                 ]
             },
@@ -82,7 +89,6 @@ export const NavigationItems: NavigationItem[] = [
                         title: 'Chi tiết',
                         type: 'item',
                         url: '#',
-                        external: true,
                         icon: 'fas fa-file-alt'
                     },
                     {
@@ -90,7 +96,6 @@ export const NavigationItems: NavigationItem[] = [
                         title: 'Thống kê',
                         type: 'item',
                         url: '#',
-                        external: true,
                         icon: 'fas fa-chart-bar'
                     }
                 ]
@@ -114,7 +119,6 @@ export const NavigationItems: NavigationItem[] = [
                         title: 'Theo tháng',
                         type: 'item',
                         url: '#',
-                        external: true,
                         icon: 'fas fa-calendar-alt'
                     },
                     {
@@ -122,7 +126,6 @@ export const NavigationItems: NavigationItem[] = [
                         title: 'Theo năm',
                         type: 'item',
                         url: '#',
-                        external: true,
                         icon: 'fas fa-dollar-sign'
                     }
                 ]
@@ -139,7 +142,7 @@ export const NavigationItems: NavigationItem[] = [
                 id: 'sample-page',
                 title: 'Sample page',
                 type: 'item',
-                url: '/sample-page',
+                url: '#',
                 icon: 'fas fa-file'
             }
         ]
