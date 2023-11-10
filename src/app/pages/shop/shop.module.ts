@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FoodRoutingModule } from './food-routing.module';
-import { FoodComponent } from './food.component';
+import { ShopRoutingModule } from './shop-routing.module';
+import { ShopComponent } from './shop.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -12,11 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [
-        FoodComponent
+        ShopComponent
     ],
     imports: [
         CommonModule,
-        FoodRoutingModule,
+        ShopRoutingModule,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
@@ -24,4 +24,4 @@ import { MatButtonModule } from '@angular/material/button';
         MatButtonModule
     ]
 })
-export class FoodModule { }
+export class ShopModule { }

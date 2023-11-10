@@ -3,29 +3,31 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { FoodService } from 'src/app/services/food.service';
+import { ShopService } from 'src/app/services/shop.service';
 
 @Component({
-    selector: 'app-food',
-    templateUrl: './food.component.html',
-    styleUrls: ['./food.component.scss']
+    selector: 'app-shop',
+    templateUrl: './shop.component.html',
+    styleUrls: ['./shop.component.scss']
 })
-export class FoodComponent implements OnInit {
+export class ShopComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['foodName', 'foodPrice', 'foodType', 'actions'];
+    displayedColumns: string[] = [
+        'shopName', 'shopAddress', 'ratingScore', 'openingTime', 'closingTime', 'isOpening', 'actions'
+    ];
 
     dataSource!: MatTableDataSource<any>;
 
-    constructor(private foodService: FoodService, private _liveAnnouncer: LiveAnnouncer) { }
+    constructor(private shopService: ShopService, private _liveAnnouncer: LiveAnnouncer) { }
 
     ngOnInit(): void {
-        this.getAllFoods();
+        this.getAllShops();
     }
 
-    getAllFoods() {
-        this.foodService.getAllFoods().subscribe(
+    getAllShops() {
+        this.shopService.getAllShops().subscribe(
             data => {
                 this.dataSource = new MatTableDataSource(data);
                 this.dataSource.paginator = this.paginator;

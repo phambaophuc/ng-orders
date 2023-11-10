@@ -44,7 +44,7 @@ export const NavigationItems: NavigationItem[] = [
                         id: 'chi-tiet-cua-hang',
                         title: 'Danh sách',
                         type: 'item',
-                        url: '#',
+                        url: '/shop',
                         icon: 'fas fa-list-ul'
                     }
                 ]
