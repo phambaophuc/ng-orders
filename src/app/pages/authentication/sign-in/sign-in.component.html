@@ -7,14 +7,14 @@
                         <img src="assets/images/logo-dark.png" alt="logo" class="img-fluid mb-4" />
                         <h4 class="mb-3 f-w-400">Signin</h4>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="feather icon-mail"></i></span>
+                            <span class="input-group-text"><i class="feather icon-mail"></i></span>
                             <input type="email" #email class="form-control" placeholder="Email address"
-                                aria-label="Username" aria-describedby="basic-addon1" />
+                                aria-label="Email" />
                         </div>
                         <div class="input-group mb-4">
-                            <span class="input-group-text" id="basic-addon3"><i class="feather icon-lock"></i></span>
+                            <span class="input-group-text"><i class="feather icon-lock"></i></span>
                             <input type="password" #password class="form-control" placeholder="Password"
-                                aria-label="Username" aria-describedby="basic-addon3" />
+                                aria-label="Password" />
                         </div>
                         <div class="form-group text-start mt-2">
                             <div class="checkbox checkbox-primary d-inline">
@@ -23,17 +23,19 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button class="btn btn-block btn-outline-primary mb-2"
+                            <button class="btn btn-block btn-primary mb-2"
                                 (click)="signIn(email.value, password.value)">
                                 Sign in
                             </button>
                             <strong>Or</strong>
-                            <button class="btn btn-primary mt-2 mb-4" (click)="signInWithGoogle()">
+                            <button mat-raised-button color="primary" class="mt-2 mb-4" (click)="signInWithGoogle()">
                                 <i class="fa-brands fa-google me-1"></i>
                                 Sign in with google
                             </button>
                         </div>
-                        <p class="mb-2 text-muted">Forgot password? <a href="javascriprt:" class="f-w-400">Reset</a></p>
+                        <p class="mb-2 text-muted">Forgot password? 
+                            <a [routerLink]="['/auth/forgot-password']" class="f-w-400">Reset</a>
+                        </p>
                         <p class="mb-0 text-muted">Don’t have an account? <a [routerLink]="['/auth/sign-up']"
                                 class="f-w-400">Signup</a></p>
                     </div>

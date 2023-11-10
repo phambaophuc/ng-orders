@@ -5,11 +5,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-sign-in',
     standalone: true,
-    imports: [CommonModule, SharedModule, RouterModule, MatIconModule],
+    imports: [CommonModule, SharedModule, RouterModule, MatIconModule, MatButtonModule],
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss']
 })

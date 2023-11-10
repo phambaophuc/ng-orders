@@ -21,9 +21,6 @@ import { NavContentComponent } from './theme/layouts/admin/navigation/nav-conten
 import { NavCollapseComponent } from './theme/layouts/admin/navigation/nav-content/nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './theme/layouts/admin/navigation/nav-content/nav-group/nav-group.component';
 import { NavItemComponent } from './theme/layouts/admin/navigation/nav-content/nav-item/nav-item.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -48,7 +45,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
         NavCollapseComponent,
         NavGroupComponent,
         NavItemComponent,
-        NotFoundComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
@@ -58,9 +55,6 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatIconModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireAuthModule,
         AngularFireDatabaseModule,

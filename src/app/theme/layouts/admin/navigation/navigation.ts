@@ -72,8 +72,8 @@ export const NavigationItems: NavigationItem[] = [
                 ]
             },
             {
-                id: 'don-dat-hang',
-                title: 'Đơn đặt hàng',
+                id: 'don-hang',
+                title: 'Đơn hàng',
                 type: 'item',
                 url: '#',
                 icon: 'fas fa-shopping-basket'

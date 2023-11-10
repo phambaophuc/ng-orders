@@ -8,6 +8,7 @@ import { SignUpComponent } from './pages/authentication/sign-up/sign-up.componen
 import { VerifyEmailComponent } from './pages/authentication/verify-email/verify-email.component';
 import { AuthGuard } from './guard/auth.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
 
 const routes: Routes = [
     {
@@ -45,6 +46,10 @@ const routes: Routes = [
             {
                 path: 'auth/verify-email',
                 component: VerifyEmailComponent
+            },
+            {
+                path: 'auth/forgot-password',
+                component: ForgotPasswordComponent
             }
         ]
     },
