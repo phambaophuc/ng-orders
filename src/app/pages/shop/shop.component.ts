@@ -15,7 +15,7 @@ export class ShopComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     displayedColumns: string[] = [
-        'shopName', 'shopAddress', 'ratingScore', 'openingTime', 'closingTime', 'isOpening', 'actions'
+        'key', 'shopName', 'shopAddress', 'ratingScore', 'openingTime', 'closingTime', 'isOpening', 'actions'
     ];
 
     dataSource!: MatTableDataSource<any>;

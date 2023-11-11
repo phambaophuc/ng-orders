@@ -8,6 +8,8 @@ import { Shop } from 'src/app/common/shop';
 import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { OptionDialogComponent } from './option-dialog/option-dialog.component';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
     selector: 'app-add-food',
@@ -19,7 +21,6 @@ export class AddFoodComponent implements OnInit {
     food: Food = new Food();
 
     shops: Shop[] = [];
-    selectedShop: string = '';
 
     options: Option[] = [];
     option: Option = new Option();
@@ -30,28 +31,36 @@ export class AddFoodComponent implements OnInit {
     selectedImage: File | null = null;
     selectedImageSrc: string | null = null;
 
+    addFoodForm: FormGroup = new FormGroup({});
+
     constructor(
         private foodService: FoodService,
         private shopService: ShopService,
+        private snackbarSerice: SnackBarService,
         private afStorage: AngularFireStorage,
+        private fb: FormBuilder,
         public dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
         this.getAllShops();
+
+        this.addFoodForm = this.fb.group({
+            foodName: new FormControl('', [Validators.required]),
+            foodType: new FormControl('', [Validators.required]),
+            foodPrice: new FormControl('', [Validators.required]),
+            foodDescription: new FormControl(''),
+            isOutOfStock: new FormControl(false),
+            selectedShop: new FormControl('', [Validators.required])
+        })
     }
 
-    openDialog(): void {
-        const dialogRef = this.dialog.open(OptionDialogComponent, {
-            data: { option: this.option },
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.addOption();
-            }
-        });
-    }
+    get foodName() { return this.addFoodForm.get('foodName') };
+    get foodType() { return this.addFoodForm.get('foodType') };
+    get foodPrice() { return this.addFoodForm.get('foodPrice') };
+    get foodDescription() { return this.addFoodForm.get('foodDescription') };
+    get isOutOfStock() { return this.addFoodForm.get('isOutOfStock') };
+    get selectedShop() { return this.addFoodForm.get('selectedShop') };
 
     getAllShops() {
         this.shopService.getAllShops().subscribe(
@@ -61,7 +70,7 @@ export class AddFoodComponent implements OnInit {
         );
     }
 
-    addFood() {
+    onSubmit() {
         if (this.selectedImage) {
             const imageRef = this.afStorage.ref(`FoodImage/${this.selectedImage.name}`);
             const uploadTask = imageRef.put(this.selectedImage);
@@ -83,6 +92,27 @@ export class AddFoodComponent implements OnInit {
         }
     }
 
+    saveFood() {
+        this.setFoodProperties();
+
+        this.foodService.addFood(this.food).then(() => {
+            this.snackbarSerice.openSnackBar('Food added successfully.');
+            this.resetForm();
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    setFoodProperties(): void {
+        this.food.foodName = this.addFoodForm.get('foodName')?.value;
+        this.food.foodType = this.addFoodForm.get('foodType')?.value;
+        this.food.foodPrice = this.addFoodForm.get('foodPrice')?.value;
+        this.food.foodDescription = this.addFoodForm.get('foodDescription')?.value;
+        this.food.isOutOfStock = this.addFoodForm.get('isOutOfStock')?.value;
+        this.food.options = this.options;
+        this.food.shopId = this.addFoodForm.get('selectedShop')?.value;
+    }
+
     addOption() {
         this.options.push({
             optionName: this.option?.optionName,
@@ -92,27 +122,25 @@ export class AddFoodComponent implements OnInit {
 
     }
 
-    saveFood() {
-        try {
-            this.food.shopId = this.selectedShop;
-            this.food.options = this.options;
-            this.foodService.addFood(this.food);
-
-            alert('Food added successfully.');
-            this.resetForm();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     onImageSelected(event: any) {
         this.selectedImage = event.target.files[0];
         this.selectedImageSrc = URL.createObjectURL(this.selectedImage!);
     }
 
     resetForm() {
-        this.food = {};
-        this.food.options = [];
-        this.selectedShop = '';
+        this.addFoodForm.reset();
+        this.options = [];
+    }
+
+    openDialog() {
+        const dialogRef = this.dialog.open(OptionDialogComponent, {
+            data: { option: this.option },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.addOption();
+            }
+        });
     }
 }

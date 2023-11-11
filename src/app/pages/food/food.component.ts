@@ -14,7 +14,7 @@ export class FoodComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['foodName', 'foodPrice', 'foodType', 'actions'];
+    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
 

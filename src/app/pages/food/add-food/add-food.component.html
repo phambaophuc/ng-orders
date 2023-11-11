@@ -1,5 +1,5 @@
 <app-card cardTitle="Thêm sản phẩm" [options]="false">
-    <form class="row" (ngSubmit)="addFood()">
+    <form class="row" [formGroup]="addFoodForm" (ngSubmit)="onSubmit()">
         <div class="form-group col-md-4 text-center">
             <div *ngIf="selectedImage">
                 <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
@@ -8,37 +8,48 @@
             <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
         </div>
 
-
         <div class="col-md-8">
-            <div class="row">
+            <div class="row mb-2">
                 <mat-form-field class="col-md-3">
-                    <mat-label>Food Name</mat-label>
-                    <input matInput [(ngModel)]="food.foodName" name="foodName">
+                    <mat-label>Tên sản phẩm</mat-label>
+                    <input matInput formControlName="foodName">
+                    <mat-error *ngIf="foodName?.errors?.['required']">
+                        Tên sản phẩm là <strong>bắt buộc</strong>
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="col-md-3">
-                    <mat-label>Food Type</mat-label>
-                    <input matInput [(ngModel)]="food.foodType" name="foodType">
+                    <mat-label>Loại sản phẩm</mat-label>
+                    <input matInput formControlName="foodType">
+                    <mat-error *ngIf="foodType?.errors?.['required']">
+                        Loại sản phẩm là <strong>bắt buộc</strong>
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="col-md-3">
-                    <mat-label>Food Price</mat-label>
-                    <input matInput [(ngModel)]="food.foodPrice" name="foodPrice">
+                    <mat-label>Giá sản phẩm</mat-label>
+                    <input matInput formControlName="foodPrice">
+                    <mat-error *ngIf="foodPrice?.errors?.['required']">
+                        Giá tiền là <strong>bắt buộc</strong>
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="col-md-3">
-                    <mat-label>Select Shop</mat-label>
-                    <mat-select [(ngModel)]="selectedShop" name="key">
+                    <mat-label>Chọn cửa hàng</mat-label>
+                    <mat-select name="key" formControlName="selectedShop">
                         <mat-option *ngFor="let shop of shops" [value]="shop.key">
                             {{ shop.shopName }}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="selectedShop?.errors?.['required']">
+                        Cửa hàng là <strong>bắt buộc</strong>
+                    </mat-error>
                 </mat-form-field>
             </div>
 
             <mat-form-field class="full-width">
-                <mat-label>Food Description</mat-label>
-                <textarea matInput [(ngModel)]="food.foodDescription" name="foodDescription"></textarea>
+                <mat-label>Mô tả</mat-label>
+                <textarea matInput formControlName="foodDescription"></textarea>
             </mat-form-field>
 
             <div class="mb-3">
@@ -54,12 +65,16 @@
             </div>
 
             <section class="mb-3">
-                <mat-checkbox [(ngModel)]="food.isOutOfStock" name="isOutOfStock">
+                <mat-checkbox formControlName="isOutOfStock">
                     Is Out of Stock
                 </mat-checkbox>
             </section>
         </div>
 
-        <button mat-raised-button color="primary" type="submit">Thêm sản phẩm</button>
+        <div class="col-md-12 text-center mt-4">
+            <button mat-raised-button color="primary" type="submit" [disabled]="addFoodForm.invalid">
+                Thêm sản phẩm
+            </button>
+        </div>
     </form>
 </app-card>

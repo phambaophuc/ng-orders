@@ -27,6 +27,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireAuthModule,
         AngularFireDatabaseModule,
-        AngularFireStorageModule
+        AngularFireStorageModule,
+        MatSnackBarModule
     ],
     providers: [],
     bootstrap: [AppComponent]

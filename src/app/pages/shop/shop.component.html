@@ -2,6 +2,11 @@
     <div class="mat-elevation-z8 mt-4">
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
+            <ng-container matColumnDef="key">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> No. </th>
+                <td mat-cell *matCellDef="let shop"> {{shop.key}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="shopName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Tên cửa hàng </th>
                 <td mat-cell *matCellDef="let shop"> {{shop.shopName}} </td>
