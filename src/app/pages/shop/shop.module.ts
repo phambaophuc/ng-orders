@@ -8,11 +8,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AddShopComponent } from './add-shop/add-shop.component';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 
 @NgModule({
     declarations: [
-        ShopComponent
+        ShopComponent,
+        AddShopComponent
     ],
     imports: [
         CommonModule,
@@ -21,7 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
         MatPaginatorModule,
         MatSortModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        SharedModule
     ]
 })
 export class ShopModule { }

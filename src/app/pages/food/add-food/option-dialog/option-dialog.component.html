@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add Option</h1>
+<div mat-dialog-content>
+    <p>Option name of food</p>
+    <mat-form-field>
+        <mat-label>Option Name</mat-label>
+        <input matInput [(ngModel)]="data.option.optionName">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+        <mat-label>Option Type</mat-label>
+        <input matInput [(ngModel)]="data.option.optionType">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button [mat-dialog-close]="data.option" cdkFocusInitial>Add</button>
+</div>

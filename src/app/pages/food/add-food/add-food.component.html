@@ -1,0 +1,65 @@
+<app-card cardTitle="Thêm sản phẩm" [options]="false">
+    <form class="row" (ngSubmit)="addFood()">
+        <div class="form-group col-md-4 text-center">
+            <div *ngIf="selectedImage">
+                <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
+            </div>
+
+            <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
+        </div>
+
+
+        <div class="col-md-8">
+            <div class="row">
+                <mat-form-field class="col-md-3">
+                    <mat-label>Food Name</mat-label>
+                    <input matInput [(ngModel)]="food.foodName" name="foodName">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-3">
+                    <mat-label>Food Type</mat-label>
+                    <input matInput [(ngModel)]="food.foodType" name="foodType">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-3">
+                    <mat-label>Food Price</mat-label>
+                    <input matInput [(ngModel)]="food.foodPrice" name="foodPrice">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-3">
+                    <mat-label>Select Shop</mat-label>
+                    <mat-select [(ngModel)]="selectedShop" name="key">
+                        <mat-option *ngFor="let shop of shops" [value]="shop.key">
+                            {{ shop.shopName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="full-width">
+                <mat-label>Food Description</mat-label>
+                <textarea matInput [(ngModel)]="food.foodDescription" name="foodDescription"></textarea>
+            </mat-form-field>
+
+            <div class="mb-3">
+                <strong class="me-2">Option:</strong>
+                <span *ngFor="let option of options; let last = last">
+                    {{ option.optionName }}
+                    <ng-container *ngIf="!last">, </ng-container>
+                </span>
+                <button mat-raised-button class="ms-2" type="button" (click)="openDialog()">
+                    <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
+                    Add Option
+                </button>
+            </div>
+
+            <section class="mb-3">
+                <mat-checkbox [(ngModel)]="food.isOutOfStock" name="isOutOfStock">
+                    Is Out of Stock
+                </mat-checkbox>
+            </section>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit">Thêm sản phẩm</button>
+    </form>
+</app-card>

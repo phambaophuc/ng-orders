@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Shop } from '../common/shop';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,10 @@ export class ShopService {
     }
 
     getAllShops(): Observable<any> {
-        return this.shopRef.valueChanges();
+        return this.shopRef.snapshotChanges().pipe(
+            map(changes => changes.map(
+                c => ({ key: c.payload.key, ...c.payload.val() })
+            ))
+        );
     }
 }
