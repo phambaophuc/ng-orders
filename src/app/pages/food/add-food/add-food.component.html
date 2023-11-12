@@ -32,6 +32,9 @@
                     <mat-error *ngIf="foodPrice?.errors?.['required']">
                         Giá tiền là <strong>bắt buộc</strong>
                     </mat-error>
+                    <mat-error *ngIf="foodPrice?.errors?.['pattern']">
+                        Định dạng giá không hợp lệ
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="col-md-3">
@@ -54,8 +57,11 @@
 
             <div class="mb-3">
                 <strong class="me-2">Option:</strong>
-                <span *ngFor="let option of options; let last = last">
-                    {{ option.optionName }}
+                <span *ngFor="let option of options; let i = index; let last = last">
+                    <a href="javascript:">{{ option.optionName }} </a>
+                    <a href="javascript:" (click)="deleteOption(i)">
+                        <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
+                    </a>
                     <ng-container *ngIf="!last">, </ng-container>
                 </span>
                 <button mat-raised-button class="ms-2" type="button" (click)="openDialog()">

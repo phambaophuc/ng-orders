@@ -28,4 +28,8 @@ export class FoodService {
 
         return this.db.object(`${this.baseObject}/${foodKey}`).set(newFood);
     }
+
+    deleteFood(key: string): Promise<void> {
+        return this.foodRef.remove(key);
+    }
 }

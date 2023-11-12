@@ -48,7 +48,9 @@ export class AddFoodComponent implements OnInit {
         this.addFoodForm = this.fb.group({
             foodName: new FormControl('', [Validators.required]),
             foodType: new FormControl('', [Validators.required]),
-            foodPrice: new FormControl('', [Validators.required]),
+            foodPrice: new FormControl('',
+                [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]
+            ),
             foodDescription: new FormControl(''),
             isOutOfStock: new FormControl(false),
             selectedShop: new FormControl('', [Validators.required])
@@ -96,7 +98,7 @@ export class AddFoodComponent implements OnInit {
         this.setFoodProperties();
 
         this.foodService.addFood(this.food).then(() => {
-            this.snackbarSerice.openSnackBar('Food added successfully.');
+            this.snackbarSerice.openSnackBar('Thêm sản phẩm thành công');
             this.resetForm();
         }).catch(error => {
             console.log(error);
@@ -120,6 +122,12 @@ export class AddFoodComponent implements OnInit {
             optionList: this.optionItems
         });
 
+    }
+
+    deleteOption(index: number) {
+        if (index >= 0 && index < this.options.length) {
+            this.options.splice(index, 1);
+        }
     }
 
     onImageSelected(event: any) {
