@@ -73,24 +73,26 @@ export class AddFoodComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.selectedImage) {
-            const imageRef = this.afStorage.ref(`FoodImage/${this.selectedImage.name}`);
-            const uploadTask = imageRef.put(this.selectedImage);
+        if (this.addFoodForm.valid) {
+            if (this.selectedImage) {
+                const imageRef = this.afStorage.ref(`FoodImage/${this.selectedImage.name}`);
+                const uploadTask = imageRef.put(this.selectedImage);
 
-            uploadTask.snapshotChanges().subscribe(
-                (snapshot) => {
-                    if (snapshot?.state === 'success') {
-                        imageRef.getDownloadURL().subscribe(
-                            (downloadUrl) => {
-                                this.food.foodImage = downloadUrl;
-                                this.saveFood();
-                            }
-                        )
+                uploadTask.snapshotChanges().subscribe(
+                    (snapshot) => {
+                        if (snapshot?.state === 'success') {
+                            imageRef.getDownloadURL().subscribe(
+                                (downloadUrl) => {
+                                    this.food.foodImage = downloadUrl;
+                                    this.saveFood();
+                                }
+                            )
+                        }
                     }
-                }
-            )
-        } else {
-            this.saveFood();
+                )
+            } else {
+                this.saveFood();
+            }
         }
     }
 

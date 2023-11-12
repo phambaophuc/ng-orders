@@ -32,4 +32,8 @@ export class FoodService {
     deleteFood(key: string): Promise<void> {
         return this.foodRef.remove(key);
     }
+
+    updateFood(key: string, updatedFood: any): Promise<any> {
+        return this.foodRef.update(key, updatedFood);
+    }
 }

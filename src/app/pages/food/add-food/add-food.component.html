@@ -1,11 +1,12 @@
 <app-card cardTitle="Thêm sản phẩm" [options]="false">
     <form class="row" [formGroup]="addFoodForm" (ngSubmit)="onSubmit()">
-        <div class="form-group col-md-4 text-center">
-            <div *ngIf="selectedImage">
-                <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <div class="form-group">
+                <div *ngIf="selectedImage">
+                    <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
+                </div>
+                <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
             </div>
-
-            <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
         </div>
 
         <div class="col-md-8">

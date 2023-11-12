@@ -21,6 +21,7 @@ import { AddFoodComponent } from './add-food/add-food.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { OptionDialogComponent } from './add-food/option-dialog/option-dialog.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { EditFoodComponent } from './edit-food/edit-food.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
         FoodComponent,
         AddFoodComponent,
         OptionDialogComponent,
-        ConfirmDeleteComponent
+        ConfirmDeleteComponent,
+        EditFoodComponent
     ],
     imports: [
         CommonModule,

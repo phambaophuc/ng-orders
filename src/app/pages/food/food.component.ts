@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FoodService } from 'src/app/services/food.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { EditFoodComponent } from './edit-food/edit-food.component';
 
 @Component({
     selector: 'app-food',
@@ -53,6 +54,10 @@ export class FoodComponent implements OnInit {
                     });
             }
         });
+    }
+
+    openEditForm(data: any) {
+        const dialogRef = this.dialog.open(EditFoodComponent, { data });
     }
 
     announceSortChange(sortState: Sort) {
