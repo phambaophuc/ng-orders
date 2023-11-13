@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddFoodComponent } from './add-food/add-food.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { OptionDialogComponent } from './add-food/option-dialog/option-dialog.component';
@@ -49,6 +50,7 @@ import { EditFoodComponent } from './edit-food/edit-food.component';
         MatListModule,
         MatTabsModule,
         MatCardModule,
+        MatProgressSpinnerModule,
         SharedModule
     ]
 })

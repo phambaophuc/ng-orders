@@ -32,6 +32,7 @@ export class AddFoodComponent implements OnInit {
     selectedImageSrc: string | null = null;
 
     addFoodForm: FormGroup = new FormGroup({});
+    addingFood: boolean = false;
 
     constructor(
         private foodService: FoodService,
@@ -74,6 +75,8 @@ export class AddFoodComponent implements OnInit {
 
     onSubmit() {
         if (this.addFoodForm.valid) {
+            this.addingFood = true;
+
             if (this.selectedImage) {
                 const imageRef = this.afStorage.ref(`FoodImage/${this.selectedImage.name}`);
                 const uploadTask = imageRef.put(this.selectedImage);
@@ -102,8 +105,10 @@ export class AddFoodComponent implements OnInit {
         this.foodService.addFood(this.food).then(() => {
             this.snackbarSerice.openSnackBar('Thêm sản phẩm thành công');
             this.resetForm();
+            this.addingFood = false;
         }).catch(error => {
             console.log(error);
+            this.addingFood = false;
         });
     }
 

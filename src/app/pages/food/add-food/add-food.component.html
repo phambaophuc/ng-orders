@@ -79,8 +79,14 @@
         </div>
 
         <div class="col-md-12 text-center mt-4">
-            <button mat-raised-button color="primary" type="submit" [disabled]="addFoodForm.invalid">
-                Thêm sản phẩm
+            <button mat-raised-button color="primary" type="submit" [disabled]="addFoodForm.invalid || addingFood">
+                <ng-container *ngIf="!addingFood; else loadingButtonContent">
+                    Thêm sản phẩm
+                </ng-container>
+
+                <ng-template #loadingButtonContent>
+                    <mat-spinner diameter="20"></mat-spinner>
+                </ng-template>
             </button>
         </div>
     </form>
