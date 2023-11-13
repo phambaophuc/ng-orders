@@ -21,6 +21,8 @@ export class EditFoodComponent implements OnInit {
     selectedImage: File | null = null;
     selectedImageSrc: string | null = null;
 
+    addingFood: boolean = false;
+
     constructor(
         private fb: FormBuilder,
         private afStorage: AngularFireStorage,
@@ -56,6 +58,8 @@ export class EditFoodComponent implements OnInit {
     get shopId() { return this.editForm.get('shopId') };
 
     onSubmit() {
+        this.addingFood = true;
+
         if (this.editForm.valid) {
             if (this.selectedImage) {
                 const imageRef = this.afStorage.ref(`FoodImage/${this.selectedImage.name}`);
@@ -84,9 +88,11 @@ export class EditFoodComponent implements OnInit {
             .then(() => {
                 this.snackbarService.openSnackBar('Thông tin sản phẩm đã được cập nhật!');
                 this.dialogRef.close();
+                this.addingFood = false;
             })
             .catch(error => {
                 console.log(error);
+                this.addingFood = false;
             });
     }
 

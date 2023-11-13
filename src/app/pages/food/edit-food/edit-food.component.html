@@ -80,8 +80,14 @@
         </div>
 
         <div class="col-md-12 text-center mt-4">
-            <button mat-raised-button color="primary" type="submit">
-                Cập nhật sản phẩm
+            <button mat-raised-button color="primary" type="submit" [disabled]="addingFood">
+                <ng-container *ngIf="!addingFood; else loadingButtonContent">
+                    Cập nhật sản phẩm
+                </ng-container>
+
+                <ng-template #loadingButtonContent>
+                    <mat-spinner diameter="20"></mat-spinner>
+                </ng-template>
             </button>
         </div>
     </form>

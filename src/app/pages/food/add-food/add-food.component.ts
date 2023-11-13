@@ -145,6 +145,7 @@ export class AddFoodComponent implements OnInit {
     resetForm() {
         this.addFoodForm.reset();
         this.options = [];
+        this.selectedImage = null;
     }
 
     openDialog() {
