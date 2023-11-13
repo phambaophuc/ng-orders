@@ -23,4 +23,8 @@ export class ShopService {
             ))
         );
     }
+
+    getShopByKey(key: string): Observable<any> {
+        return this.db.object(`/${this.baseObject}/${key}`).valueChanges();
+    }
 }

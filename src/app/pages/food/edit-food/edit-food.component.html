@@ -60,13 +60,16 @@
                     <textarea matInput formControlName="foodDescription"></textarea>
                 </mat-form-field>
 
-                <div>
+                <div *ngIf="data.options && data.options.length > 0; else noOptionBlock">
                     <strong class="me-2">Option:</strong>
                     <span *ngFor="let option of data.options; let i = index; let last = last">
                         <a href="javascript:">{{ option.optionName }} </a>
                         <ng-container *ngIf="!last">, </ng-container>
                     </span>
                 </div>
+                <ng-template #noOptionBlock>
+                    <div>No option</div>
+                </ng-template>
 
                 <section class="mt-3">
                     <mat-checkbox formControlName="isOutOfStock">
