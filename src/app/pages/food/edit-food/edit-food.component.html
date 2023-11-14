@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-5">
     <h4 class="mb-3">Cập nhật sản phẩm "{{ data.foodName }}"</h4>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
         <div class="row">
@@ -80,7 +80,7 @@
         </div>
 
         <div class="col-md-12 text-center mt-4">
-            <button mat-raised-button color="primary" type="submit" [disabled]="addingFood">
+            <button mat-raised-button color="primary" type="submit" [disabled]="editForm.invalid || addingFood">
                 <ng-container *ngIf="!addingFood; else loadingButtonContent">
                     Cập nhật sản phẩm
                 </ng-container>
