@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Option } from 'src/app/common/option';
 import { Shop } from 'src/app/common/shop';
 import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
@@ -17,6 +18,8 @@ export class EditFoodComponent implements OnInit {
     editForm: FormGroup = new FormGroup({});
 
     shops: Shop[] = [];
+
+    option: Option = {};
 
     selectedImage: File | null = null;
     selectedImageSrc: string | null = null;

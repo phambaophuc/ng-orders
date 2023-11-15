@@ -1,19 +1,22 @@
-<h1 mat-dialog-title>Add Option</h1>
+<h1 mat-dialog-title>Thêm Option</h1>
 <div mat-dialog-content>
-    <p>Option name of food</p>
+    <p>Option</p>
     <mat-form-field>
-        <mat-label>Option Name</mat-label>
+        <mat-label>Tên Option</mat-label>
         <input matInput [(ngModel)]="data.option.optionName">
     </mat-form-field>
     <br />
     <mat-form-field>
-        <mat-label>Option Type</mat-label>
-        <input matInput [(ngModel)]="data.option.optionType">
+        <mat-label>Loại Option</mat-label>
+        <mat-select [(ngModel)]="data.option.optionType">
+            <mat-option value="optional">Optional</mat-option>
+            <mat-option value="nonOptional">Non Optional</mat-option>
+        </mat-select>
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button (click)="onNoClick()">Đóng</button>
     <button mat-button [mat-dialog-close]="data.option" cdkFocusInitial [disabled]="!isFormValid()">
-        Add
+        Thêm
     </button>
 </div>

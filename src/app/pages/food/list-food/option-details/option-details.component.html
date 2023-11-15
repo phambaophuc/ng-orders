@@ -1,5 +1,5 @@
 <div class="p-5 option-list">
-    <h4 class="text-center mb-4">Thông tin {{ data.optionName }}</h4>
+    <h4 class="text-center mb-4">Thông tin {{ data.optionName }} ({{ data.optionType }})</h4>
     <div class="row" *ngFor="let item of data.optionList; let last = last">
         <div class="col d-flex justify-content-center align-items-center" *ngIf="item.image">
             <img [src]="item.image" class="mx-auto d-block" width="150px">

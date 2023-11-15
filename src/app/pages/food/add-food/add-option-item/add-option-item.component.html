@@ -1,0 +1,38 @@
+<div class="p-3">
+    <h1 class="text-center mb-3" mat-dialog-title>Thêm Option Item</h1>
+    <div class="row">
+        <div class="col d-flex align-items-center justify-content-center">
+            <div class="form-group">
+                <div *ngIf="selectedImage">
+                    <img [src]="selectedImageSrc" class="mx-auto d-block" width="250px">
+                </div>
+                <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
+            </div>
+        </div>
+        <div class="col">
+            <div mat-dialog-content>
+                <p>Option Item</p>
+                <mat-form-field>
+                    <mat-label>Tên Option Item</mat-label>
+                    <input matInput [(ngModel)]="data.optionItem.name">
+                </mat-form-field>
+                <br />
+                <mat-form-field>
+                    <mat-label>Giá Option Item</mat-label>
+                    <input matInput [(ngModel)]="data.optionItem.price">
+                </mat-form-field>
+                <section class="mb-3">
+                    <mat-checkbox [(ngModel)]="data.optionItem.isOutOfStock">
+                        Is Out of Stock
+                    </mat-checkbox>
+                </section>
+            </div>
+            <div mat-dialog-actions>
+                <button mat-button (click)="onNoClick()">Đóng</button>
+                <button mat-button [mat-dialog-close]="data.optionItem" (click)="onClick()" cdkFocusInitial>
+                    Thêm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

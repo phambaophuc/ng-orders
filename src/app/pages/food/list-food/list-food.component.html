@@ -21,6 +21,11 @@
             <td mat-cell *matCellDef="let food"> {{food.foodType}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="isOutOfStock">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Tình trạng </th>
+            <td mat-cell *matCellDef="let food"> {{food.isOutOfStock ? 'Hết hàng' : 'Còn hàng'}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="option">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Tuỳ chọn </th>
             <td mat-cell *matCellDef="let food">

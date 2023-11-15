@@ -10,6 +10,7 @@ import { ShopService } from 'src/app/services/shop.service';
 import { OptionDialogComponent } from './option-dialog/option-dialog.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { AddOptionItemComponent } from './add-option-item/add-option-item.component';
 
 @Component({
     selector: 'app-add-food',
@@ -123,12 +124,9 @@ export class AddFoodComponent implements OnInit {
     }
 
     addOption() {
-        this.options.push({
-            optionName: this.option?.optionName,
-            optionType: this.option?.optionType,
-            optionList: this.optionItems
-        });
-
+        this.option.optionList = [];
+        this.options.push(this.option);
+        this.option = {};
     }
 
     deleteOption(index: number) {
@@ -148,7 +146,7 @@ export class AddFoodComponent implements OnInit {
         this.selectedImage = null;
     }
 
-    openDialog() {
+    openAddOption() {
         const dialogRef = this.dialog.open(OptionDialogComponent, {
             data: { option: this.option },
         });
@@ -156,6 +154,42 @@ export class AddFoodComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.addOption();
+            }
+        });
+    }
+
+    addOptionItem(option: Option) {
+        option.optionList?.push(this.optionItem);
+        this.optionItem = {};
+    }
+
+    openAddOptionItem(option: Option) {
+        const dialogRef = this.dialog.open(AddOptionItemComponent, {
+            data: { optionItem: this.optionItem }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                if (result.image) {
+                    const fileImage = result.image;
+                    const imageRef = this.afStorage.ref(`FoodImage/${fileImage.name}`);
+                    const uploadTask = imageRef.put(fileImage);
+
+                    uploadTask.snapshotChanges().subscribe(
+                        (snapshot) => {
+                            if (snapshot?.state === 'success') {
+                                imageRef.getDownloadURL().subscribe(
+                                    (downloadUrl) => {
+                                        this.optionItem.image = downloadUrl;
+                                        this.addOptionItem(option);
+                                    }
+                                )
+                            }
+                        }
+                    )
+                } else {
+                    this.addOptionItem(option);
+                }
             }
         });
     }

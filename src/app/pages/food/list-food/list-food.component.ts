@@ -22,7 +22,7 @@ export class ListFoodComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'option', 'shopName', 'actions'];
+    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'isOutOfStock', 'option', 'shopName', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
 
@@ -54,7 +54,6 @@ export class ListFoodComponent implements OnInit {
             }
         );
     }
-
 
     deleteFood(foodKey: string) {
         const dialogRef = this.dialog.open(ConfirmDeleteComponent);

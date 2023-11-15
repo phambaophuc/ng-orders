@@ -36,4 +36,18 @@ export class FoodService {
     updateFood(key: string, updatedFood: any): Promise<any> {
         return this.foodRef.update(key, updatedFood);
     }
+
+    getOptionByFood(foodKey: string): Observable<any> {
+        const path = `${this.baseObject}/${foodKey}/options`;
+
+        return this.db.list(path).snapshotChanges().pipe(
+            map(changes => changes.map(
+                c => {
+                    const payloadVal = c.payload.val();
+                    return payloadVal ? { key: c.payload.key, ...payloadVal } : null;
+                }
+            ))
+        );
+    }
+    
 }

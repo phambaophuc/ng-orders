@@ -58,17 +58,23 @@
 
             <div class="mb-3">
                 <strong class="me-2">Option:</strong>
-                <span *ngFor="let option of options; let i = index; let last = last">
-                    <a href="javascript:">{{ option.optionName }} </a>
-                    <a href="javascript:" (click)="deleteOption(i)">
+                <button mat-raised-button class="ms-2" type="button" (click)="openAddOption()">
+                    <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
+                    Thêm Option
+                </button>
+                <div class="mt-3" *ngFor="let option of options; let i = index">
+                    <a class="me-1" href="javascript:" (click)="deleteOption(i)">
                         <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
                     </a>
-                    <ng-container *ngIf="!last">, </ng-container>
-                </span>
-                <button mat-raised-button class="ms-2" type="button" (click)="openDialog()">
-                    <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
-                    Add Option
-                </button>
+                    <strong class="me-1">{{ option.optionName }}: </strong>
+                    <span *ngFor="let item of option.optionList; let last = last">
+                        {{ item.name }}
+                        <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+                    <button mat-raised-button type="button" (click)="openAddOptionItem(option)">
+                        Thêm Option Item
+                    </button>
+                </div>
             </div>
 
             <section class="mb-3">

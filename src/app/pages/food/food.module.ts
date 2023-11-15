@@ -25,6 +25,7 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
 import { EditFoodComponent } from './edit-food/edit-food.component';
 import { ListFoodComponent } from './list-food/list-food.component';
 import { OptionDetailsComponent } from './list-food/option-details/option-details.component';
+import { AddOptionItemComponent } from './add-food/add-option-item/add-option-item.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { OptionDetailsComponent } from './list-food/option-details/option-detail
         ConfirmDeleteComponent,
         EditFoodComponent,
         ListFoodComponent,
-        OptionDetailsComponent
+        OptionDetailsComponent,
+        AddOptionItemComponent
     ],
     imports: [
         CommonModule,
