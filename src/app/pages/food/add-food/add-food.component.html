@@ -1,99 +1,106 @@
-<app-card cardTitle="Thêm sản phẩm" [options]="false">
-    <form class="row" [formGroup]="addFoodForm" (ngSubmit)="onSubmit()">
-        <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <div class="form-group">
-                <div *ngIf="selectedImage">
-                    <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
-                </div>
-                <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
+<form class="row m-5" [formGroup]="addFoodForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-4 d-flex align-items-center justify-content-center">
+        <div class="form-group">
+            <div *ngIf="selectedImage">
+                <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
             </div>
+            <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
         </div>
+    </div>
 
-        <div class="col-md-8">
-            <div class="row mb-2">
-                <mat-form-field class="col-md-3">
-                    <mat-label>Tên sản phẩm</mat-label>
-                    <input matInput formControlName="foodName">
-                    <mat-error *ngIf="foodName?.errors?.['required']">
-                        Tên sản phẩm là <strong>bắt buộc</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="col-md-3">
-                    <mat-label>Loại sản phẩm</mat-label>
-                    <input matInput formControlName="foodType">
-                    <mat-error *ngIf="foodType?.errors?.['required']">
-                        Loại sản phẩm là <strong>bắt buộc</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="col-md-3">
-                    <mat-label>Giá sản phẩm</mat-label>
-                    <input matInput formControlName="foodPrice">
-                    <mat-error *ngIf="foodPrice?.errors?.['required']">
-                        Giá tiền là <strong>bắt buộc</strong>
-                    </mat-error>
-                    <mat-error *ngIf="foodPrice?.errors?.['pattern']">
-                        Định dạng giá không hợp lệ
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="col-md-3">
-                    <mat-label>Chọn cửa hàng</mat-label>
-                    <mat-select name="key" formControlName="selectedShop">
-                        <mat-option *ngFor="let shop of shops" [value]="shop.key">
-                            {{ shop.shopName }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="selectedShop?.errors?.['required']">
-                        Cửa hàng là <strong>bắt buộc</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <mat-form-field class="full-width">
-                <mat-label>Mô tả</mat-label>
-                <textarea matInput formControlName="foodDescription"></textarea>
+    <div class="col-md-8">
+        <section class="mb-3">
+            <mat-checkbox formControlName="isOutOfStock">
+                Is Out of Stock
+            </mat-checkbox>
+        </section>
+        <div class="row mb-2">
+            <mat-form-field class="col-md-3">
+                <mat-label>Tên sản phẩm</mat-label>
+                <input matInput formControlName="foodName">
+                <mat-error *ngIf="foodName?.errors?.['required']">
+                    Tên sản phẩm là <strong>bắt buộc</strong>
+                </mat-error>
             </mat-form-field>
 
-            <div class="mb-3">
-                <strong class="me-2">Option:</strong>
-                <button mat-raised-button class="ms-2" type="button" (click)="openAddOption()">
-                    <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
-                    Thêm Option
-                </button>
-                <div class="mt-3" *ngFor="let option of options; let i = index">
-                    <a class="me-1" href="javascript:" (click)="deleteOption(i)">
+            <mat-form-field class="col-md-3">
+                <mat-label>Loại sản phẩm</mat-label>
+                <input matInput formControlName="foodType">
+                <mat-error *ngIf="foodType?.errors?.['required']">
+                    Loại sản phẩm là <strong>bắt buộc</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3">
+                <mat-label>Giá sản phẩm</mat-label>
+                <input matInput type="number" formControlName="foodPrice">
+                <mat-error *ngIf="foodPrice?.errors?.['required']">
+                    Giá tiền là <strong>bắt buộc</strong>
+                </mat-error>
+                <mat-error *ngIf="foodPrice?.errors?.['pattern']">
+                    Định dạng giá không hợp lệ
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3">
+                <mat-label>Chọn cửa hàng</mat-label>
+                <mat-select name="key" formControlName="selectedShop">
+                    <mat-option *ngFor="let shop of shops" [value]="shop.key">
+                        {{ shop.shopName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="selectedShop?.errors?.['required']">
+                    Cửa hàng là <strong>bắt buộc</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="full-width">
+            <mat-label>Mô tả</mat-label>
+            <textarea matInput formControlName="foodDescription"></textarea>
+        </mat-form-field>
+
+        <div class="mb-3">
+            <strong class="me-2">Option:</strong>
+            <button mat-button color="primary" class="ms-2" type="button" (click)="openAddOption()">
+                <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
+                Thêm Option
+            </button>
+            <div class="mt-3" *ngFor="let option of options; let i = index">
+                <a class="me-1" href="javascript:" (click)="deleteOption(i)">
+                    <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
+                </a>
+                <strong class="me-1">{{ option.optionName }}: </strong>
+                <span *ngFor="let item of option.optionList; let index = index; let last = last">
+                    <ng-template #popContent>
+                        <img src="{{ item.image }}" width="150px">
+                    </ng-template>
+                    <button type="button" mat-button style="width: fit-content;" [ngbPopover]="popContent"
+                        popoverTitle="{{ item.name }}, {{ item.price | currency: 'VND' }}"
+                        triggers="mouseenter:mouseleave">
+                        {{ item.name }}
+                    </button>
+                    <a class="me-1" href="javascript:" (click)="deleteOptionItem(option, index)">
                         <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
                     </a>
-                    <strong class="me-1">{{ option.optionName }}: </strong>
-                    <span *ngFor="let item of option.optionList; let last = last">
-                        {{ item.name }}
-                        <ng-container *ngIf="!last">, </ng-container>
-                    </span>
-                    <button mat-raised-button type="button" (click)="openAddOptionItem(option)">
-                        Thêm Option Item
-                    </button>
-                </div>
+                    <ng-container *ngIf="!last">, </ng-container>
+                </span>
+                <button class="ms-2" mat-button color="accent" type="button" (click)="openAddOptionItem(option)">
+                    Thêm {{ option.optionName }}
+                </button>
             </div>
-
-            <section class="mb-3">
-                <mat-checkbox formControlName="isOutOfStock">
-                    Is Out of Stock
-                </mat-checkbox>
-            </section>
         </div>
+    </div>
 
-        <div class="col-md-12 text-center mt-4">
-            <button mat-raised-button color="primary" type="submit" [disabled]="addFoodForm.invalid || addingFood">
-                <ng-container *ngIf="!addingFood; else loadingButtonContent">
-                    Thêm sản phẩm
-                </ng-container>
+    <div class="col-md-12 text-center mt-5">
+        <button mat-raised-button color="primary" type="submit" [disabled]="addFoodForm.invalid || addingFood">
+            <ng-container *ngIf="!addingFood; else loadingButtonContent">
+                Thêm sản phẩm
+            </ng-container>
 
-                <ng-template #loadingButtonContent>
-                    <mat-spinner diameter="20"></mat-spinner>
-                </ng-template>
-            </button>
-        </div>
-    </form>
-</app-card>
+            <ng-template #loadingButtonContent>
+                <mat-spinner diameter="20"></mat-spinner>
+            </ng-template>
+        </button>
+    </div>
+</form>

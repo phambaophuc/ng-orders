@@ -163,6 +163,12 @@ export class AddFoodComponent implements OnInit {
         this.optionItem = {};
     }
 
+    deleteOptionItem(option: Option, index: number) {
+        if (index >= 0 && index < option.optionList!.length) {
+            option.optionList?.splice(index, 1);
+        }
+    }
+
     openAddOptionItem(option: Option) {
         const dialogRef = this.dialog.open(AddOptionItemComponent, {
             data: { optionItem: this.optionItem }
