@@ -66,9 +66,20 @@ export class FoodService {
                 // Nếu option.optionList chưa tồn tại, tạo một mảng mới
                 option.optionList = [];
             }
-
             option.optionList.push(optionItem);
+        }
 
+        return this.foodRef.update(food.key!, food);
+    }
+
+    deleteOptionItemFood(food: Food, optionIndex: number, optionItem: OptionItem) {
+        if (food.options && optionIndex >= 0 && optionIndex < food.options.length) {
+            const option = food.options[optionIndex];
+
+            if (option.optionList) {
+                // Lọc bỏ optionItem khỏi mảng optionList
+                option.optionList = option.optionList.filter(opt => opt !== optionItem);
+            }
         }
 
         return this.foodRef.update(food.key!, food);

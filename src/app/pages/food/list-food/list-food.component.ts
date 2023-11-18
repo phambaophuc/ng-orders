@@ -84,8 +84,14 @@ export class ListFoodComponent implements OnInit {
         this.dialog.open(EditFoodComponent, { data });
     }
 
-    openOptionDetails(data: any) {
-        this.dialog.open(OptionDetailsComponent, { data });
+    openOptionDetails(food: Food, option: Option, index: number) {
+        this.dialog.open(OptionDetailsComponent, {
+            data: {
+                food: food,
+                option: option,
+                index: index
+            }
+        });
     }
 
     addOption(food: Food) {
