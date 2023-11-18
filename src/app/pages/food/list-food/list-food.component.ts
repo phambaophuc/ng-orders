@@ -12,6 +12,8 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { EditFoodComponent } from '../edit-food/edit-food.component';
 import { OptionDetailsComponent } from './option-details/option-details.component';
+import { OptionDialogComponent } from '../add-food/option-dialog/option-dialog.component';
+import { Option } from 'src/app/common/option';
 
 @Component({
     selector: 'app-list-food',
@@ -25,6 +27,8 @@ export class ListFoodComponent implements OnInit {
     displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'isOutOfStock', 'option', 'shopName', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
+
+    option: Option = {};
 
     constructor(
         private foodService: FoodService,
@@ -74,6 +78,46 @@ export class ListFoodComponent implements OnInit {
 
     openOptionDetails(data: any) {
         this.dialog.open(OptionDetailsComponent, { data });
+    }
+
+    addOption(food: Food) {
+        this.option.optionList = [];
+        this.foodService.addOptionFood(food, this.option)
+            .then(() => {
+                this.snackbarSerice.openSnackBar('Thêm Option thành công.');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        this.option = {};
+    }
+
+    openAddOption(food: Food) {
+        const dialogRef = this.dialog.open(OptionDialogComponent, {
+            data: { option: this.option },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.addOption(food);
+            }
+        });
+    }
+
+    deleteOption(food: Food, option: Option) {
+        const dialogRef = this.dialog.open(ConfirmDeleteComponent);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.foodService.deleteOptionFood(food, option)
+                    .then(() => {
+                        this.snackbarSerice.openSnackBar('Option đã được xoá !', 'DONE');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        });
     }
 
     announceSortChange(sortState: Sort) {

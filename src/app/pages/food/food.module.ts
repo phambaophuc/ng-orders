@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
 import { AddFoodComponent } from './add-food/add-food.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { OptionDialogComponent } from './add-food/option-dialog/option-dialog.component';
@@ -57,6 +58,7 @@ import { AddOptionItemComponent } from './add-food/add-option-item/add-option-it
         MatTabsModule,
         MatCardModule,
         MatProgressSpinnerModule,
+        MatBadgeModule,
         SharedModule
     ]
 })

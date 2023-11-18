@@ -31,7 +31,14 @@
             <td mat-cell *matCellDef="let food">
                 <div *ngIf="food.options && food.options.length > 0; else noOptionBlock">
                     <span *ngFor="let option of food.options; let last = last">
-                        <a href="javascript:" (click)="openOptionDetails(option)">{{ option.optionName }}</a>
+                        <a href="javascript:" (click)="openOptionDetails(option)">
+                            {{ option.optionName }}
+                        </a>
+                        <sup>
+                            <a class="me-1" href="javascript:" (click)="deleteOption(food, option)">
+                                <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
+                            </a>
+                        </sup>
                         <ng-container *ngIf="!last">, </ng-container>
                     </span>
                 </div>
@@ -49,6 +56,9 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef class="fw-bold">Actions</th>
             <td mat-cell *matCellDef="let food">
+                <button mat-icon-button color="accent" title="Thêm Option" (click)="openAddOption(food)">
+                    <mat-icon>add</mat-icon>
+                </button>
                 <button mat-icon-button color="primary" (click)="openEditForm(food)">
                     <mat-icon>edit</mat-icon>
                 </button>
