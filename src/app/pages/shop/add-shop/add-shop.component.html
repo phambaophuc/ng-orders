@@ -1,1 +1,70 @@
-<p>add-shop works!</p>
+<form class="row m-5" [formGroup]="addShopForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
+    <div class="col-md-4 d-flex align-items-center justify-content-center">
+        <div class="form-group">
+            <div *ngIf="selectedImage">
+                <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
+            </div>
+            <input id="fileInput" class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <section class="mb-3">
+            <mat-checkbox formControlName="isOpening">
+                Is Opening
+            </mat-checkbox>
+        </section>
+        <div class="row mb-2">
+            <mat-form-field class="col-md-3">
+                <mat-label>Tên cửa hàng</mat-label>
+                <input matInput formControlName="shopName">
+                <mat-error *ngIf="shopName?.errors?.['required']">
+                    Tên cửa hàng là <strong>bắt buộc</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3">
+                <input matInput name="openingTime" [format]="24" formControlName="openingTime"
+                    [ngxMatTimepicker]="openingTime" placeholder="07:00" readonly />
+                <mat-icon matSuffix (click)="openingTime.open()">
+                    watch_later
+                </mat-icon>
+                <mat-error *ngIf="addShopForm.get('openingTime')?.errors?.['required']">
+                    Giờ mở cửa là <strong>bắt buộc</strong>
+                </mat-error>
+                <ngx-mat-timepicker color="accent" #openingTime></ngx-mat-timepicker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3">
+                <input matInput name="closingTime" [format]="24" formControlName="closingTime"
+                    [ngxMatTimepicker]="closingTime" placeholder="16:00" readonly />
+                <mat-icon matSuffix (click)="closingTime.open()">
+                    watch_later
+                </mat-icon>
+                <mat-error *ngIf="addShopForm.get('closingTime')?.errors?.['required']">
+                    Giờ đóng cửa là <strong>bắt buộc</strong>
+                </mat-error>
+                <ngx-mat-timepicker color="accent" #closingTime></ngx-mat-timepicker>
+            </mat-form-field>
+        </div>
+        <mat-form-field class="full-width">
+            <mat-label>Địa chỉ cửa hàng</mat-label>
+            <input matInput formControlName="shopAddress">
+            <mat-error *ngIf="shopAddress?.errors?.['required']">
+                Địa chỉ là <strong>bắt buộc</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-md-12 text-center mt-5">
+        <button mat-raised-button color="primary" type="submit" [disabled]="addShopForm.invalid || addingShop">
+            <ng-container *ngIf="!addingShop; else loadingButtonContent">
+                Thêm cửa hàng
+            </ng-container>
+
+            <ng-template #loadingButtonContent>
+                <mat-spinner diameter="20"></mat-spinner>
+            </ng-template>
+        </button>
+    </div>
+</form>

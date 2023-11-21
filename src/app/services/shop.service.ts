@@ -24,6 +24,20 @@ export class ShopService {
         );
     }
 
+    addShop(newShop: Shop): Promise<any> {
+        const foodKey = this.shopRef.push(null!).key;
+        newShop.ratingScore = 0;
+        return this.db.object(`${this.baseObject}/${foodKey}`).set(newShop);
+    }
+
+    deleteShop(key: string): Promise<any> {
+        return this.shopRef.remove(key);
+    }
+
+    updateFood(key: string, updatedShop: any): Promise<any> {
+        return this.shopRef.update(key, updatedShop);
+    }
+
     getShopByKey(key: string): Observable<any> {
         return this.db.object(`/${this.baseObject}/${key}`).valueChanges();
     }

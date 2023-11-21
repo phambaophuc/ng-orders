@@ -1,10 +1,10 @@
-<form class="row m-5" [formGroup]="addFoodForm" (ngSubmit)="onSubmit()">
+<form class="row m-5" [formGroup]="addFoodForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
     <div class="col-md-4 d-flex align-items-center justify-content-center">
         <div class="form-group">
             <div *ngIf="selectedImage">
                 <img [src]="selectedImageSrc" class="mx-auto d-block" width="350px">
             </div>
-            <input class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
+            <input id="fileInput" class="mt-2" type="file" (change)="onImageSelected($event)" accept="image/*">
         </div>
     </div>
 

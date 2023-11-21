@@ -8,14 +8,28 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
 import { AddShopComponent } from './add-shop/add-shop.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { ListShopComponent } from './list-shop/list-shop.component';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 
 @NgModule({
     declarations: [
         ShopComponent,
-        AddShopComponent
+        AddShopComponent,
+        ListShopComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +39,19 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
         MatSortModule,
         MatIconModule,
         MatButtonModule,
-        SharedModule
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatDividerModule,
+        MatListModule,
+        MatTabsModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatBadgeModule,
+        SharedModule,
+        NgxMatTimepickerModule
     ]
 })
 export class ShopModule { }

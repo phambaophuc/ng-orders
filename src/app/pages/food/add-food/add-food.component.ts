@@ -8,7 +8,7 @@ import { Shop } from 'src/app/common/shop';
 import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { OptionDialogComponent } from './option-dialog/option-dialog.component';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddOptionItemComponent } from './add-option-item/add-option-item.component';
 
@@ -56,7 +56,7 @@ export class AddFoodComponent implements OnInit {
             foodDescription: new FormControl(''),
             isOutOfStock: new FormControl(false),
             selectedShop: new FormControl('', [Validators.required])
-        })
+        });
     }
 
     get foodName() { return this.addFoodForm.get('foodName') };
@@ -74,7 +74,7 @@ export class AddFoodComponent implements OnInit {
         );
     }
 
-    onSubmit() {
+    onSubmit(formDirective: FormGroupDirective) {
         if (this.addFoodForm.valid) {
             this.addingFood = true;
 
@@ -88,39 +88,39 @@ export class AddFoodComponent implements OnInit {
                             imageRef.getDownloadURL().subscribe(
                                 (downloadUrl) => {
                                     this.food.foodImage = downloadUrl;
-                                    this.saveFood();
+                                    this.saveFood(formDirective);
                                 }
                             )
                         }
                     }
                 )
             } else {
-                this.saveFood();
+                this.saveFood(formDirective);
             }
         }
     }
 
-    saveFood() {
+    saveFood(formDirective: FormGroupDirective) {
         this.setFoodProperties();
 
         this.foodService.addFood(this.food).then(() => {
-            this.snackbarSerice.openSnackBar('Thêm sản phẩm thành công');
-            this.resetForm();
+            this.resetForm(formDirective);
             this.addingFood = false;
+            this.snackbarSerice.openSnackBar('Thêm sản phẩm thành công');
         }).catch(error => {
             console.log(error);
             this.addingFood = false;
         });
     }
 
-    setFoodProperties(): void {
-        this.food.foodName = this.addFoodForm.get('foodName')?.value;
-        this.food.foodType = this.addFoodForm.get('foodType')?.value;
-        this.food.foodPrice = this.addFoodForm.get('foodPrice')?.value;
-        this.food.foodDescription = this.addFoodForm.get('foodDescription')?.value;
-        this.food.isOutOfStock = this.addFoodForm.get('isOutOfStock')?.value;
+    setFoodProperties() {
+        this.food.foodName = this.foodName?.value;
+        this.food.foodType = this.foodType?.value;
+        this.food.foodPrice = this.foodPrice?.value;
+        this.food.foodDescription = this.foodDescription?.value;
+        this.food.isOutOfStock = this.isOutOfStock?.value;
         this.food.options = this.options;
-        this.food.shopId = this.addFoodForm.get('selectedShop')?.value;
+        this.food.shopId = this.selectedShop?.value;
     }
 
     addOption() {
@@ -140,10 +140,18 @@ export class AddFoodComponent implements OnInit {
         this.selectedImageSrc = URL.createObjectURL(this.selectedImage!);
     }
 
-    resetForm() {
-        this.addFoodForm.reset();
+    resetForm(formDirective: FormGroupDirective) {
         this.options = [];
+        this.food = new Food();
+
+        const inputElement: HTMLInputElement | null = document.querySelector('#fileInput');
+        if (inputElement) {
+            inputElement.value = '';
+        }
         this.selectedImage = null;
+
+        formDirective.resetForm();
+        this.addFoodForm.reset();
     }
 
     openAddOption() {

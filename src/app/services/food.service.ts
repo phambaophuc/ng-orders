@@ -27,7 +27,7 @@ export class FoodService {
 
     addFood(newFood: Food): Promise<any> {
         const foodKey = this.foodRef.push(null!).key;
-
+        
         return this.db.object(`${this.baseObject}/${foodKey}`).set(newFood);
     }
 
