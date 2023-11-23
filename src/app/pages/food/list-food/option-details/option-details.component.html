@@ -1,17 +1,29 @@
 <div class="p-5 option-list">
-    <h4 class="text-center mb-4">Thông tin {{ data.option.optionName }} ({{ data.option.optionType }})</h4>
+    <div class="d-flex justify-content-around">
+        <h4 class="text-center mb-4">Thông tin {{ data.option.optionName }} ({{ data.option.optionType }})</h4>
+        <sup>
+            <button mat-button color="primary" (click)="openAddOptionItem(data.food, data.index)">
+                Thêm Item
+            </button>
+        </sup>
+    </div>
+
     <div class="row" *ngFor="let item of data.option.optionList; let last = last">
         <div class="col d-flex justify-content-center align-items-center" *ngIf="item.image">
             <img [src]="item.image" class="mx-auto d-block" width="150px">
         </div>
         <div class="col d-flex justify-content-around align-items-center">
-            <div>
-                <p class="mb-0"><strong>Tên:</strong> {{ item.name }}</p>
-                <p class="mb-0" *ngIf="item.price"><strong>Giá:</strong> {{ item.price | currency: 'VND' }}</p>
-                <p class="mb-0"><strong>Tình trạng:</strong> {{ item.isOutOfStock ? 'Hết hàng' : 'Còn hàng' }}</p>
+            <div class="me-3">
+                <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ item.name }}</p>
+                <p class="mb-0 text-truncate" *ngIf="item.price"><strong>Giá:</strong>
+                    {{ item.price | currency: 'VND' }}
+                </p>
+                <p class="mb-0 text-truncate"><strong>Tình trạng:</strong>
+                    {{ item.isOutOfStock ? 'Hết hàng' : 'Còn hàng' }}
+                </p>
             </div>
-            
-            <button mat-icon-button color="warn" (click)="deleteOptionItem(data.food, data.index, item)">
+            <button mat-icon-button color="warn" title="Xoá item"
+                (click)="deleteOptionItem(data.food, data.index, item)">
                 <mat-icon>delete</mat-icon>
             </button>
         </div>

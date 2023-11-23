@@ -2,45 +2,74 @@
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
         <ng-container matColumnDef="key">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> No. </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.key}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> No. </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate" style="max-width: 30px;">
+                {{shop.key}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="shopName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Tên cửa hàng </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.shopName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Tên cửa hàng </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate">
+                {{shop.shopName}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sections">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Danh mục </th>
+            <td mat-cell *matCellDef="let shop">
+                <div class="text-truncate" style="max-width: 200px;"
+                    *ngIf="shop.sections && shop.sections.length > 0; else noSectionBlock">
+                    <span *ngFor="let section of shop.sections; let last = last">
+                        {{ section.sectionName }}
+                        <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+                </div>
+                <ng-template #noSectionBlock>
+                    <div>Không có danh mục</div>
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="shopAddress">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Địa chỉ </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.shopAddress}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Địa chỉ </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate" style="max-width: 250px;">
+                {{shop.shopAddress}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="ratingScore">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Đánh giá </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.ratingScore}}
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Đánh giá </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate">
+                {{shop.ratingScore}}
                 <i class="fas fa-star" style="color: #17d0d3;"></i>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="openingTime">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Mở cửa </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.openingTime}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Mở cửa </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate">
+                {{shop.openingTime}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="closingTime">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Đóng cửa </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.closingTime}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Đóng cửa </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate">
+                {{shop.closingTime}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="isOpening">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Trạng thái </th>
-            <td mat-cell *matCellDef="let shop"> {{shop.isOpening ? 'Đang hoạt động' : 'Không hoạt động'}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Trạng thái </th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate">
+                {{shop.isOpening ? 'Đang hoạt động' : 'Không hoạt động'}}
+            </td>
         </ng-container>1
 
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="fw-bold">Actions</th>
-            <td mat-cell *matCellDef="let shop">
+            <th mat-header-cell *matHeaderCellDef class="fw-bold text-truncate">Actions</th>
+            <td mat-cell *matCellDef="let shop" class="text-truncate">
                 <button mat-icon-button color="primary">
                     <mat-icon>edit</mat-icon>
                 </button>

@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -19,7 +18,7 @@ export class ListShopComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     displayedColumns: string[] = [
-        'key', 'shopName', 'shopAddress', 'ratingScore', 'openingTime', 'closingTime', 'isOpening', 'actions'
+        'key', 'shopName', 'sections', 'shopAddress', 'ratingScore', 'openingTime', 'closingTime', 'isOpening', 'actions'
     ];
 
     dataSource!: MatTableDataSource<any>;
@@ -28,8 +27,7 @@ export class ListShopComponent implements OnInit {
         private shopService: ShopService,
         private _liveAnnouncer: LiveAnnouncer,
         private snackbarSerice: SnackBarService,
-        private dialog: MatDialog,
-        private afStorage: AngularFireStorage,
+        private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {

@@ -27,14 +27,11 @@ export class ListFoodComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'isOutOfStock', 'option', 'shopName', 'actions'];
+    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'options', 'shopName', 'isOutOfStock', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
 
     option: Option = {};
-
-    optionItem: OptionItem = {};
-
     addingSuccess: boolean = false;
 
     constructor(
@@ -42,8 +39,7 @@ export class ListFoodComponent implements OnInit {
         private shopService: ShopService,
         private _liveAnnouncer: LiveAnnouncer,
         private snackbarSerice: SnackBarService,
-        private dialog: MatDialog,
-        private afStorage: AngularFireStorage,
+        private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -130,51 +126,6 @@ export class ListFoodComponent implements OnInit {
                     .catch(error => {
                         console.log(error);
                     });
-            }
-        });
-    }
-
-    addOptionItem(food: Food, optionIndex: number) {
-        this.foodService.AddOptionItemFood(food, optionIndex, this.optionItem)
-            .then(() => {
-                this.addingSuccess = false;
-                this.snackbarSerice.openSnackBar('Thêm item vào Option thành công.');
-                this.optionItem = {};
-            })
-            .catch(error => {
-                this.addingSuccess = false;
-                console.log(error);
-            });
-    }
-
-    openAddOptionItem(food: Food, optionIndex: number) {
-        const dialogRef = this.dialog.open(AddOptionItemComponent, {
-            data: { optionItem: this.optionItem }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.addingSuccess = true;
-                if (result.image) {
-                    const fileImage = result.image;
-                    const imageRef = this.afStorage.ref(`FoodImage/${fileImage.name}`);
-                    const uploadTask = imageRef.put(fileImage);
-
-                    uploadTask.snapshotChanges().subscribe(
-                        (snapshot) => {
-                            if (snapshot?.state === 'success') {
-                                imageRef.getDownloadURL().subscribe(
-                                    (downloadUrl) => {
-                                        this.optionItem.image = downloadUrl;
-                                        this.addOptionItem(food, optionIndex);
-                                    }
-                                )
-                            }
-                        }
-                    )
-                } else {
-                    this.addOptionItem(food, optionIndex);
-                }
             }
         });
     }

@@ -54,6 +54,22 @@
                 Địa chỉ là <strong>bắt buộc</strong>
             </mat-error>
         </mat-form-field>
+        <div class="mb-3">
+            <strong class="me-2">Section:</strong>
+            <span *ngFor="let section of sections; let i = index; let last = last">
+                {{ section.sectionName }}
+                <sup>
+                    <a class="me-1" href="javascript:" (click)="deleteSection(i)">
+                        <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
+                    </a>
+                </sup>
+                <ng-container *ngIf="!last">, </ng-container>
+            </span>
+            <button mat-button color="primary" class="ms-2" type="button" (click)="openAddSection()">
+                <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
+                Thêm Section
+            </button>
+        </div>
     </div>
 
     <div class="col-md-12 text-center mt-5">

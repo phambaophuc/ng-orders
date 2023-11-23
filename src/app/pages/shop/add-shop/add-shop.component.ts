@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { ShopService } from 'src/app/services/shop.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { AddSectionDialogComponent } from './add-section-dialog/add-section-dialog.component';
 
 @Component({
     selector: 'app-add-shop',
@@ -17,6 +20,9 @@ export class AddShopComponent implements OnInit {
     shop: Shop = new Shop();
     addingShop: boolean = false;
 
+    section: Section = new Section();
+    sections: Section[] = [];
+
     selectedImage: File | null = null;
     selectedImageSrc: string | null = null;
 
@@ -24,7 +30,8 @@ export class AddShopComponent implements OnInit {
         private shopService: ShopService,
         private snackbarSerice: SnackBarService,
         private afStorage: AngularFireStorage,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        public dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -88,6 +95,30 @@ export class AddShopComponent implements OnInit {
         this.shop.openingTime = this.openingTime?.value;
         this.shop.closingTime = this.closingTime?.value;
         this.shop.isOpening = this.isOpening?.value;
+        this.shop.sections = this.sections;
+    }
+
+    addSection() {
+        this.sections.push(this.section);
+        this.section = {};
+    }
+
+    deleteSection(index: number) {
+        if (index >= 0 && index < this.sections.length) {
+            this.sections.splice(index, 1);
+        }
+    }
+
+    openAddSection() {
+        const dialogRef = this.dialog.open(AddSectionDialogComponent, {
+            data: { section: this.section },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.addSection();
+            }
+        });
     }
 
     resetForm(formDirective: FormGroupDirective) {
@@ -100,7 +131,11 @@ export class AddShopComponent implements OnInit {
         this.selectedImage = null;
 
         formDirective.resetForm();
-        this.addShopForm.reset();
+        this.addShopForm.reset({
+            openingTime: '07:00',
+            closingTime: '16:00',
+            isOpening: true
+        });
     }
 
     onImageSelected(event: any) {

@@ -9,5 +9,6 @@ export class Food {
     foodType?: string;
     isOutOfStock?: boolean;
     options?: Option[];
+    sectionId?: string;
     shopId?: string;
 }

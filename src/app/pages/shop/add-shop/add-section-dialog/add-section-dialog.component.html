@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Thêm Section</h1>
+<div mat-dialog-content>
+    <p>Section</p>
+    <mat-form-field>
+        <mat-label>Tên Section</mat-label>
+        <input matInput [(ngModel)]="data.section.sectionName">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Đóng</button>
+    <button mat-button [mat-dialog-close]="data.section" cdkFocusInitial [disabled]="!isFormValid()">Thêm</button>
+</div>
