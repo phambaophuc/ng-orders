@@ -24,6 +24,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { ListShopComponent } from './list-shop/list-shop.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { AddSectionDialogComponent } from './add-shop/add-section-dialog/add-section-dialog.component';
+import { EditShopComponent } from './edit-shop/edit-shop.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AddSectionDialogComponent } from './add-shop/add-section-dialog/add-sec
         ShopComponent,
         AddShopComponent,
         ListShopComponent,
-        AddSectionDialogComponent
+        AddSectionDialogComponent,
+        EditShopComponent
     ],
     imports: [
         CommonModule,

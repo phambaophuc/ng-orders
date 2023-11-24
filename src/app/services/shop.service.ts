@@ -3,6 +3,7 @@ import { Shop } from '../common/shop';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
+import { Section } from '../common/section';
 
 @Injectable({
     providedIn: 'root'
@@ -34,11 +35,21 @@ export class ShopService {
         return this.shopRef.remove(key);
     }
 
-    updateFood(key: string, updatedShop: any): Promise<any> {
+    updateShop(key: string, updatedShop: any): Promise<any> {
         return this.shopRef.update(key, updatedShop);
     }
 
     getShopByKey(key: string): Observable<any> {
         return this.db.object(`/${this.baseObject}/${key}`).valueChanges();
+    }
+
+    addSectionShop(shop: Shop, section: Section) {
+        if (!shop.sections) {
+            shop.sections = [section];
+        } else {
+            shop.sections.push(section);
+        }
+
+        return this.shopRef.update(shop.key!, shop);
     }
 }

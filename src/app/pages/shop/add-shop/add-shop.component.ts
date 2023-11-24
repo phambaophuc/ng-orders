@@ -40,7 +40,7 @@ export class AddShopComponent implements OnInit {
             shopAddress: new FormControl('', [Validators.required]),
             openingTime: new FormControl('07:00', [Validators.required]),
             closingTime: new FormControl('16:00', [Validators.required]),
-            isOpening: new FormControl(true, [])
+            isOpening: new FormControl(true)
         });
     }
 

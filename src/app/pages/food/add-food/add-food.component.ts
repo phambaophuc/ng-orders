@@ -95,6 +95,7 @@ export class AddFoodComponent implements OnInit {
                     }
                 )
             } else {
+                this.food.foodImage = '';
                 this.saveFood(formDirective);
             }
         }

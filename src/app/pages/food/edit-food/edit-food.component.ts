@@ -73,7 +73,7 @@ export class EditFoodComponent implements OnInit {
                         if (snapshot?.state === 'success') {
                             imageRef.getDownloadURL().subscribe(
                                 (downloadUrl) => {
-                                    this.data.foodImage = downloadUrl;
+                                    this.editForm.value.foodImage = downloadUrl;
                                     this.updateFood();
                                 }
                             )

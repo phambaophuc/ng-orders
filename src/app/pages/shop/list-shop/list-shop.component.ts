@@ -7,6 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ShopService } from 'src/app/services/shop.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { ConfirmDeleteComponent } from '../../food/confirm-delete/confirm-delete.component';
+import { Section } from 'src/app/common/section';
+import { Shop } from 'src/app/common/shop';
+import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-section-dialog.component';
+import { EditShopComponent } from '../edit-shop/edit-shop.component';
 
 @Component({
     selector: 'app-list-shop',
@@ -22,6 +26,8 @@ export class ListShopComponent implements OnInit {
     ];
 
     dataSource!: MatTableDataSource<any>;
+
+    section: Section = {};
 
     constructor(
         private shopService: ShopService,
@@ -53,6 +59,33 @@ export class ListShopComponent implements OnInit {
                     .then(() => {
                         this.snackbarSerice.openSnackBar('Cửa hàng đã được xoá!', 'DONE');
                     });
+            }
+        });
+    }
+
+    openEditForm(data: any) {
+        this.dialog.open(EditShopComponent, { data });
+    }
+
+    addSection(shop: Shop) {
+        this.shopService.addSectionShop(shop, this.section)
+            .then(() => {
+                this.snackbarSerice.openSnackBar('Thêm section thành công.');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        this.section = {};
+    }
+
+    openAddSection(shop: Shop) {
+        const dialogRef = this.dialog.open(AddSectionDialogComponent, {
+            data: { section: this.section },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.addSection(shop);
             }
         });
     }
