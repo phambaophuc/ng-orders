@@ -3,6 +3,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Option } from 'src/app/common/option';
+import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
@@ -25,6 +26,7 @@ export class EditFoodComponent implements OnInit {
     selectedImageSrc: string | null = null;
 
     addingFood: boolean = false;
+    selectedShopSections?: Section[];
 
     constructor(
         private fb: FormBuilder,
@@ -38,6 +40,7 @@ export class EditFoodComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllShops();
+        this.getAllSectionShop();
 
         this.editForm = this.fb.group({
             foodName: new FormControl('', [Validators.required]),
@@ -47,7 +50,8 @@ export class EditFoodComponent implements OnInit {
             ),
             foodDescription: new FormControl(''),
             isOutOfStock: new FormControl(false),
-            shopId: new FormControl(this.data.shopId, [Validators.required])
+            shopId: new FormControl(this.data.shopId, [Validators.required]),
+            sectionId: new FormControl(this.data.sectionId, [Validators.required])
         })
 
         this.editForm.patchValue(this.data);
@@ -59,6 +63,7 @@ export class EditFoodComponent implements OnInit {
     get foodDescription() { return this.editForm.get('foodDescription') };
     get isOutOfStock() { return this.editForm.get('isOutOfStock') };
     get shopId() { return this.editForm.get('shopId') };
+    get sectionId() { return this.editForm.get('sectionId') };
 
     onSubmit() {
         this.addingFood = true;
@@ -99,12 +104,30 @@ export class EditFoodComponent implements OnInit {
             });
     }
 
+    onShopSelectionChange() {
+        const selectedShopId = this.shopId?.value;
+
+        this.shopService.getSectionShop(selectedShopId).subscribe(
+            data => {
+                this.selectedShopSections = data;
+                this.sectionId?.setValue(this.selectedShopSections![0].key);
+            }
+        )
+    }
+
     getAllShops() {
         this.shopService.getAllShops().subscribe(
             data => {
                 this.shops = data;
             }
         );
+    }
+
+    getAllSectionShop() {
+        this.shopService.getSectionShop(this.data.shopId)
+            .subscribe(data => {
+                this.selectedShopSections = data;
+            });
     }
 
     onImageSelected(event: any) {

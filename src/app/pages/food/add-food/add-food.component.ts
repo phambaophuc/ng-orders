@@ -11,6 +11,7 @@ import { OptionDialogComponent } from './option-dialog/option-dialog.component';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddOptionItemComponent } from './add-option-item/add-option-item.component';
+import { Section } from 'src/app/common/section';
 
 @Component({
     selector: 'app-add-food',
@@ -35,6 +36,8 @@ export class AddFoodComponent implements OnInit {
     addFoodForm: FormGroup = new FormGroup({});
     addingFood: boolean = false;
 
+    selectedShopSections?: Section[];
+
     constructor(
         private foodService: FoodService,
         private shopService: ShopService,
@@ -55,7 +58,8 @@ export class AddFoodComponent implements OnInit {
             ),
             foodDescription: new FormControl(''),
             isOutOfStock: new FormControl(false),
-            selectedShop: new FormControl('', [Validators.required])
+            shopId: new FormControl('', [Validators.required]),
+            sectionId: new FormControl('', [Validators.required])
         });
     }
 
@@ -64,7 +68,8 @@ export class AddFoodComponent implements OnInit {
     get foodPrice() { return this.addFoodForm.get('foodPrice') };
     get foodDescription() { return this.addFoodForm.get('foodDescription') };
     get isOutOfStock() { return this.addFoodForm.get('isOutOfStock') };
-    get selectedShop() { return this.addFoodForm.get('selectedShop') };
+    get shopId() { return this.addFoodForm.get('shopId') };
+    get sectionId() { return this.addFoodForm.get('sectionId') };
 
     getAllShops() {
         this.shopService.getAllShops().subscribe(
@@ -95,7 +100,6 @@ export class AddFoodComponent implements OnInit {
                     }
                 )
             } else {
-                this.food.foodImage = '';
                 this.saveFood(formDirective);
             }
         }
@@ -114,6 +118,17 @@ export class AddFoodComponent implements OnInit {
         });
     }
 
+    onShopSelectionChange() {
+        const selectedShopId = this.shopId?.value;
+
+        this.shopService.getSectionShop(selectedShopId).subscribe(
+            data => {
+                this.selectedShopSections = data;
+                this.sectionId?.setValue(this.selectedShopSections![0].key);
+            }
+        )
+    }
+
     setFoodProperties() {
         this.food.foodName = this.foodName?.value;
         this.food.foodType = this.foodType?.value;
@@ -121,7 +136,8 @@ export class AddFoodComponent implements OnInit {
         this.food.foodDescription = this.foodDescription?.value;
         this.food.isOutOfStock = this.isOutOfStock?.value;
         this.food.options = this.options;
-        this.food.shopId = this.selectedShop?.value;
+        this.food.shopId = this.shopId?.value;
+        this.food.sectionId = this.sectionId?.value;
     }
 
     addOption() {

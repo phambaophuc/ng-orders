@@ -17,6 +17,7 @@ import { Option } from 'src/app/common/option';
 import { OptionItem } from 'src/app/common/option-item';
 import { AddOptionItemComponent } from '../add-food/add-option-item/add-option-item.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Section } from 'src/app/common/section';
 
 @Component({
     selector: 'app-list-food',
@@ -47,20 +48,19 @@ export class ListFoodComponent implements OnInit {
     }
 
     getAllFoods() {
-        this.foodService.getAllFoods().subscribe(
-            data => {
-                this.shopService.getAllShops().subscribe(shops => {
-                    this.dataSource = new MatTableDataSource<Food>(data.map(
-                        (food: Food) => {
-                            const shop = shops.find((shop: Shop) => shop.key === food.shopId);
-                            return { ...food, shopName: shop.shopName };
-                        })
-                    );
-                    this.dataSource.paginator = this.paginator;
-                    this.dataSource.sort = this.sort;
-                });
-            }
-        );
+        this.foodService.getAllFoods().subscribe(foods => {
+            this.shopService.getAllShops().subscribe(shops => {
+                this.dataSource = new MatTableDataSource<Food>(foods.map(
+                    (food: Food) => {
+                        const shop = shops.find((shop: Shop) => shop.key === food.shopId);
+                        
+                        return { ...food, shopName: shop.shopName };
+                    })
+                );
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            });
+        });
     }
 
     deleteFood(foodKey: string) {

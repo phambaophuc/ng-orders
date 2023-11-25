@@ -43,6 +43,16 @@ export class ShopService {
         return this.db.object(`/${this.baseObject}/${key}`).valueChanges();
     }
 
+    getSectionShop(key: string): Observable<any> {
+        const sectionRef = this.db.list(`${this.baseObject}/${key}/sections`);
+
+        return sectionRef.snapshotChanges().pipe(
+            map(changes => changes.map(
+                c => ({ key: c.payload.key, ...c.payload.val() as Section })
+            ))
+        );
+    }
+
     addSectionShop(shop: Shop, section: Section) {
         if (!shop.sections) {
             shop.sections = [section];
