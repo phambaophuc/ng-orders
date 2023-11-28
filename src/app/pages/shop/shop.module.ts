@@ -25,6 +25,7 @@ import { ListShopComponent } from './list-shop/list-shop.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { AddSectionDialogComponent } from './add-shop/add-section-dialog/add-section-dialog.component';
 import { EditShopComponent } from './edit-shop/edit-shop.component';
+import { DetailShopComponent } from './detail-shop/detail-shop.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { EditShopComponent } from './edit-shop/edit-shop.component';
         AddShopComponent,
         ListShopComponent,
         AddSectionDialogComponent,
-        EditShopComponent
+        EditShopComponent,
+        DetailShopComponent
     ],
     imports: [
         CommonModule,

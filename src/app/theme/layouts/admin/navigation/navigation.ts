@@ -41,11 +41,18 @@ export const NavigationItems: NavigationItem[] = [
                 icon: 'fas fa-store',
                 children: [
                     {
-                        id: 'chi-tiet-cua-hang',
+                        id: 'danh-sach-cua-hang',
                         title: 'Danh sách',
                         type: 'item',
                         url: '/shop',
                         icon: 'fas fa-list-ul'
+                    },
+                    {
+                        id: 'chi-tiet-cua-hang',
+                        title: 'Thông tin cửa hàng',
+                        type: 'item',
+                        url: '/shop/details',
+                        icon: 'fas fa-shop'
                     }
                 ]
             },

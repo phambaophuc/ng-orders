@@ -1,0 +1,71 @@
+<app-card cardTitle="Cửa hàng {{ shop.shopName }}" [options]="false">
+    <div class="row">
+        <div class="col mat-display-2 text-center">
+            <img class="custom-image" [src]="shop.shopImage" alt="{{ shop.shopName }}" width="100%">
+        </div>
+        <div class="col row mt-3">
+            <div class="col position-relative">
+                <h3 class="text-info text-center mb-4">Thông tin cửa hàng</h3>
+                <mat-card>
+                    <mat-card-content>
+                        <div class="d-inline-flex justify-content-around" *ngIf="!isEditMode">
+                            <div class="me-3 fw-bold text-end">
+                                <p>Tên cửa hàng: </p>
+                                <p>Địa chỉ cửa hàng: </p>
+                                <p>Thời gian mở cửa: </p>
+                                <p>Thời gian đóng cửa: </p>
+                                <p>Trạng thái: </p>
+                            </div>
+                            <div>
+                                <p>{{ shop.shopName }}</p>
+                                <p>{{ shop.shopAddress }}</p>
+                                <p>{{ shop.openingTime }}</p>
+                                <p>{{ shop.closingTime }}</p>
+                                <p>{{ shop.isOpening ? 'Mở cửa' : 'Đóng cửa' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column w-75" *ngIf="isEditMode">
+                            <mat-form-field>
+                                <mat-label>Tên cửa hàng</mat-label>
+                                <input matInput [(ngModel)]="shop.shopName">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Địa chỉ cửa hàng</mat-label>
+                                <input matInput [(ngModel)]="shop.shopAddress">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput name="openingTime" [format]="24" [(ngModel)]="shop.openingTime"
+                                    [ngxMatTimepicker]="openingTime" placeholder="07:00" readonly />
+                                <mat-icon matSuffix (click)="openingTime.open()">
+                                    watch_later
+                                </mat-icon>
+                                <ngx-mat-timepicker color="accent" #openingTime></ngx-mat-timepicker>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput name="closingTime" [format]="24" [(ngModel)]="shop.closingTime"
+                                    [ngxMatTimepicker]="closingTime" placeholder="16:00" readonly />
+                                <mat-icon matSuffix (click)="closingTime.open()">
+                                    watch_later
+                                </mat-icon>
+                                <ngx-mat-timepicker color="accent" #closingTime></ngx-mat-timepicker>
+                            </mat-form-field>
+                            <mat-checkbox [(ngModel)]="shop.isOpening">
+                                Is Opening
+                            </mat-checkbox>
+                        </div>
+
+                        <div class="position-absolute top-0 end-0">
+                            <button mat-icon-button color="primary" (click)="toggleEditMode(shop)">
+                                <mat-icon>{{ isEditMode ? 'done' : 'edit' }}</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="close()" *ngIf="isEditMode">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</app-card>

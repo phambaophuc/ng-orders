@@ -1,6 +1,6 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { User } from '../common/user';
 import * as auth from 'firebase/auth';
@@ -15,9 +15,12 @@ export class AuthService {
     constructor(
         private afDb: AngularFireDatabase,
         private afAuth: AngularFireAuth,
-        private router: Router,
-        private ngZone: NgZone
+        private router: Router
     ) {
+        this.initAuthState();
+    }
+
+    initAuthState() {
         this.afAuth.authState.subscribe(
             (user) => {
                 if (user) {
@@ -95,7 +98,7 @@ export class AuthService {
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
-            emailVerified: user.emailVerified,
+            emailVerified: user.emailVerified
         };
 
         return userRef.set(userData);

@@ -40,7 +40,12 @@ export class ShopService {
     }
 
     getShopByKey(key: string): Observable<any> {
-        return this.db.object(`/${this.baseObject}/${key}`).valueChanges();
+        return this.db.object(`${this.baseObject}/${key}`).snapshotChanges().pipe(
+            map(snapshot => {
+                const data: any = snapshot.payload.val();
+                return { key: snapshot.payload.key, ...data };
+            })
+        );
     }
 
     getSectionShop(key: string): Observable<any> {
