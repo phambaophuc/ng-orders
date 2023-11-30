@@ -18,6 +18,7 @@ import { OptionItem } from 'src/app/common/option-item';
 import { AddOptionItemComponent } from '../add-food/add-option-item/add-option-item.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Section } from 'src/app/common/section';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-list-food',
@@ -28,7 +29,8 @@ export class ListFoodComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'options', 'shopName', 'isOutOfStock', 'actions'];
+    //displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'options', 'shopName', 'isOutOfStock', 'actions'];
+    displayedColumns: string[] = ['key', 'foodName', 'foodPrice', 'foodType', 'options', 'isOutOfStock', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
 
@@ -38,6 +40,7 @@ export class ListFoodComponent implements OnInit {
     constructor(
         private foodService: FoodService,
         private shopService: ShopService,
+        private authService: AuthService,
         private _liveAnnouncer: LiveAnnouncer,
         private snackbarSerice: SnackBarService,
         private dialog: MatDialog
@@ -47,20 +50,33 @@ export class ListFoodComponent implements OnInit {
         this.getAllFoods();
     }
 
+    // getAllFoods() {
+    //     this.foodService.getAllFoods().subscribe(foods => {
+    //         this.shopService.getAllShops().subscribe(shops => {
+    //             this.dataSource = new MatTableDataSource<Food>(foods.map(
+    //                 (food: Food) => {
+    //                     const shop = shops.find((shop: Shop) => shop.key === food.shopId);
+
+    //                     return { ...food, shopName: shop.shopName };
+    //                 })
+    //             );
+    //             this.dataSource.paginator = this.paginator;
+    //             this.dataSource.sort = this.sort;
+    //         });
+    //     });
+    // }
+
     getAllFoods() {
-        this.foodService.getAllFoods().subscribe(foods => {
-            this.shopService.getAllShops().subscribe(shops => {
-                this.dataSource = new MatTableDataSource<Food>(foods.map(
-                    (food: Food) => {
-                        const shop = shops.find((shop: Shop) => shop.key === food.shopId);
-                        
-                        return { ...food, shopName: shop.shopName };
-                    })
-                );
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-            });
-        });
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.foodService.getFoodsByShopId(user.shopId)
+                    .subscribe(data => {
+                        this.dataSource = new MatTableDataSource(data);
+                        this.dataSource.paginator = this.paginator;
+                        this.dataSource.sort = this.sort;
+                    });
+            }
+        );
     }
 
     deleteFood(foodKey: string) {

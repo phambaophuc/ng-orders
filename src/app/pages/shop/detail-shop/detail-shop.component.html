@@ -1,4 +1,4 @@
-<app-card cardTitle="Cửa hàng {{ shop.shopName }}" [options]="false">
+<app-card cardTitle="Cửa hàng {{ shop.shopName }}" [options]="false" *ngIf="shop.shopName && !isLoadData">
     <div class="row">
         <div class="col mat-display-2 text-center">
             <img class="custom-image" [src]="shop.shopImage" alt="{{ shop.shopName }}" width="100%">
@@ -69,3 +69,9 @@
         </div>
     </div>
 </app-card>
+
+<ng-template *ngIf="!shop.shopName && !isLoadData">
+    <h4 class="text-center">Tài khoản này chưa đăng ký cửa hàng.</h4>
+</ng-template>
+
+<app-loading-dots [isLoading]="isLoadData"></app-loading-dots>

@@ -37,24 +37,18 @@ export const NavigationItems: NavigationItem[] = [
             {
                 id: 'cua-hang',
                 title: 'Cửa hàng',
-                type: 'collapse',
+                type: 'item',
+                url: '/shop',
                 icon: 'fas fa-store',
-                children: [
-                    {
-                        id: 'danh-sach-cua-hang',
-                        title: 'Danh sách',
-                        type: 'item',
-                        url: '/shop',
-                        icon: 'fas fa-list-ul'
-                    },
-                    {
-                        id: 'chi-tiet-cua-hang',
-                        title: 'Thông tin cửa hàng',
-                        type: 'item',
-                        url: '/shop/details',
-                        icon: 'fas fa-shop'
-                    }
-                ]
+                // children: [
+                //     {
+                //         id: 'danh-sach-cua-hang',
+                //         title: 'Danh sách',
+                //         type: 'item',
+                //         url: '/shop',
+                //         icon: 'fas fa-list-ul'
+                //     }
+                // ]
             },
             {
                 id: 'san-pham',

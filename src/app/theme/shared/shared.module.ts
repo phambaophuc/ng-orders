@@ -14,12 +14,14 @@ import { CardComponent } from './components/card/card.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { DataFilterPipe } from './filter/data-filter.pipe';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { LoadingDotsComponent } from './components/loading-dots/loading-dots.component';
 
 
 @NgModule({
     declarations: [
         DataFilterPipe,
-        SpinnerComponent
+        SpinnerComponent,
+        LoadingDotsComponent
     ],
     imports: [
         CommonModule,
@@ -38,6 +40,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
         FormsModule,
         ReactiveFormsModule,
         CardComponent,
+        LoadingDotsComponent,
         BreadcrumbComponent,
         DataFilterPipe,
         SpinnerComponent,

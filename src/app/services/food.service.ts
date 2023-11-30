@@ -25,9 +25,20 @@ export class FoodService {
         );
     }
 
+    getFoodsByShopId(shopId: string): Observable<any[]> {
+        return this.db.list(`Foods`, ref => ref.orderByChild('shopId').equalTo(shopId))
+            .snapshotChanges()
+            .pipe(map(changes => changes.map(c => {
+                const data = c.payload.val();
+                const key = c.payload.key;
+                return { key, ...(data ? data : {}) };
+            })));
+    }
+
+
     addFood(newFood: Food): Promise<any> {
         const foodKey = this.foodRef.push(null!).key;
-        
+
         return this.db.object(`${this.baseObject}/${foodKey}`).set(newFood);
     }
 

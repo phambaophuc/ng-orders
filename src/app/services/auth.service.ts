@@ -35,11 +35,32 @@ export class AuthService {
         );
     }
 
+    getCurrentUser() {
+        const storedUser = localStorage.getItem('user');
+        const user = storedUser ? JSON.parse(storedUser) : null;
+        const userId = user.uid;
+
+        return this.afDb.object(`Users/${userId}`).valueChanges();
+    }
+
+    signInWithGoogle() {
+        return this.authLogin(new auth.GoogleAuthProvider())
+            .then(() => {
+                this.afAuth.authState.subscribe(
+                    (user) => {
+                        if (user) {
+                            this.router.navigate(['/dashboard']);
+                        }
+                    }
+                )
+            })
+    }
+
     // sign in with email/password
     signIn(email: string, password: string) {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then((result) => {
-                this.setUserData(result.user);
+                this.updateUserData(result.user);
                 this.afAuth.authState.subscribe((user) => {
                     if (user) {
                         this.router.navigate(['/dashboard']);
@@ -104,6 +125,20 @@ export class AuthService {
         return userRef.set(userData);
     }
 
+    updateUserData(user: any) {
+        const userRef = this.afDb.object(`Users/${user.uid}`);
+
+        const userData: User = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified
+        };
+
+        return userRef.update(userData);
+    }
+
     // signout
     signOut() {
         return this.afAuth.signOut().then(() => {
@@ -112,24 +147,11 @@ export class AuthService {
         })
     }
 
-    signInWithGoogle() {
-        return this.authLogin(new auth.GoogleAuthProvider())
-            .then(() => {
-                this.afAuth.authState.subscribe(
-                    (user) => {
-                        if (user) {
-                            this.router.navigate(['/dashboard']);
-                        }
-                    }
-                )
-            })
-    }
-
     authLogin(provider: any) {
         return this.afAuth
             .signInWithPopup(provider)
             .then((result) => {
-                this.setUserData(result.user);
+                this.updateUserData(result.user);
             })
             .catch((error) => {
                 window.alert(error);

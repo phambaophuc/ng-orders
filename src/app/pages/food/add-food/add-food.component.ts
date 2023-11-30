@@ -12,6 +12,7 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } f
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddOptionItemComponent } from './add-option-item/add-option-item.component';
 import { Section } from 'src/app/common/section';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-add-food',
@@ -41,6 +42,7 @@ export class AddFoodComponent implements OnInit {
     constructor(
         private foodService: FoodService,
         private shopService: ShopService,
+        private authService: AuthService,
         private snackbarSerice: SnackBarService,
         private afStorage: AngularFireStorage,
         private fb: FormBuilder,
@@ -49,6 +51,7 @@ export class AddFoodComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllShops();
+        this.getShopId();
 
         this.addFoodForm = this.fb.group({
             foodName: new FormControl('', [Validators.required]),
@@ -58,7 +61,7 @@ export class AddFoodComponent implements OnInit {
             ),
             foodDescription: new FormControl(''),
             isOutOfStock: new FormControl(false),
-            shopId: new FormControl('', [Validators.required]),
+            //shopId: new FormControl('', [Validators.required]),
             sectionId: new FormControl('', [Validators.required])
         });
     }
@@ -68,7 +71,7 @@ export class AddFoodComponent implements OnInit {
     get foodPrice() { return this.addFoodForm.get('foodPrice') };
     get foodDescription() { return this.addFoodForm.get('foodDescription') };
     get isOutOfStock() { return this.addFoodForm.get('isOutOfStock') };
-    get shopId() { return this.addFoodForm.get('shopId') };
+    //get shopId() { return this.addFoodForm.get('shopId') };
     get sectionId() { return this.addFoodForm.get('sectionId') };
 
     getAllShops() {
@@ -77,6 +80,20 @@ export class AddFoodComponent implements OnInit {
                 this.shops = data;
             }
         );
+    }
+
+    getShopId() {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.shopService.getSectionShop(user.shopId).subscribe(
+                    data => {
+                        this.selectedShopSections = data;
+                        this.sectionId?.setValue(this.selectedShopSections![0].key);
+                        this.food.shopId = user.shopId;
+                    }
+                )
+            }
+        )
     }
 
     onSubmit(formDirective: FormGroupDirective) {
@@ -118,16 +135,16 @@ export class AddFoodComponent implements OnInit {
         });
     }
 
-    onShopSelectionChange() {
-        const selectedShopId = this.shopId?.value;
+    // onShopSelectionChange() {
+    //     const selectedShopId = this.shopId?.value;
 
-        this.shopService.getSectionShop(selectedShopId).subscribe(
-            data => {
-                this.selectedShopSections = data;
-                this.sectionId?.setValue(this.selectedShopSections![0].key);
-            }
-        )
-    }
+    //     this.shopService.getSectionShop(selectedShopId).subscribe(
+    //         data => {
+    //             this.selectedShopSections = data;
+    //             this.sectionId?.setValue(this.selectedShopSections![0].key);
+    //         }
+    //     )
+    // }
 
     setFoodProperties() {
         this.food.foodName = this.foodName?.value;
@@ -136,7 +153,7 @@ export class AddFoodComponent implements OnInit {
         this.food.foodDescription = this.foodDescription?.value;
         this.food.isOutOfStock = this.isOutOfStock?.value;
         this.food.options = this.options;
-        this.food.shopId = this.shopId?.value;
+        //this.food.shopId = this.shopId?.value;
         this.food.sectionId = this.sectionId?.value;
     }
 
@@ -159,7 +176,6 @@ export class AddFoodComponent implements OnInit {
 
     resetForm(formDirective: FormGroupDirective) {
         this.options = [];
-        this.food = new Food();
 
         const inputElement: HTMLInputElement | null = document.querySelector('#fileInput');
         if (inputElement) {

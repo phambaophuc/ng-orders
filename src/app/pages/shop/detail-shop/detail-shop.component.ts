@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Shop } from 'src/app/common/shop';
+import { AuthService } from 'src/app/services/auth.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 
@@ -12,17 +13,28 @@ export class DetailShopComponent implements OnInit {
 
     shop: Shop = {};
     isEditMode = false;
+    isLoadData = false;
 
     constructor(
         private shopService: ShopService,
+        private authService: AuthService,
         private snackbar: SnackBarService
     ) { }
 
     ngOnInit(): void {
-        const shopKey = '-Nk4Zja5I5b-r38MpJ2q';
-        this.shopService.getShopByKey(shopKey).subscribe(
-            (shop) => {
-                this.shop = shop;
+        this.getShopByUser();
+    }
+
+    getShopByUser() {
+        this.isLoadData = true;
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.shopService.getShopByKey(user.shopId).subscribe(
+                    (shop) => {
+                        this.shop = shop;
+                        this.isLoadData = false;
+                    }
+                )
             }
         )
     }
