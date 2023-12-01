@@ -1,4 +1,4 @@
-<div class="card" [ngClass]="cardClass" [@cardRemove]="cardRemove" #toAnimate>
+<div class="card background-card" [ngClass]="cardClass" [@cardRemove]="cardRemove" #toAnimate>
     <div class="card-header" *ngIf="!hidHeader" [ngClass]="headerClass">
         <h5 *ngIf="!customHeader">{{ cardTitle }}</h5>
         <span *ngIf="!customDate" class="d-block">{{ CardDate }}</span>

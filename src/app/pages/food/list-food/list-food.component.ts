@@ -37,6 +37,8 @@ export class ListFoodComponent implements OnInit {
     option: Option = {};
     addingSuccess: boolean = false;
 
+    isLoading: boolean = false;
+
     constructor(
         private foodService: FoodService,
         private shopService: ShopService,
@@ -67,6 +69,7 @@ export class ListFoodComponent implements OnInit {
     // }
 
     getAllFoods() {
+        this.isLoading = true;
         this.authService.getCurrentUser().subscribe(
             (user: any) => {
                 this.foodService.getFoodsByShopId(user.shopId)
@@ -74,6 +77,7 @@ export class ListFoodComponent implements OnInit {
                         this.dataSource = new MatTableDataSource(data);
                         this.dataSource.paginator = this.paginator;
                         this.dataSource.sort = this.sort;
+                        this.isLoading = false;
                     });
             }
         );

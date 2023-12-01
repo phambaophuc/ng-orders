@@ -23,7 +23,7 @@ export interface NavigationItem {
 export const NavigationItems: NavigationItem[] = [
     {
         id: 'manager',
-        title: 'manager',
+        title: 'Quản lý',
         type: 'group',
         icon: 'icon-group',
         children: [
@@ -69,7 +69,7 @@ export const NavigationItems: NavigationItem[] = [
                 id: 'don-hang',
                 title: 'Đơn hàng',
                 type: 'item',
-                url: '#',
+                url: '/order',
                 icon: 'fas fa-shopping-basket'
             },
             {
@@ -98,7 +98,7 @@ export const NavigationItems: NavigationItem[] = [
     },
     {
         id: 'chart',
-        title: 'chart',
+        title: 'biểu đồ',
         type: 'group',
         icon: 'icon-group',
         children: [
@@ -128,7 +128,7 @@ export const NavigationItems: NavigationItem[] = [
     },
     {
         id: 'other',
-        title: 'other',
+        title: 'khác',
         type: 'group',
         icon: 'icon-group',
         children: [

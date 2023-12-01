@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8 mt-4">
+<div class="mat-elevation-z8 mt-4" *ngIf="!isLoading">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
         <ng-container matColumnDef="key">
@@ -86,3 +86,4 @@
 
     <mat-spinner *ngIf="addingSuccess" class="custom-spinner" diameter="50"></mat-spinner>
 </div>
+<app-loading-dots [isLoading]="isLoading"></app-loading-dots>

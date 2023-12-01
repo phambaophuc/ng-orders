@@ -1,6 +1,7 @@
 import { Food } from "./food";
 
 export class Order {
+    key?: string;
     address?: string;
     dateScheduled?: Date;
     foods?: Food[];
@@ -9,7 +10,7 @@ export class Order {
     paymentMethod?: string;
     phoneNumber?: string;
     shopId?: string;
-    status?: Status;
+    status?: string;
     timeScheduled?: Date;
     userId?: string; 
 }
