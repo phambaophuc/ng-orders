@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { OrderRoutingModule } from './order-routing.module';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -50,6 +50,7 @@ import { DetailOrderComponent } from './detail-order/detail-order.component';
         MatCardModule,
         MatProgressSpinnerModule,
         MatBadgeModule,
-    ]
+    ],
+    providers: [DatePipe]
 })
 export class OrderModule { }

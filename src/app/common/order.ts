@@ -3,7 +3,8 @@ import { Food } from "./food";
 export class Order {
     key?: string;
     address?: string;
-    dateScheduled?: Date;
+    dateScheduled?: string;
+    timeScheduled?: string;
     foods?: Food[];
     isScheduled?: boolean;
     name?: string;
@@ -11,6 +12,7 @@ export class Order {
     phoneNumber?: string;
     shopId?: string;
     status?: string;
-    timeScheduled?: Date;
+    acceptedTime?: string;
+    acceptedDate?: string;
     userId?: string; 
 }

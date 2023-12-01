@@ -32,5 +32,7 @@ export class OrderService {
             })));
     }
 
-
+    updateOrder(key: string, updatedOrder: any): Promise<any> {
+        return this.orderRef.update(key, updatedOrder);
+    }
 }

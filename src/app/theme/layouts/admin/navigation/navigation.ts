@@ -53,17 +53,9 @@ export const NavigationItems: NavigationItem[] = [
             {
                 id: 'san-pham',
                 title: 'Sản phẩm',
-                type: 'collapse',
-                icon: 'fas fa-cube',
-                children: [
-                    {
-                        id: 'quan-ly-san-pham',
-                        title: 'Quản lý sản phẩm',
-                        type: 'item',
-                        url: '/food',
-                        icon: 'fas fa-list-ul'
-                    }
-                ]
+                type: 'item',
+                url: '/food',
+                icon: 'fas fa-cube'
             },
             {
                 id: 'don-hang',

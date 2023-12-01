@@ -20,4 +20,8 @@
         </div>
         <mat-divider class="my-3" *ngIf="!last"></mat-divider>
     </div>
+
+    <div class="text-end mt-4">
+        <h4>Tổng tiền: <span>{{ totalAmount | currency: 'VND' }}</span></h4>
+    </div>
 </div>
