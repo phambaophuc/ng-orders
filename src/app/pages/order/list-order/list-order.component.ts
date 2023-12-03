@@ -110,4 +110,34 @@ export class ListOrderComponent implements OnInit {
                 console.error(error);
             })
     }
+
+    getStatusClass(status: Status): string {
+        switch (status) {
+            case Status.ACCEPTED:
+                return 'text-success';
+            case Status.DENIED:
+                return 'text-danger';
+            case Status.DELIVERING:
+                return 'text-warning';
+            case Status.COMPLETED:
+                return 'text-info';
+            default:
+                return '';
+        }
+    }
+
+    getStatusIcon(status: Status): string {
+        switch (status) {
+            case Status.ACCEPTED:
+                return 'fa-check-circle';
+            case Status.DENIED:
+                return 'fa-times-circle';
+            case Status.DELIVERING:
+                return 'fa-truck';
+            case Status.COMPLETED:
+                return 'fa-check';
+            default:
+                return '';
+        }
+    }
 }
