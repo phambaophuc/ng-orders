@@ -20,6 +20,16 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"
+                style="max-width: fit-content;">
+                SĐT
+            </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                {{ order.phoneNumber }}
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="address">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Địa chỉ </th>
             <td mat-cell *matCellDef="let order" class="text-truncate" style="max-width: 200px;"
@@ -38,7 +48,7 @@
 
         <ng-container matColumnDef="timeScheduled">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"
-                style="max-width: fit-content;"> Thời gian đặt </th>
+                style="max-width: fit-content;"> T/G đặt </th>
             <td mat-cell *matCellDef="let order" class="text-truncate">
                 {{ order.timeScheduled }}
             </td>
@@ -48,6 +58,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"
                 style="max-width: fit-content;"> Phương thức giao </th>
             <td mat-cell *matCellDef="let order" class="text-truncate">
+                <i class="me-1" [ngClass]="order.isScheduled ? 'fas fa-calendar' : 'fas fa-truck'"></i>
                 {{ order.isScheduled ? 'Hẹn trước' : 'Giao ngay' }}
             </td>
         </ng-container>
@@ -58,6 +69,7 @@
                 Thanh toán
             </th>
             <td mat-cell *matCellDef="let order" class="text-truncate">
+                <i class="me-1 fas" [ngClass]="getPaymentIcon(order.paymentMethod)"></i>
                 {{ order.paymentMethod }}
             </td>
         </ng-container>
@@ -67,7 +79,7 @@
                 style="max-width: fit-content;"> Trạng thái </th>
             <td mat-cell *matCellDef="let order" class="text-truncate">
                 <span [ngClass]="getStatusClass(order.status)">
-                    <i class="fas" [ngClass]="getStatusIcon(order.status)"></i>
+                    <i class="me-1 fas" [ngClass]="getStatusIcon(order.status)"></i>
                     {{ order.status }}
                 </span>
             </td>
@@ -75,7 +87,7 @@
 
         <ng-container matColumnDef="acceptedTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"
-                style="max-width: fit-content;"> Thời gian xác nhận </th>
+                style="max-width: fit-content;"> T/G xác nhận </th>
             <td mat-cell *matCellDef="let order" class="text-truncate">
                 {{ order.acceptedTime ? order.acceptedTime : 'Chưa xác nhận' }}
             </td>
@@ -96,8 +108,12 @@
                     *ngIf="order.status.toLowerCase() === 'pending'">
                     <mat-icon>done</mat-icon>
                 </button>
+                <button mat-icon-button color="primary" title="Giao hàng" (click)="deliveringOrder(order)"
+                    *ngIf="order.status.toLowerCase() === 'accepted'">
+                    <mat-icon>local_shipping</mat-icon>
+                </button>
                 <button mat-icon-button color="warn" title="Huỷ đơn hàng" (click)="deniedOrder(order)"
-                    *ngIf="order.status.toLowerCase() !== 'denied'">
+                    *ngIf="!['denied', 'completed'].includes(order.status.toLowerCase())">
                     <mat-icon>close</mat-icon>
                 </button>
             </td>

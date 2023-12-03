@@ -11,6 +11,7 @@ import { DetailOrderComponent } from '../detail-order/detail-order.component';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { Status } from 'src/app/common/status.enum';
 import { DatePipe } from '@angular/common';
+import { Payment } from 'src/app/common/payment.enum';
 
 @Component({
     selector: 'app-list-order',
@@ -24,6 +25,7 @@ export class ListOrderComponent implements OnInit {
     displayedColumns: string[] = [
         'actions',
         'name',
+        'phone',
         'address',
         'dateScheduled',
         'timeScheduled',
@@ -111,16 +113,29 @@ export class ListOrderComponent implements OnInit {
             })
     }
 
+    deliveringOrder(order: Order) {
+        order.status = Status.DELIVERING;
+        this.orderService.updateOrder(order.key!, order)
+            .then(() => {
+                this.snackbar.openSnackBar('Đơn hàng đã được giao!', 'DONE');
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
     getStatusClass(status: Status): string {
         switch (status) {
+            case Status.PENDING:
+                return 'text-info';
             case Status.ACCEPTED:
-                return 'text-success';
+                return 'text-primary';
             case Status.DENIED:
                 return 'text-danger';
             case Status.DELIVERING:
-                return 'text-warning';
+                return 'text-warning pulsating-text';
             case Status.COMPLETED:
-                return 'text-info';
+                return 'text-green';
             default:
                 return '';
         }
@@ -128,6 +143,8 @@ export class ListOrderComponent implements OnInit {
 
     getStatusIcon(status: Status): string {
         switch (status) {
+            case Status.PENDING:
+                return 'fa-hourglass-half rotating-icon';
             case Status.ACCEPTED:
                 return 'fa-check-circle';
             case Status.DENIED:
@@ -136,6 +153,17 @@ export class ListOrderComponent implements OnInit {
                 return 'fa-truck';
             case Status.COMPLETED:
                 return 'fa-check';
+            default:
+                return '';
+        }
+    }
+
+    getPaymentIcon(payment: Payment): string {
+        switch (payment) {
+            case Payment.CASH:
+                return 'fa-money-bill';
+            case Payment.ONLINE:
+                return 'fa-credit-card';
             default:
                 return '';
         }
