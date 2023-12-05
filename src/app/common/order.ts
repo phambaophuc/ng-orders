@@ -14,5 +14,5 @@ export class Order {
     status?: string;
     acceptedTime?: string;
     acceptedDate?: string;
-    userId?: string; 
+    userId?: string;
 }

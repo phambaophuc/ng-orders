@@ -32,6 +32,17 @@ export class OrderService {
             })));
     }
 
+    getOrdersByShopIdAndStatus(shopId: string, status: string): Observable<any[]> {
+        return this.db.list('Orders')
+            .valueChanges()
+            .pipe(
+                map((orders: any[]) => {
+                    return orders.filter(order => order.shopId === shopId && order.status === status);
+                })
+            );
+    }
+
+
     updateOrder(key: string, updatedOrder: any): Promise<any> {
         return this.orderRef.update(key, updatedOrder);
     }

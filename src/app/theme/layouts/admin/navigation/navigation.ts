@@ -67,24 +67,25 @@ export const NavigationItems: NavigationItem[] = [
             {
                 id: 'hoa-don',
                 title: 'Hoá đơn',
-                type: 'collapse',
+                type: 'item',
                 icon: 'fas fa-file-invoice',
-                children: [
-                    {
-                        id: 'chi-tiet-hoa-don',
-                        title: 'Chi tiết',
-                        type: 'item',
-                        url: '#',
-                        icon: 'fas fa-file-alt'
-                    },
-                    {
-                        id: 'thong-ke-hoa-don',
-                        title: 'Thống kê',
-                        type: 'item',
-                        url: '#',
-                        icon: 'fas fa-chart-bar'
-                    }
-                ]
+                url: '/invoice'
+                // children: [
+                //     {
+                //         id: 'chi-tiet-hoa-don',
+                //         title: 'Chi tiết',
+                //         type: 'item',
+                //         url: '#',
+                //         icon: 'fas fa-file-alt'
+                //     },
+                //     {
+                //         id: 'thong-ke-hoa-don',
+                //         title: 'Thống kê',
+                //         type: 'item',
+                //         url: '#',
+                //         icon: 'fas fa-chart-bar'
+                //     }
+                // ]
             }
         ]
     },
@@ -116,21 +117,6 @@ export const NavigationItems: NavigationItem[] = [
                     }
                 ]
             },
-        ]
-    },
-    {
-        id: 'other',
-        title: 'khác',
-        type: 'group',
-        icon: 'icon-group',
-        children: [
-            {
-                id: 'sample-page',
-                title: 'Sample page',
-                type: 'item',
-                url: '#',
-                icon: 'fas fa-file'
-            }
         ]
     }
 ];

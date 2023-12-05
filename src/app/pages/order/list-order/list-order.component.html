@@ -1,5 +1,5 @@
-<div *ngIf="!isLoading">
-    <div class="table-responsive mt-4">
+<div class="mt-4">
+    <div class="table-responsive mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
             <ng-container matColumnDef="actions">
@@ -132,6 +132,6 @@
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
         aria-label="Select page of periodic elements">
     </mat-paginator>
+    
+    <app-loading-dots [isLoading]="isLoading"></app-loading-dots>
 </div>
-
-<app-loading-dots [isLoading]="isLoading"></app-loading-dots>
