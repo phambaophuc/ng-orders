@@ -73,4 +73,9 @@ export class ListInvoiceComponent implements OnInit {
             this._liveAnnouncer.announce('Sorting cleared');
         }
     }
+
+    filterChange(data: Event) {
+        const value = (data.target as HTMLInputElement).value;
+        this.dataSource.filter = value.trim().toLowerCase();
+    }
 }

@@ -1,5 +1,16 @@
 <div class="mt-4">
-    <button mat-button color="primary" (click)="exportToExcel()">Export to Excel</button>
+    <div>
+        <mat-card-header>
+            <mat-form-field>
+                <input matInput (keyup)="filterChange($event)" placeholder="Nhập dữ liệu cần tìm ...">
+            </mat-form-field>
+        </mat-card-header>
+
+        <button class="float-end" mat-button color="primary" (click)="exportToExcel()">
+            <mat-icon>file_download</mat-icon>
+            Export to Excel
+        </button>
+    </div>
     <div class="table-responsive mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
             <ng-container matColumnDef="name">

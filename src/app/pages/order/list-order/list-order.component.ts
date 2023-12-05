@@ -12,6 +12,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { Status } from 'src/app/common/status.enum';
 import { DatePipe } from '@angular/common';
 import { Payment } from 'src/app/common/payment.enum';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'app-list-order',
@@ -40,8 +41,10 @@ export class ListOrderComponent implements OnInit {
     dataSource!: MatTableDataSource<any>;
 
     orders: Order[] = [];
-
     isLoading: boolean = false;
+
+    filteredData: any[] = [];
+    selectedStatus: string = '';
 
     constructor(
         private orderService: OrderService,
@@ -83,10 +86,23 @@ export class ListOrderComponent implements OnInit {
         }
     }
 
+    filterChange(data: Event) {
+        const value = (data.target as HTMLInputElement).value;
+        this.applyFilter(value);
+    }
+
+    selectChange(event: MatSelectChange): void {
+        this.selectedStatus = event.value;
+        this.applyFilter(this.selectedStatus);
+    }
+
+    applyFilter(filterValue: string = ''): void {
+        this.dataSource.filter = filterValue;
+    }
+
     acceptOrder(order: Order) {
         order.status = Status.ACCEPTED;
 
-        // Set ngày giờ hiện tại
         const currentTime = this.datePipe.transform(new Date(), 'HH:mm');
         const currentDate = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
 
