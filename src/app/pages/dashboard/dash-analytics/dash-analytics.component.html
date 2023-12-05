@@ -4,7 +4,7 @@
         <div class="col-md-6 col-xl-3">
             <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
                 <h6>Số lượng Đồ ăn</h6>
-                <h2 class="text-end"><i class="feather icon-shopping-cart float-start"></i>
+                <h2 class="text-end"><i class="fas fa-utensils float-start"></i>
                     <span>{{ totalFood }}</span>
                 </h2>
                 <p class="m-b-0">Số lượng Đồ ăn đạt 5 sao <span class="float-end">0</span>
@@ -24,9 +24,9 @@
             <app-card [hidHeader]="true" cardClass="bg-c-green order-card">
                 <h6>Tổng Hoá Đơn</h6>
                 <h2 class="text-end"><i class="fas fa-money-bill float-start"></i>
-                    <span>0</span>
+                    <span>{{ totalInvoice }}</span>
                 </h2>
-                <p class="m-b-0">Hoá đơn trong tháng<span class="float-end">0</span></p>
+                <p class="m-b-0">Hoá đơn trong tháng<span class="float-end">{{ totalInvoiceThisMonth }}</span></p>
             </app-card>
         </div>
         <!-- order-card end -->

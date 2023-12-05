@@ -55,6 +55,8 @@ export class DashAnalyticsComponent {
     totalOrderCompleted: number = 0;
 
     totalFood: number = 0;
+    totalInvoice: number = 0;
+    totalInvoiceThisMonth: number = 0;
 
     public chartOptions: any;
 
@@ -67,6 +69,8 @@ export class DashAnalyticsComponent {
         this.loadRevenueChart();
 
         this.calculateTotalQuantityFood();
+        this.calculateTotalQuantityInvoice();
+        this.calculateTotalQuantityInvoiceThisMonth();
         this.calculateTotalQuantityOrder();
         this.calculateTotalQuantityOrderCompleted();
     }
@@ -74,7 +78,7 @@ export class DashAnalyticsComponent {
     loadRevenueChart() {
         this.authService.getCurrentUser().subscribe(
             (user: any) => {
-                this.invoiceService.getInvoicesByShopId(user.shopId)
+                this.invoiceService.getInvoicesThisMonth(user.shopId)
                     .subscribe((invoices) => {
                         const revenuePerDay = this.invoiceService.calculateTotalRevenuePerDay(invoices);
 
@@ -104,6 +108,28 @@ export class DashAnalyticsComponent {
                 this.foodService.getFoodsByShopId(user.shopId)
                     .subscribe(foods => {
                         this.totalFood = foods.length;
+                    });
+            }
+        );
+    }
+
+    calculateTotalQuantityInvoice() {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.invoiceService.getInvoicesByShopId(user.shopId)
+                    .subscribe(invoices => {
+                        this.totalInvoice = invoices.length;
+                    });
+            }
+        );
+    }
+
+    calculateTotalQuantityInvoiceThisMonth() {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.invoiceService.getInvoicesThisMonth(user.shopId)
+                    .subscribe(invoices => {
+                        this.totalInvoiceThisMonth = invoices.length;
                     });
             }
         );

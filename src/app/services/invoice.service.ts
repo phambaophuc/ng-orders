@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Invoice } from '../common/invoice';
 import { Observable, map } from 'rxjs';
+import { isThisMonth } from 'date-fns';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,17 @@ export class InvoiceService {
                 const key = c.payload.key;
                 return { key, ...(data ? data : {}) };
             })));
+    }
+
+    getInvoicesThisMonth(shopId: string): Observable<Invoice[]> {
+        return this.getInvoicesByShopId(shopId).pipe(
+            map((invoices) => invoices.filter((invoice) => this.isInvoiceInThisMonth(invoice)))
+        );
+    }
+
+    private isInvoiceInThisMonth(invoice: Invoice): boolean {
+        const createdDate = this.convertStringToDate(invoice.createdDate!);
+        return isThisMonth(createdDate);
     }
 
     calculateTotalRevenuePerDay(invoices: Invoice[]): Map<string, number> {
