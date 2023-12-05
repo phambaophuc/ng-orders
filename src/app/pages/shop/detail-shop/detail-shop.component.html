@@ -4,11 +4,11 @@
             <img class="custom-image" [src]="shop.shopImage" alt="{{ shop.shopName }}" width="100%">
         </div>
         <div class="col row mt-3">
-            <div class="col position-relative">
-                <h3 class="text-info text-center mb-4">Thông tin cửa hàng</h3>
+            <div class="position-relative">
+                <h3 class="text-info text-center mb-4">Thông tin Cửa Hàng</h3>
                 <mat-card>
                     <mat-card-content>
-                        <div class="d-inline-flex justify-content-around" *ngIf="!isEditMode">
+                        <div class="d-inline-flex justify-content-around" *ngIf="!isEditModeShop">
                             <div class="me-3 fw-bold text-end">
                                 <p>Tên cửa hàng: </p>
                                 <p>Địa chỉ cửa hàng: </p>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex flex-column w-75" *ngIf="isEditMode">
+                        <div class="d-flex flex-column w-75" *ngIf="isEditModeShop">
                             <mat-form-field>
                                 <mat-label>Tên cửa hàng</mat-label>
                                 <input matInput [(ngModel)]="shop.shopName">
@@ -56,11 +56,39 @@
                         </div>
 
                         <div class="position-absolute top-0 end-0">
-                            <button mat-icon-button color="primary" (click)="toggleEditMode(shop)">
-                                <mat-icon>{{ isEditMode ? 'done' : 'edit' }}</mat-icon>
+                            <button mat-icon-button color="primary" (click)="toggleEditModeShop(shop)">
+                                <mat-icon>{{ isEditModeShop ? 'done' : 'edit' }}</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" (click)="close()" *ngIf="isEditMode">
+                            <button mat-icon-button color="warn" (click)="close()" *ngIf="isEditModeShop">
                                 <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <div class="position-relative mt-1">
+                <h5 class="text-center">Danh sách Phần ăn</h5>
+                <mat-card>
+                    <mat-card-content>
+                        <span *ngFor="let item of shop.sections; let last = last">
+                            {{ item.sectionName }}
+                            <sup *ngIf="isEditModeSection">
+                                <a href="javascript:" title="Xoá Section" (click)="deleteSection(shop, item)">
+                                    <i class="fas fa-close" style="color: #e60f0f;"></i>
+                                </a>
+                            </sup>
+                            <ng-container *ngIf="!last">, </ng-container>
+                        </span>
+                        <sup class="ms-1" *ngIf="isEditModeSection">
+                            <button mat-button color="accent" type="button" (click)="openAddSection(shop)">
+                                Thêm phần ăn
+                            </button>
+                        </sup>
+
+                        <div class="position-absolute top-0 end-0">
+                            <button mat-icon-button color="primary" (click)="toggleEditModeSection()">
+                                <mat-icon>{{ isEditModeSection ? 'close' : 'edit' }}</mat-icon>
                             </button>
                         </div>
                     </mat-card-content>

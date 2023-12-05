@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { AuthService } from 'src/app/services/auth.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-section-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from '../../food/confirm-delete/confirm-delete.component';
 
 @Component({
     selector: 'app-detail-shop',
@@ -12,13 +16,17 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 export class DetailShopComponent implements OnInit {
 
     shop: Shop = {};
-    isEditMode = false;
+    section: Section = {};
+
+    isEditModeShop = false;
+    isEditModeSection = false;
     isLoadData = false;
 
     constructor(
         private shopService: ShopService,
         private authService: AuthService,
-        private snackbar: SnackBarService
+        private snackbar: SnackBarService,
+        private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -39,11 +47,11 @@ export class DetailShopComponent implements OnInit {
         )
     }
 
-    toggleEditMode(shop: Shop) {
-        if (this.isEditMode) {
+    toggleEditModeShop(shop: Shop) {
+        if (this.isEditModeShop) {
             this.updateShop(shop)
         }
-        this.isEditMode = !this.isEditMode;
+        this.isEditModeShop = !this.isEditModeShop;
     }
 
     updateShop(shop: Shop) {
@@ -56,7 +64,52 @@ export class DetailShopComponent implements OnInit {
             })
     }
 
+    addSection(shop: Shop) {
+        this.shopService.addSectionShop(shop, this.section)
+            .then(() => {
+                this.snackbar.openSnackBar('Đã thêm phần ăn cho cửa hàng.');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        this.section = {};
+    }
+
+    openAddSection(shop: Shop) {
+        const dialogRef = this.dialog.open(AddSectionDialogComponent, {
+            data: { section: this.section },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.addSection(shop);
+            }
+        });
+    }
+
+    deleteSection(shop: Shop, section: Section) {
+        const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+            data: { title: 'Xoá Section?', message: 'Bạn có chắc muốn xoá Section này?' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.shopService.deleteSectionShop(shop, section)
+                    .then(() => {
+                        this.snackbar.openSnackBar('Section đã được xoá !', 'DONE');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        });
+    }
+
+    toggleEditModeSection() {
+        this.isEditModeSection = !this.isEditModeSection;
+    }
+
     close() {
-        this.isEditMode = !this.isEditMode;
+        this.isEditModeShop = !this.isEditModeShop;
     }
 }

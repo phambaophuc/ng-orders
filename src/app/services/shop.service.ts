@@ -67,4 +67,12 @@ export class ShopService {
 
         return this.shopRef.update(shop.key!, shop);
     }
+
+    deleteSectionShop(shop: Shop, section: Section) {
+        if (shop.sections) {
+            shop.sections = shop.sections.filter(sec => sec !== section);
+        }
+
+        return this.shopRef.update(shop.key!, shop);
+    }
 }

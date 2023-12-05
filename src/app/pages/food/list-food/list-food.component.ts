@@ -135,7 +135,9 @@ export class ListFoodComponent implements OnInit {
     }
 
     deleteOption(food: Food, option: Option) {
-        const dialogRef = this.dialog.open(ConfirmDeleteComponent);
+        const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+            data: { title: 'Xoá Option?', message: 'Bạn có chắc muốn xoá Option này?' }
+        });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
