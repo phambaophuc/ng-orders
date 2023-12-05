@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { DetailOrderComponent } from '../../order/detail-order/detail-order.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
     selector: 'app-list-invoice',
@@ -32,11 +33,17 @@ export class ListInvoiceComponent implements OnInit {
         private authService: AuthService,
         private _liveAnnouncer: LiveAnnouncer,
         private invoiceService: InvoiceService,
+        private excelService: ExcelService,
         private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
         this.getAllInvoices();
+    }
+
+    exportToExcel(): void {
+        console.log(this.invoices);
+        this.excelService.exportToExcel(this.invoices, 'invoices');
     }
 
     getAllInvoices() {
@@ -45,6 +52,7 @@ export class ListInvoiceComponent implements OnInit {
             (user: any) => {
                 this.invoiceService.getInvoicesByShopId(user.shopId)
                     .subscribe(invoices => {
+                        this.invoices = invoices;
                         this.dataSource = new MatTableDataSource(invoices);
                         this.dataSource.paginator = this.paginator;
                         this.dataSource.sort = this.sort;

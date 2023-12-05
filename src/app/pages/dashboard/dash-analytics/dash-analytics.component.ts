@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
     ChartComponent,
@@ -64,7 +65,8 @@ export class DashAnalyticsComponent {
         private authService: AuthService,
         private orderService: OrderService,
         private foodService: FoodService,
-        private invoiceService: InvoiceService
+        private invoiceService: InvoiceService,
+        private router: Router
     ) {
         this.loadRevenueChart();
 
@@ -155,5 +157,9 @@ export class DashAnalyticsComponent {
                     });
             }
         );
+    }
+
+    goToPage(url: string) {
+        this.router.navigate([url]);
     }
 }

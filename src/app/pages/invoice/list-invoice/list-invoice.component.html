@@ -1,4 +1,5 @@
 <div class="mt-4">
+    <button mat-button color="primary" (click)="exportToExcel()">Export to Excel</button>
     <div class="table-responsive mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
             <ng-container matColumnDef="name">

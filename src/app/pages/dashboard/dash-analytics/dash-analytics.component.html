@@ -44,19 +44,19 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
             <app-card [hidHeader]="true" blockClass="text-center">
-                <i class="fa fa-envelope-open text-c-blue d-block f-40"></i>
-                <h4 class="m-t-20"><span class="text-c-blue">8.62k</span> Subscribers</h4>
-                <p class="m-b-20">Your main list is growing</p>
-                <button class="btn btn-primary btn-sm btn-round">Manage List</button>
+                <i class="fa fa-shopping-basket text-c-blue d-block f-40"></i>
+                <h4 class="m-t-20">Danh sách<span class="text-c-blue"> Sản phẩm</span></h4>
+                <p class="m-b-20">Khám phá và quản lý sản phẩm của bạn</p>
+                <button (click)="goToPage('/food')" class="btn btn-primary btn-sm btn-round">Xem Danh sách</button>
             </app-card>
         </div>
 
         <div class="col-md-6 col-lg-4">
             <app-card [hidHeader]="true" blockClass="text-center">
-                <i class="fab fa-twitter text-c-green d-block f-40"></i>
-                <h4 class="m-t-20"><span class="text-c-green">+40</span> Followers</h4>
-                <p class="m-b-20">Your main list is growing</p>
-                <button class="btn btn-success btn-sm btn-round">Check Theme Out</button>
+                <i class="fas fa-shopping-cart text-c-green d-block f-40"></i>
+                <h4 class="m-t-20"><span class="text-c-green">Đơn hàng</span> Mới</h4>
+                <p class="m-b-20">Kiểm tra và quản lý đơn hàng của bạn</p>
+                <button (click)="goToPage('/order')" class="btn btn-success btn-sm btn-round">Xem Đơn Hàng</button>
             </app-card>
         </div>
     </div>
