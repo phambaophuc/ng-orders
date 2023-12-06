@@ -1,0 +1,20 @@
+<!-- Trong file HTML của component -->
+<div class="d-flex justify-content-center mb-3">
+    <mat-form-field class="me-2">
+        <mat-label>Start Date:</mat-label>
+        <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="loadRevenueChart()" />
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>End Date:</mat-label>
+        <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" (dateChange)="loadRevenueChart()" />
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+</div>
+
+<div class="chart-container" *ngIf="chartOptions">
+    <apx-chart [chart]="chartOptions.chart" [series]="chartOptions.series" [xaxis]="chartOptions.xaxis"></apx-chart>
+</div>

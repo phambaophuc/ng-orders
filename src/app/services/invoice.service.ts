@@ -36,6 +36,33 @@ export class InvoiceService {
         return isThisMonth(createdDate);
     }
 
+    calculateTotalRevenueInRange(invoices: Invoice[], startDate: Date, endDate: Date): Map<string, number> {
+        const revenuePerDay = new Map<string, number>();
+
+        // Tạo một danh sách các ngày trong khoảng thời gian được chọn
+        const dateRange: Date[] = this.getDateRange(startDate, endDate);
+
+        // Khởi tạo giá trị ban đầu cho tất cả các ngày
+        dateRange.forEach(date => {
+            revenuePerDay.set(this.formatDate(date), 0);
+        });
+
+        // Tính toán doanh thu từ các hóa đơn
+        invoices.forEach((invoice) => {
+            if (invoice.createdDate && invoice.totalPrice !== undefined) {
+                const date = this.convertStringToDate(invoice.createdDate);
+                const formattedDate = this.formatDate(date);
+
+                // Kiểm tra xem ngày có trong khoảng thời gian không
+                if (date >= startDate && date <= endDate) {
+                    revenuePerDay.set(formattedDate, revenuePerDay.get(formattedDate)! + invoice.totalPrice);
+                }
+            }
+        });
+
+        return revenuePerDay;
+    }
+
     calculateTotalRevenuePerDay(invoices: Invoice[]): Map<string, number> {
         const revenuePerDay = new Map<string, number>();
 
@@ -71,5 +98,17 @@ export class InvoiceService {
         const year = date.getFullYear();
 
         return `${day}/${month}/${year}`;
+    }
+
+    private getDateRange(startDate: Date, endDate: Date): Date[] {
+        const dateRange: Date[] = [];
+        let currentDate = new Date(startDate);
+
+        while (currentDate <= endDate) {
+            dateRange.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        return dateRange;
     }
 }

@@ -9,6 +9,7 @@ import { VerifyEmailComponent } from './pages/authentication/verify-email/verify
 import { AuthGuard } from './guard/auth.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
+import { ChartComponent } from './pages/chart/chart.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,10 @@ const routes: Routes = [
             {
                 path: 'dashboard',
                 component: DashAnalyticsComponent
+            },
+            {
+                path: 'chart',
+                component: ChartComponent
             },
             {
                 path: 'food',

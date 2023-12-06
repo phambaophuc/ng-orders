@@ -98,24 +98,25 @@ export const NavigationItems: NavigationItem[] = [
             {
                 id: 'doanh-thu',
                 title: 'Doanh thu',
-                type: 'collapse',
+                type: 'item',
                 icon: 'fas fa-chart-line',
-                children: [
-                    {
-                        id: 'doanh-thu-theo-thang',
-                        title: 'Theo tháng',
-                        type: 'item',
-                        url: '#',
-                        icon: 'fas fa-calendar-alt'
-                    },
-                    {
-                        id: 'doanh-thu-theo-nam',
-                        title: 'Theo năm',
-                        type: 'item',
-                        url: '#',
-                        icon: 'fas fa-dollar-sign'
-                    }
-                ]
+                url: '/chart'
+                // children: [
+                //     {
+                //         id: 'doanh-thu-theo-thang',
+                //         title: 'Theo tháng',
+                //         type: 'item',
+                //         url: '#',
+                //         icon: 'fas fa-calendar-alt'
+                //     },
+                //     {
+                //         id: 'doanh-thu-theo-nam',
+                //         title: 'Theo năm',
+                //         type: 'item',
+                //         url: '#',
+                //         icon: 'fas fa-dollar-sign'
+                //     }
+                // ]
             },
         ]
     }
