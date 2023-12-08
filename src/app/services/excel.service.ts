@@ -65,4 +65,31 @@ export class ExcelService {
     private getStringVisualLength(str: string): number {
         return str.length;
     }
+
+    exportRevenueDataToExcel(data: Map<string, number>, startDate: Date, endDate: Date) {
+        startDate = new Date(startDate);
+        endDate = new Date(endDate);
+
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.convertMapToArray(data));
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+        const startDateFormat = this.formatDate(startDate);
+        const endDateFormat = this.formatDate(endDate);
+
+        const fileName = `revenue_data_${startDateFormat}_${endDateFormat}.xlsx`;
+
+        XLSX.writeFile(workbook, fileName);
+    }
+
+    private convertMapToArray(map: Map<string, number>): any[] {
+        return Array.from(map.entries()).map(([date, value]) => ({ Date: date, Value: value }));
+    }
+
+    formatDate(date: Date): string {
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
 }

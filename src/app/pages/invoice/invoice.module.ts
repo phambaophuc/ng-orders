@@ -20,8 +20,24 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatRadioModule } from '@angular/material/radio';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
+
+export const MY_DATE_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MMMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    },
+};
 
 @NgModule({
     declarations: [
@@ -47,7 +63,14 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
         MatCardModule,
         MatProgressSpinnerModule,
         MatBadgeModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MomentDateModule,
+        MatRadioModule,
         SharedModule,
+    ],
+    providers: [
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
     ]
 })
 export class InvoiceModule { }

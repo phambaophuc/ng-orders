@@ -19,18 +19,17 @@
     <div class="table-responsive mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="fw-bold">Chi tiết</th>
-                <td mat-cell *matCellDef="let order">
-                    <button mat-icon-button color="primary" title="Xem chi tiết đơn hàng"
-                        (click)="openOrderDetails(order)">
-                        <mat-icon>visibility</mat-icon>
-                    </button>
+            <ng-container matColumnDef="key">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
+                    Mã
+                </th>
+                <td mat-cell *matCellDef="let order" class="text-truncate">
+                    {{ order.key }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate">
                     Khách hàng
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -39,7 +38,7 @@
             </ng-container>
 
             <ng-container matColumnDef="phone">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
                     SĐT
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -49,14 +48,13 @@
 
             <ng-container matColumnDef="address">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Địa chỉ </th>
-                <td mat-cell *matCellDef="let order" class="text-truncate" style="max-width: 200px;"
-                    title="{{ order.address }}">
+                <td mat-cell *matCellDef="let order" class="text-truncate" title="{{ order.address }}">
                     {{ order.address }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="dateScheduled">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
                     Ngày đặt
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -65,16 +63,16 @@
             </ng-container>
 
             <ng-container matColumnDef="timeScheduled">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
-                    T/G
-                    đặt </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
+                    T/G đặt
+                </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
                     {{ order.timeScheduled }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="isScheduled">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
                     Phương thức giao
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -84,7 +82,7 @@
             </ng-container>
 
             <ng-container matColumnDef="payment">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
                     Thanh toán
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -94,7 +92,7 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
                     Trạng thái
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -106,7 +104,7 @@
             </ng-container>
 
             <ng-container matColumnDef="acceptedTime">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
                     T/G xác nhận
                 </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
@@ -115,9 +113,9 @@
             </ng-container>
 
             <ng-container matColumnDef="acceptedDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold" style="max-width: fit-content;">
-                    Ngày
-                    xác nhận </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold">
+                    Ngày xác nhận
+                </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate">
                     {{ order.acceptedDate ? order.acceptedDate : 'Chưa xác nhận' }}
                 </td>
@@ -137,6 +135,16 @@
                     <button mat-icon-button color="warn" title="Huỷ đơn hàng" (click)="deniedOrder(order)"
                         *ngIf="!['denied', 'completed'].includes(order.status.toLowerCase())">
                         <mat-icon>close</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="fw-bold text-truncate">Chi tiết</th>
+                <td mat-cell *matCellDef="let order">
+                    <button mat-icon-button color="primary" title="Xem chi tiết đơn hàng"
+                        (click)="openOrderDetails(order)">
+                        <mat-icon>visibility</mat-icon>
                     </button>
                 </td>
             </ng-container>

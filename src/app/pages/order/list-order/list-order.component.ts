@@ -24,7 +24,7 @@ export class ListOrderComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     displayedColumns: string[] = [
-        'actions',
+        'key',
         'name',
         'phone',
         'address',
@@ -35,7 +35,8 @@ export class ListOrderComponent implements OnInit {
         'status',
         'acceptedTime',
         'acceptedDate',
-        'accept'
+        'accept',
+        'actions'
     ];
 
     dataSource!: MatTableDataSource<any>;

@@ -12,6 +12,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ExcelService } from 'src/app/services/excel.service';
 
 export type ChartOptions = {
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -67,12 +68,13 @@ export const MY_DATE_FORMATS = {
 export class ChartComponent implements OnInit {
 
     public chartOptions: any;
-    public startDate: Date = new Date();
+    public startDate?: Date;
     public endDate: Date = new Date();
 
     constructor(
         private authService: AuthService,
-        private invoiceService: InvoiceService
+        private invoiceService: InvoiceService,
+        private excelService: ExcelService
     ) { }
 
     ngOnInit(): void {
@@ -80,7 +82,7 @@ export class ChartComponent implements OnInit {
     }
 
     loadRevenueChart() {
-        const startDateObject = this.startDate;
+        const startDateObject = this.startDate!;
         const endDateObject = this.endDate;
 
         this.authService.getCurrentUser().subscribe(
@@ -114,19 +116,23 @@ export class ChartComponent implements OnInit {
     }
 
     exportToExcel() {
-        const startDateObject = this.startDate;
+        const startDateObject = this.startDate!;
         const endDateObject = this.endDate;
 
-        this.authService.getCurrentUser().subscribe(
-            (user: any) => {
-                this.invoiceService.getInvoicesByShopId(user.shopId)
-                    .subscribe((invoices) => {
-                        const revenuePerDay = this.invoiceService
-                            .calculateTotalRevenueInRange(invoices, startDateObject, endDateObject);
+        if (startDateObject && endDateObject) {
+            this.authService.getCurrentUser().subscribe(
+                (user: any) => {
+                    this.invoiceService.getInvoicesByShopId(user.shopId)
+                        .subscribe((invoices) => {
+                            const revenuePerDay = this.invoiceService
+                                .calculateTotalRevenueInRange(invoices, startDateObject, endDateObject);
 
-                        this.invoiceService.exportRevenueDataToExcel(revenuePerDay, startDateObject, endDateObject);
-                    })
-            }
-        )
+                            this.excelService.exportRevenueDataToExcel(revenuePerDay, startDateObject, endDateObject);
+                        })
+                }
+            )
+        } else {
+            alert('Vui lòng chọn ngày!');
+        }
     }
 }

@@ -10,6 +10,7 @@ import { DetailOrderComponent } from '../../order/detail-order/detail-order.comp
 import { MatDialog } from '@angular/material/dialog';
 import { ExcelService } from 'src/app/services/excel.service';
 
+
 @Component({
     selector: 'app-list-invoice',
     templateUrl: './list-invoice.component.html',
@@ -21,13 +22,20 @@ export class ListInvoiceComponent implements OnInit {
     @ViewChild(MatSort) sort!: MatSort;
 
     displayedColumns: string[] = [
-        'name', 'phone', 'address', 'totalPrice', 'createdDate', 'details'
+        'key', 'name', 'phone', 'address', 'totalPrice', 'createdDate', 'details'
     ];
 
     dataSource!: MatTableDataSource<any>;
 
     invoices: Invoice[] = [];
     isLoading: boolean = false;
+
+    date?: Date;
+    public startDate?: Date;
+    public endDate: Date = new Date();
+
+    filterType: string = 'date';
+    textFilter: string = '';
 
     constructor(
         private authService: AuthService,
@@ -42,7 +50,6 @@ export class ListInvoiceComponent implements OnInit {
     }
 
     exportToExcel(): void {
-        console.log(this.invoices);
         this.excelService.exportToExcel(this.invoices, 'invoices');
     }
 
@@ -74,8 +81,35 @@ export class ListInvoiceComponent implements OnInit {
         }
     }
 
+    // Lọc theo chuỗi được nhập vào
     filterChange(data: Event) {
         const value = (data.target as HTMLInputElement).value;
         this.dataSource.filter = value.trim().toLowerCase();
     }
+
+    // Lọc theo ngày cụ thể
+    filterDateChange() {
+        const date = new Date(this.date!);
+        const formatDate = this.invoiceService.formatDate(date);
+        this.dataSource.filter = formatDate;
+    }
+
+    // Lọc theo khoảng ngày
+    filterDateRangeChange() {
+        const startDate = new Date(this.startDate!);
+        const endDate = new Date(this.endDate);
+
+        // Đặt filterPredicate để lọc dữ liệu trong khoảng ngày
+        this.dataSource.filterPredicate = (data, filter) => {
+            const date = new Date(data.createdDate);
+            const rowDateString = this.invoiceService.formatDate(date);
+            const rowDate = new Date(rowDateString);
+            const rowDateOnly = new Date(rowDate.getFullYear(), rowDate.getMonth(), rowDate.getDate());
+
+            return rowDateOnly >= startDate && rowDateOnly <= endDate;
+        };
+
+        this.dataSource.filter = 'custom';
+    }
+
 }

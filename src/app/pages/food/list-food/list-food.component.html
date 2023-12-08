@@ -3,8 +3,8 @@
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
             <ng-container matColumnDef="key">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> No. </th>
-                <td mat-cell *matCellDef="let food" class="text-truncate" style="max-width: 30px;">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Mã </th>
+                <td mat-cell *matCellDef="let food" class="text-truncate">
                     {{food.key}}
                 </td>
             </ng-container>
@@ -12,18 +12,18 @@
             <ng-container matColumnDef="foodName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Tên sản phẩm </th>
                 <td mat-cell *matCellDef="let food" class="text-truncate" title="{{ food.foodName }}"
-                    style="max-width: 180px;">
+                    style="max-width: 200px;">
                     {{food.foodName}}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="foodPrice">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Giá sản phẩm </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Giá sản phẩm </th>
                 <td mat-cell *matCellDef="let food" class="text-truncate"> {{food.foodPrice | currency: 'VND'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="foodType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Loại sản phẩm </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Loại sản phẩm </th>
                 <td mat-cell *matCellDef="let food" class="text-truncate"> {{food.foodType}} </td>
             </ng-container>
 
@@ -64,7 +64,7 @@
             </ng-container>
 
             <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="fw-bold text-truncate">Actions</th>
+                <th mat-header-cell *matHeaderCellDef class="fw-bold">Thao tác</th>
                 <td mat-cell *matCellDef="let food" class="text-truncate">
                     <button mat-icon-button color="accent" title="Thêm Option" (click)="openAddOption(food)">
                         <mat-icon>add</mat-icon>
@@ -88,6 +88,6 @@
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
         aria-label="Select page of periodic elements">
     </mat-paginator>
-    
+
     <app-loading-dots [isLoading]="isLoading"></app-loading-dots>
 </div>
