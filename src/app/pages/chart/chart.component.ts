@@ -76,7 +76,10 @@ export class ChartComponent implements OnInit {
     public startDate?: Date;
     public endDate: Date = new Date();
 
-    radioBtn: string = '1';
+    radioBtn: string = '2';
+    selectedYear?: number;
+
+    public years: number[] = Array.from({ length: new Date().getFullYear() - 2015 }, (_, i) => new Date().getFullYear() - i);
 
     constructor(
         private authService: AuthService,
@@ -89,6 +92,18 @@ export class ChartComponent implements OnInit {
     }
 
     loadRevenueChart() {
+        if (this.radioBtn === '1') {
+
+        } else if (this.radioBtn === '2') {
+            this.loadRevenueChartMonth();
+            console.log(this.selectedYear);
+        } else if (this.radioBtn === '3') {
+            this.loadRevenueChartRange();
+            console.log('3');
+        }
+    }
+
+    loadRevenueChartRange() {
         const startDateObject = this.startDate!;
         const endDateObject = this.endDate;
 
@@ -118,6 +133,37 @@ export class ChartComponent implements OnInit {
                         xaxis: {
                             type: 'category',
                             categories: categories,
+                        },
+                    };
+                });
+            }
+        )
+    }
+
+    loadRevenueChartMonth() {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.invoiceService.getInvoicesByShopId(user.shopId).subscribe((invoices) => {
+                    const revenuePerMonth = this.invoiceService
+                        .calculateTotalRevenuePerMonth(invoices, this.selectedYear!);
+
+                    const data = Array.from(revenuePerMonth.entries())
+                        .map(([monthYear, revenue]) => ({ x: monthYear, y: revenue }));
+                    const categories = Array.from(revenuePerMonth.keys());
+                    this.chartOptions = {
+                        series: [
+                            {
+                                name: 'Revenue',
+                                data: data,
+                            },
+                        ],
+                        chart: {
+                            type: 'line',
+                            height: 450,
+                        },
+                        xaxis: {
+                            type: 'category',
+                            categories: categories
                         },
                     };
                 });

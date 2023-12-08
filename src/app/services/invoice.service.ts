@@ -109,6 +109,32 @@ export class InvoiceService {
         return sortedRevenuePerMonth;
     }
 
+    calculateTotalRevenuePerMonth(invoices: Invoice[], selectedYear: number): Map<string, number> {
+        const revenuePerMonth = new Map<string, number>();
+
+        // Khởi tạo giá trị cho tất cả các tháng trong năm là 0
+        for (let month = 1; month <= 12; month++) {
+            const formattedMonth = this.formatMonth(month);
+            const key = `${formattedMonth}/${selectedYear}`;
+            revenuePerMonth.set(key, 0);
+        }
+
+        invoices.forEach((invoice) => {
+            const invoiceYear = this.convertStringToDate(invoice.createdDate!).getFullYear();
+
+            if (invoiceYear === selectedYear) {
+                const month = this.convertStringToDate(invoice.createdDate!).getMonth() + 1;
+                const formattedMonth = this.formatMonth(month);
+                const key = `${formattedMonth}/${selectedYear}`;
+
+                // Cập nhật giá trị doanh thu cho tháng tương ứng
+                revenuePerMonth.set(key, revenuePerMonth.get(key)! + (invoice.totalPrice || 0));
+            }
+        });
+
+        return revenuePerMonth;
+    }
+
 
     convertStringToDate(dateString: string): Date {
         const parts = dateString.split('/');
@@ -125,6 +151,10 @@ export class InvoiceService {
         const year = date.getFullYear();
 
         return `${day}/${month}/${year}`;
+    }
+
+    private formatMonth(month: number): string {
+        return month < 10 ? `0${month}` : `${month}`;
     }
 
 }

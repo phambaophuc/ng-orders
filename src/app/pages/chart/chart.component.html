@@ -1,17 +1,24 @@
 <!-- Trong file HTML của component -->
-<div class="mb-3">
-    <mat-radio-group [(ngModel)]="radioBtn">
+<div class="mb-2">
+    <mat-radio-group class="mb-3" [(ngModel)]="radioBtn">
         <mat-radio-button value="1">Theo tháng</mat-radio-button>
         <mat-radio-button value="2">Theo năm</mat-radio-button>
         <mat-radio-button value="3">Theo Khoảng</mat-radio-button>
     </mat-radio-group>
 
     <div *ngIf="radioBtn === '1'">
-        
+
     </div>
 
     <div *ngIf="radioBtn === '2'">
-
+        <mat-form-field>
+            <mat-label>Chọn năm</mat-label>
+            <mat-select [(ngModel)]="selectedYear" (selectionChange)="loadRevenueChart()">
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{ year }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
     <div *ngIf="radioBtn === '3'">
@@ -32,7 +39,7 @@
     </div>
 </div>
 
-<button mat-button color="primary" (click)="exportToExcel()">
+<button *ngIf="radioBtn === '3'" mat-button color="primary" (click)="exportToExcel()">
     <mat-icon>file_download</mat-icon>
     Export to Excel
 </button>
