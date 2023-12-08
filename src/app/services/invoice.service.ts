@@ -38,6 +38,7 @@ export class InvoiceService {
         return isThisMonth(createdDate);
     }
 
+    // Thống kê theo khoảng thời gian
     calculateTotalRevenueInRange(invoices: Invoice[], startDate: Date, endDate: Date): Map<string, number> {
         const revenuePerDay = new Map<string, number>();
 
@@ -65,25 +66,49 @@ export class InvoiceService {
         return revenuePerDay;
     }
 
+    private getDateRange(startDate: Date, endDate: Date): Date[] {
+        const dateRange: Date[] = [];
+        let currentDate = new Date(startDate);
+
+        while (currentDate <= endDate) {
+            dateRange.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        return dateRange;
+    }
+
+    // Thống kê theo ngày
     calculateTotalRevenuePerDay(invoices: Invoice[]): Map<string, number> {
-        const revenuePerDay = new Map<string, number>();
+        const currentDate = new Date();
+        const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const revenuePerMonth = new Map<string, number>();
+        // Tạo một danh sách các ngày trong khoảng thời gian được chọn
+        const dateRange: Date[] = this.getDateRange(startOfMonth, currentDate);
+
+        dateRange.forEach(date => {
+            revenuePerMonth.set(this.formatDate(date), 0);
+        });
 
         invoices.forEach((invoice) => {
             if (invoice.createdDate && invoice.totalPrice !== undefined) {
                 const date = this.convertStringToDate(invoice.createdDate);
-                const formattedDate = this.formatDate(date);
+                if (date >= startOfMonth && date <= currentDate) {
+                    const formattedDate = this.formatDate(date);
 
-                if (revenuePerDay.has(formattedDate)) {
-                    revenuePerDay.set(formattedDate, revenuePerDay.get(formattedDate)! + invoice.totalPrice);
-                } else {
-                    revenuePerDay.set(formattedDate, invoice.totalPrice);
+                    if (revenuePerMonth.has(formattedDate)) {
+                        revenuePerMonth.set(formattedDate, revenuePerMonth.get(formattedDate)! + invoice.totalPrice);
+                    } else {
+                        revenuePerMonth.set(formattedDate, invoice.totalPrice);
+                    }
                 }
             }
         });
-        const sortedRevenuePerDay = new Map([...revenuePerDay.entries()].sort());
+        const sortedRevenuePerMonth = new Map([...revenuePerMonth.entries()].sort());
 
-        return sortedRevenuePerDay;
+        return sortedRevenuePerMonth;
     }
+
 
     convertStringToDate(dateString: string): Date {
         const parts = dateString.split('/');
@@ -100,18 +125,6 @@ export class InvoiceService {
         const year = date.getFullYear();
 
         return `${day}/${month}/${year}`;
-    }
-
-    private getDateRange(startDate: Date, endDate: Date): Date[] {
-        const dateRange: Date[] = [];
-        let currentDate = new Date(startDate);
-
-        while (currentDate <= endDate) {
-            dateRange.push(new Date(currentDate));
-            currentDate.setDate(currentDate.getDate() + 1);
-        }
-
-        return dateRange;
     }
 
 }

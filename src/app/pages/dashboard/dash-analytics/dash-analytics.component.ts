@@ -95,8 +95,9 @@ export class DashAnalyticsComponent {
                                 height: 350,
                             },
                             xaxis: {
-                                categories: Array.from(revenuePerDay.keys()),
-                            },
+                                categories: Array.from(revenuePerDay.keys())
+                                    .map(date => date.split('/').slice(0, 2).join('/')),
+                            }
                         };
                     })
             }

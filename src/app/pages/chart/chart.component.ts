@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -12,7 +12,9 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 import { ExcelService } from 'src/app/services/excel.service';
+import { MatSelectModule } from '@angular/material/select';
 
 export type ChartOptions = {
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -57,7 +59,10 @@ export const MY_DATE_FORMATS = {
         MatNativeDateModule,
         MomentDateModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatOptionModule
     ],
     templateUrl: './chart.component.html',
     styleUrls: ['./chart.component.scss'],
@@ -70,6 +75,8 @@ export class ChartComponent implements OnInit {
     public chartOptions: any;
     public startDate?: Date;
     public endDate: Date = new Date();
+
+    radioBtn: string = '1';
 
     constructor(
         private authService: AuthService,
@@ -90,6 +97,10 @@ export class ChartComponent implements OnInit {
                 this.invoiceService.getInvoicesByShopId(user.shopId).subscribe((invoices) => {
                     const revenuePerDay = this.invoiceService
                         .calculateTotalRevenueInRange(invoices, startDateObject, endDateObject);
+
+                    const data = Array.from(revenuePerDay.entries()).map(
+                        ([date, revenue]) => ({ x: date, y: revenue })
+                    );
                     const categories = Array.from(revenuePerDay.keys());
 
                     // Hiển thị biểu đồ
@@ -97,8 +108,7 @@ export class ChartComponent implements OnInit {
                         series: [
                             {
                                 name: 'Revenue',
-                                data: Array.from(revenuePerDay.entries())
-                                    .map(([date, revenue]) => ({ x: date, y: revenue })),
+                                data: data,
                             },
                         ],
                         chart: {

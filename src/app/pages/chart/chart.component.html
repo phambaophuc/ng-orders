@@ -1,18 +1,35 @@
 <!-- Trong file HTML của component -->
-<div class="d-flex justify-content-center mb-3">
-    <mat-form-field class="me-2">
-        <mat-label>Start Date:</mat-label>
-        <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="loadRevenueChart()" />
-        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #startDatePicker></mat-datepicker>
-    </mat-form-field>
+<div class="mb-3">
+    <mat-radio-group [(ngModel)]="radioBtn">
+        <mat-radio-button value="1">Theo tháng</mat-radio-button>
+        <mat-radio-button value="2">Theo năm</mat-radio-button>
+        <mat-radio-button value="3">Theo Khoảng</mat-radio-button>
+    </mat-radio-group>
 
-    <mat-form-field>
-        <mat-label>End Date:</mat-label>
-        <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" (dateChange)="loadRevenueChart()" />
-        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #endDatePicker></mat-datepicker>
-    </mat-form-field>
+    <div *ngIf="radioBtn === '1'">
+        
+    </div>
+
+    <div *ngIf="radioBtn === '2'">
+
+    </div>
+
+    <div *ngIf="radioBtn === '3'">
+        <mat-form-field class="me-2">
+            <mat-label>Start Date:</mat-label>
+            <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate"
+                (dateChange)="loadRevenueChart()" />
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>End Date:</mat-label>
+            <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" (dateChange)="loadRevenueChart()" />
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+    </div>
 </div>
 
 <button mat-button color="primary" (click)="exportToExcel()">
