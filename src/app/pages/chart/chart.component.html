@@ -15,6 +15,11 @@
     </mat-form-field>
 </div>
 
+<button mat-button color="primary" (click)="exportToExcel()">
+    <mat-icon>file_download</mat-icon>
+    Export to Excel
+</button>
+
 <div class="chart-container" *ngIf="chartOptions">
     <apx-chart [chart]="chartOptions.chart" [series]="chartOptions.series" [xaxis]="chartOptions.xaxis"></apx-chart>
 </div>

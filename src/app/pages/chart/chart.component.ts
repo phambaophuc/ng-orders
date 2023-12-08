@@ -10,6 +10,8 @@ import { InvoiceService } from 'src/app/services/invoice.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 export type ChartOptions = {
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -52,7 +54,9 @@ export const MY_DATE_FORMATS = {
         MatInputModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MomentDateModule
+        MomentDateModule,
+        MatButtonModule,
+        MatIconModule
     ],
     templateUrl: './chart.component.html',
     styleUrls: ['./chart.component.scss'],
@@ -105,6 +109,23 @@ export class ChartComponent implements OnInit {
                         },
                     };
                 });
+            }
+        )
+    }
+
+    exportToExcel() {
+        const startDateObject = this.startDate;
+        const endDateObject = this.endDate;
+
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.invoiceService.getInvoicesByShopId(user.shopId)
+                    .subscribe((invoices) => {
+                        const revenuePerDay = this.invoiceService
+                            .calculateTotalRevenueInRange(invoices, startDateObject, endDateObject);
+
+                        this.invoiceService.exportRevenueDataToExcel(revenuePerDay, startDateObject, endDateObject);
+                    })
             }
         )
     }

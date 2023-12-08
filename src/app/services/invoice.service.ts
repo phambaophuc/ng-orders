@@ -3,6 +3,8 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 import { Invoice } from '../common/invoice';
 import { Observable, map } from 'rxjs';
 import { isThisMonth } from 'date-fns';
+import * as XLSX from 'xlsx';
+
 
 @Injectable({
     providedIn: 'root'
@@ -111,4 +113,29 @@ export class InvoiceService {
 
         return dateRange;
     }
+
+    exportRevenueDataToExcel(data: Map<string, number>, startDate: Date, endDate: Date) {
+        if (!(startDate instanceof Date)) {
+            startDate = new Date(startDate);
+        }
+
+        if (!(endDate instanceof Date)) {
+            endDate = new Date(endDate);
+        }
+
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.convertMapToArray(data));
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+        const startDateFormat = this.formatDate(startDate);
+        const endDateFormat = this.formatDate(endDate);
+
+        const fileName = `revenue_data_${startDateFormat}_${endDateFormat}.xlsx`;
+
+        XLSX.writeFile(workbook, fileName);
+    }
+
+    private convertMapToArray(map: Map<string, number>): any[] {
+        return Array.from(map.entries()).map(([date, value]) => ({ Date: date, Value: value }));
+    }
+
 }
