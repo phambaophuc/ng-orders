@@ -77,7 +77,7 @@ export class ChartComponent implements OnInit {
     public endDate: Date = new Date();
 
     radioBtn: string = '2';
-    selectedYear?: number;
+    selectedYear: number = new Date().getFullYear();
 
     public years: number[] = Array.from({ length: new Date().getFullYear() - 2015 }, (_, i) => new Date().getFullYear() - i);
 
@@ -99,7 +99,7 @@ export class ChartComponent implements OnInit {
             this.startDate = undefined;
         } else if (this.radioBtn === '3') {
             this.loadRevenueChartRange();
-            this.selectedYear = undefined;
+            this.selectedYear = undefined!;
         }
     }
 
@@ -118,7 +118,6 @@ export class ChartComponent implements OnInit {
                     );
                     const categories = Array.from(revenuePerDay.keys());
 
-                    // Hiển thị biểu đồ
                     this.chartOptions = {
                         series: [
                             {
@@ -133,11 +132,11 @@ export class ChartComponent implements OnInit {
                         xaxis: {
                             type: 'category',
                             categories: categories,
-                        },
+                        }
                     };
                 });
             }
-        )
+        );
     }
 
     loadRevenueChartMonth() {
@@ -150,6 +149,7 @@ export class ChartComponent implements OnInit {
                     const data = Array.from(revenuePerMonth.entries())
                         .map(([monthYear, revenue]) => ({ x: monthYear, y: revenue }));
                     const categories = Array.from(revenuePerMonth.keys());
+
                     this.chartOptions = {
                         series: [
                             {
@@ -164,11 +164,11 @@ export class ChartComponent implements OnInit {
                         xaxis: {
                             type: 'category',
                             categories: categories
-                        },
+                        }
                     };
                 });
             }
-        )
+        );
     }
 
     exportRevenueToExcel() {
@@ -213,7 +213,6 @@ export class ChartComponent implements OnInit {
                             const revenuePerMonth = this.invoiceService
                                 .calculateTotalRevenuePerMonth(invoices, this.selectedYear!);
 
-                            // Xuất dữ liệu ra Excel
                             this.excelService.exportMonthlyRevenueToExcel(revenuePerMonth, this.selectedYear!);
                         })
                 }

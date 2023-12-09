@@ -185,4 +185,25 @@ export class ListOrderComponent implements OnInit {
                 return '';
         }
     }
+
+    getStatusTranslation(status: string): string {
+        const translations: StatusTranslations = {
+            'pending': 'Chờ xác nhận',
+            'accepted': 'Đã xác nhận',
+            'denied': 'Đã từ chối',
+            'delivering': 'Đang giao',
+            'completed': 'Đã hoàn thành'
+        };
+
+        return translations[status.toLowerCase()] || status;
+    }
+}
+
+interface StatusTranslations {
+    pending: string;
+    accepted: string;
+    denied: string;
+    delivering: string;
+    completed: string;
+    [key: string]: string;
 }

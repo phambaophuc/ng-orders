@@ -39,6 +39,8 @@ export class AddFoodComponent implements OnInit {
 
     selectedShopSections?: Section[];
 
+    listType: string[] = ['fastfood', 'drink', 'vietnameseFood', 'koreanFood', 'japaneseFood', 'other'];
+
     constructor(
         private foodService: FoodService,
         private shopService: ShopService,

@@ -98,7 +98,7 @@
                 <td mat-cell *matCellDef="let order" class="text-truncate">
                     <span [ngClass]="getStatusClass(order.status)">
                         <i class="me-1 fas" [ngClass]="getStatusIcon(order.status)"></i>
-                        {{ order.status }}
+                        {{ getStatusTranslation(order.status) }}
                     </span>
                 </td>
             </ng-container>
