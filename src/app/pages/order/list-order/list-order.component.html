@@ -4,14 +4,14 @@
             <input matInput (keyup)="filterChange($event)" placeholder="Nhập dữ liệu cần tìm ...">
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Status</mat-label>
+            <mat-label>Trạng thái</mat-label>
             <mat-select (selectionChange)="selectChange($event)">
                 <mat-option>-- None --</mat-option>
-                <mat-option value="pending">PENDING</mat-option>
-                <mat-option value="accepted">ACCEPTED</mat-option>
-                <mat-option value="denied">DENIED</mat-option>
-                <mat-option value="delivering">DELIVERING</mat-option>
-                <mat-option value="completed">COMPLETED</mat-option>
+                <mat-option value="pending">Chờ xác nhận</mat-option>
+                <mat-option value="accepted">Đã xác nhận</mat-option>
+                <mat-option value="denied">Đã từ chối</mat-option>
+                <mat-option value="delivering">Đang giao</mat-option>
+                <mat-option value="completed">Đã hoàn thành</mat-option>
             </mat-select>
         </mat-form-field>
     </div>

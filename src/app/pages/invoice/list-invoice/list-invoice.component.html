@@ -1,14 +1,15 @@
 <div class="mt-4">
+    <button mat-button color="accent" type="button" (click)="resetFilter()">Reset data</button>
     <div class="d-flex justify-content-between">
         <div>
             <div>
-                <mat-radio-group [(ngModel)]="filterType">
+                <mat-radio-group [(ngModel)]="btnfilterType">
                     <mat-radio-button value="date">Lọc theo ngày cụ thể</mat-radio-button>
                     <mat-radio-button value="dateRange">Lọc theo khoảng ngày</mat-radio-button>
                 </mat-radio-group>
             </div>
 
-            <mat-form-field *ngIf="filterType === 'date'">
+            <mat-form-field *ngIf="btnfilterType === 'date'">
                 <mat-label>Chọn ngày</mat-label>
                 <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="date"
                     (dateChange)="filterDateChange()" />
@@ -16,11 +17,11 @@
                 <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>
 
-            <div *ngIf="filterType === 'dateRange'">
+            <div *ngIf="btnfilterType === 'dateRange'">
                 <mat-form-field class="me-2">
                     <mat-label>Start Date:</mat-label>
                     <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate"
-                        (dateChange)="filterDateRangeChange()" />
+                        (dateChange)="filterDateChange()" />
                     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #startDatePicker></mat-datepicker>
                 </mat-form-field>

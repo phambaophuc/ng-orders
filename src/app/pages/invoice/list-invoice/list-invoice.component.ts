@@ -34,7 +34,7 @@ export class ListInvoiceComponent implements OnInit {
     public startDate?: Date;
     public endDate: Date = new Date();
 
-    filterType: string = 'date';
+    btnfilterType: string = 'date';
     textFilter: string = '';
 
     constructor(
@@ -87,11 +87,14 @@ export class ListInvoiceComponent implements OnInit {
         this.dataSource.filter = value.trim().toLowerCase();
     }
 
-    // Lọc theo ngày cụ thể
     filterDateChange() {
-        const date = new Date(this.date!);
-        const formatDate = this.invoiceService.formatDate(date);
-        this.dataSource.filter = formatDate;
+        if (this.btnfilterType === 'date') {
+            const date = new Date(this.date!);
+            const formatDate = this.invoiceService.formatDate(date);
+            this.dataSource.filter = formatDate;
+        } else if (this.btnfilterType === 'dateRange') {
+            this.filterDateRangeChange();
+        }
     }
 
     // Lọc theo khoảng ngày
@@ -110,6 +113,12 @@ export class ListInvoiceComponent implements OnInit {
         };
 
         this.dataSource.filter = 'custom';
+    }
+
+    resetFilter() {
+        this.date = null!;
+        this.startDate = null!;
+        this.dataSource.filter = '';
     }
 
 }
