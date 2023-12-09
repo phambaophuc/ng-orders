@@ -66,6 +66,8 @@ export class ListOrderComponent implements OnInit {
             (user: any) => {
                 this.orderService.getOrdersByShopId(user.shopId)
                     .subscribe(orders => {
+                        this.orderService.sortDataInReverse(orders);
+
                         this.dataSource = new MatTableDataSource(orders);
                         this.dataSource.paginator = this.paginator;
                         this.dataSource.sort = this.sort;
