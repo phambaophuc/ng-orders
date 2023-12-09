@@ -7,6 +7,7 @@ export class Food {
     foodName?: string;
     foodPrice?: number;
     foodType?: string;
+    foodNote?: string;
     isOutOfStock?: boolean;
     options?: Option[];
     sectionId?: string;

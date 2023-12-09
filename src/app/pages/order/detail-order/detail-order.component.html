@@ -3,19 +3,33 @@
         <h4 class="text-center mb-4">Chi tiết đơn hàng</h4>
     </div>
 
-    <div class="row" *ngFor="let item of data.foods; let last = last">
+    <div class="row" *ngFor="let food of data.foods; let last = last">
         <div class="col d-flex justify-content-center align-items-center">
-            <img [src]="item.foodImage" class="mx-auto d-block" width="100px">
+            <img [src]="food.foodImage" class="mx-auto d-block" width="100px">
         </div>
         <div class="col d-flex justify-content-around align-items-center">
             <div class="me-3">
-                <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ item.foodName }}</p>
+                <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ food.foodName }}</p>
                 <p class="mb-0 text-truncate"><strong>Giá:</strong>
-                    {{ item.foodPrice | currency: 'VND' }}
+                    {{ food.foodPrice | currency: 'VND' }}
                 </p>
                 <p class="mb-0 text-truncate"><strong>Số lượng:</strong>
-                    {{ item.quantity }}
+                    {{ food.quantity }}
                 </p>
+                <p *ngIf="food.foodNote" class="mb-0 text-truncate"><strong>Ghi chú:</strong>
+                    {{ food.foodNote }}
+                </p>
+                <div *ngIf="food.options" class="mb-0 text-truncate"><strong>Lựa chọn:</strong>
+                    <ul *ngFor="let option of food.options" class="m-0">
+                        <li>
+                            {{ option.optionName }}:
+                            <span *ngFor="let item of option.optionList; let last = last">
+                                {{ item.name }}
+                                <ng-container *ngIf="!last">, </ng-container>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <mat-divider class="my-3" *ngIf="!last"></mat-divider>
