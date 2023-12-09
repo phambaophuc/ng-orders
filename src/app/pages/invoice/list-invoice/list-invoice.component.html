@@ -1,6 +1,6 @@
 <div class="mt-4">
     <div class="d-flex justify-content-between">
-        <div class="mb-2">
+        <div>
             <div>
                 <mat-radio-group [(ngModel)]="filterType">
                     <mat-radio-button value="date">Lọc theo ngày cụ thể</mat-radio-button>
@@ -40,11 +40,12 @@
                 <mat-icon>file_download</mat-icon>
                 Export to Excel
             </button>
-            <mat-card-header>
+            <div>
                 <mat-form-field>
-                    <input matInput (keyup)="filterChange($event)" placeholder="Nhập dữ liệu cần tìm ...">
+                    <mat-label>Dữ liệu cần tìm</mat-label>
+                    <input matInput (keyup)="filterChange($event)">
                 </mat-form-field>
-            </mat-card-header>
+            </div>
         </div>
     </div>
     <div class="table-responsive mat-elevation-z8">
