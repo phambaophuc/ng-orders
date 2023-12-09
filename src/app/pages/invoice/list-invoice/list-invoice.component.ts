@@ -50,7 +50,7 @@ export class ListInvoiceComponent implements OnInit {
     }
 
     exportToExcel(): void {
-        this.excelService.exportToExcel(this.invoices, 'invoices');
+        this.excelService.exportInvoiceToExcel(this.invoices, 'invoices');
     }
 
     getAllInvoices() {

@@ -7,6 +7,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-section-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../../food/confirm-delete/confirm-delete.component';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
     selector: 'app-detail-shop',
@@ -22,11 +23,15 @@ export class DetailShopComponent implements OnInit {
     isEditModeSection = false;
     isLoadData = false;
 
+    selectedImage: File | null = null;
+    selectedImageSrc: string | null = null;
+
     constructor(
         private shopService: ShopService,
         private authService: AuthService,
         private snackbar: SnackBarService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private afStorage: AngularFireStorage
     ) { }
 
     ngOnInit(): void {
@@ -49,7 +54,12 @@ export class DetailShopComponent implements OnInit {
 
     toggleEditModeShop(shop: Shop) {
         if (this.isEditModeShop) {
-            this.updateShop(shop)
+            if (this.selectedImage) {
+                this.changeImage(shop);
+            } else {
+                this.updateShop(shop);
+            }
+
         }
         this.isEditModeShop = !this.isEditModeShop;
     }
@@ -111,5 +121,29 @@ export class DetailShopComponent implements OnInit {
 
     close() {
         this.isEditModeShop = !this.isEditModeShop;
+        this.selectedImage = null;
+    }
+
+    onImageSelected(event: any) {
+        this.selectedImage = event.target.files[0];
+        this.selectedImageSrc = URL.createObjectURL(this.selectedImage!);
+    }
+
+    changeImage(shop: Shop) {
+        const imageRef = this.afStorage.ref(`ShopImage/${this.selectedImage?.name}`);
+        const uploadTask = imageRef.put(this.selectedImage);
+
+        uploadTask.snapshotChanges().subscribe(
+            (snapshot) => {
+                if (snapshot?.state === 'success') {
+                    imageRef.getDownloadURL().subscribe(
+                        (downloadUrl) => {
+                            this.shop.shopImage = downloadUrl;
+                            this.updateShop(shop);
+                        }
+                    )
+                }
+            }
+        )
     }
 }

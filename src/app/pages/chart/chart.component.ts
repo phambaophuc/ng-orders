@@ -96,10 +96,10 @@ export class ChartComponent implements OnInit {
 
         } else if (this.radioBtn === '2') {
             this.loadRevenueChartMonth();
-            console.log(this.selectedYear);
+            this.startDate = undefined;
         } else if (this.radioBtn === '3') {
             this.loadRevenueChartRange();
-            console.log('3');
+            this.selectedYear = undefined;
         }
     }
 
@@ -171,7 +171,18 @@ export class ChartComponent implements OnInit {
         )
     }
 
-    exportToExcel() {
+    exportRevenueToExcel() {
+        if (this.radioBtn === '1') {
+
+        } else if (this.radioBtn === '2') {
+            this.exportMonthlyToExcel();
+        } else if (this.radioBtn === '3') {
+            this.exportRangeDateToExcel();
+        }
+    }
+
+    // Xuất thống kê theo khoảng thời gian
+    exportRangeDateToExcel() {
         const startDateObject = this.startDate!;
         const endDateObject = this.endDate;
 
@@ -183,12 +194,32 @@ export class ChartComponent implements OnInit {
                             const revenuePerDay = this.invoiceService
                                 .calculateTotalRevenueInRange(invoices, startDateObject, endDateObject);
 
-                            this.excelService.exportRevenueDataToExcel(revenuePerDay, startDateObject, endDateObject);
+                            this.excelService.exportRangeRevenueDataToExcel(revenuePerDay, startDateObject, endDateObject);
                         })
                 }
             )
         } else {
             alert('Vui lòng chọn ngày!');
+        }
+    }
+
+    // Xuất thống kê từng tháng trong năm
+    exportMonthlyToExcel() {
+        if (this.selectedYear) {
+            this.authService.getCurrentUser().subscribe(
+                (user: any) => {
+                    this.invoiceService.getInvoicesByShopId(user.shopId)
+                        .subscribe((invoices) => {
+                            const revenuePerMonth = this.invoiceService
+                                .calculateTotalRevenuePerMonth(invoices, this.selectedYear!);
+
+                            // Xuất dữ liệu ra Excel
+                            this.excelService.exportMonthlyRevenueToExcel(revenuePerMonth, this.selectedYear!);
+                        })
+                }
+            )
+        } else {
+            alert('Vui lòng chọn năm!');
         }
     }
 }

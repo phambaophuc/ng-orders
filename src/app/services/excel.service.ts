@@ -8,7 +8,7 @@ export class ExcelService {
 
     constructor() { }
 
-    exportToExcel(data: any[], fileName: string): void {
+    exportInvoiceToExcel(data: any[], fileName: string): void {
         const sanitizedData = this.sanitizeData(data);
         const columnHeaders = ['Tên Khách Hàng', 'Số Điện Thoại', 'Địa Chỉ', 'Tổng Tiền', 'Ngày Tạo'];
 
@@ -66,7 +66,7 @@ export class ExcelService {
         return str.length;
     }
 
-    exportRevenueDataToExcel(data: Map<string, number>, startDate: Date, endDate: Date) {
+    exportRangeRevenueDataToExcel(data: Map<string, number>, startDate: Date, endDate: Date) {
         startDate = new Date(startDate);
         endDate = new Date(endDate);
 
@@ -91,5 +91,14 @@ export class ExcelService {
         const year = date.getFullYear();
 
         return `${day}/${month}/${year}`;
+    }
+
+    exportMonthlyRevenueToExcel(data: Map<string, number>, selectedYear: number) {
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.convertMapToArray(data));
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+        const fileName = `monthly_revenue_${selectedYear}.xlsx`;
+
+        XLSX.writeFile(workbook, fileName);
     }
 }

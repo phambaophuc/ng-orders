@@ -1,7 +1,13 @@
 <app-card cardTitle="Cửa hàng {{ shop.shopName }}" [options]="false" *ngIf="shop.shopName && !isLoadData">
     <div class="row">
         <div class="col mat-display-2 text-center">
-            <img class="custom-image" [src]="shop.shopImage" alt="{{ shop.shopName }}" width="100%">
+            <div *ngIf="selectedImage">
+                <img [src]="selectedImageSrc" class="mx-auto d-block custom-image" width="100%">
+            </div>
+            <img *ngIf="!selectedImage" class="custom-image" [src]="shop.shopImage" alt="{{ shop.shopName }}"
+                width="100%">
+            <input *ngIf="isEditModeShop" id="fileInput" class="mt-2" type="file" accept="image/*"
+                (change)="onImageSelected($event)">
         </div>
         <div class="col row mt-3">
             <div class="position-relative">
