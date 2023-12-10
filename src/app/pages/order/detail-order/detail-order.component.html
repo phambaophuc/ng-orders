@@ -4,10 +4,10 @@
     </div>
 
     <div class="row" *ngFor="let food of data.foods; let last = last">
-        <div class="col d-flex justify-content-center align-items-center">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
             <img [src]="food.foodImage" class="mx-auto d-block" width="100px">
         </div>
-        <div class="col d-flex justify-content-around align-items-center">
+        <div class="col-md-6 d-flex justify-content-start align-items-center">
             <div class="me-3">
                 <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ food.foodName }}</p>
                 <p class="mb-0 text-truncate"><strong>Giá:</strong>
