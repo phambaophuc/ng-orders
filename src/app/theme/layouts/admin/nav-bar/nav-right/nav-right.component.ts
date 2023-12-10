@@ -30,6 +30,7 @@ export class NavRightComponent implements DoCheck, OnInit {
     friendId!: number;
     gradientConfig = GradientConfig;
 
+    user: any;
     isLoggedIn?: boolean;
 
     constructor(public authService: AuthService) {
@@ -47,6 +48,7 @@ export class NavRightComponent implements DoCheck, OnInit {
 
     ngOnInit(): void {
         this.isLoggedIn = this.authService.isLoggedIn;
+        this.getCurrentUser();
     }
 
     // public method
@@ -57,5 +59,13 @@ export class NavRightComponent implements DoCheck, OnInit {
 
     signOut() {
         this.authService.signOut();
+    }
+
+    getCurrentUser() {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.user = user;
+            }
+        );
     }
 }

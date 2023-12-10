@@ -28,6 +28,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         NavCollapseComponent,
         NavGroupComponent,
         NavItemComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,

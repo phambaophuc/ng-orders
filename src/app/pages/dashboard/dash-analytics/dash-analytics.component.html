@@ -35,8 +35,9 @@
     <div class="col-xl-12 col-md-12">
         <app-card cardTitle="Doanh thu từng ngày trong tháng hiện tại" [options]="false">
             <div class="chart-container">
-                <apx-chart [chart]="chartOptions.chart" [series]="chartOptions.series"
-                    [xaxis]="chartOptions.xaxis"></apx-chart>
+                <apx-chart *ngIf="chartOptions" [chart]="chartOptions.chart" [series]="chartOptions.series"
+                    [xaxis]="chartOptions.xaxis">
+                </apx-chart>
             </div>
         </app-card>
     </div>

@@ -68,10 +68,10 @@
     </li>
     <!-- Login -->
     <li *ngIf="isLoggedIn">
-        <div class="dropdown drp-user" ngbDropdown placement="auto" *ngIf="authService.userData as user">
+        <div class="dropdown drp-user" ngbDropdown placement="auto">
             <a href="javascript:" ngbDropdownToggle>
                 <img src="{{ (user.photoURL) ? user.photoURL : 'https://lh3.googleusercontent.com/a/ACg8ocKWmSrGjYufaK5Z-qTXfBeewGwG1bRUNdabvHF1a9iBrXk=s96-c' }}"
-                    class="img-radius wid-40" alt="User-Profile-Image" />
+                    class="img-radius" width="40px" height="40px" alt="User-Profile-Image" />
             </a>
             <div class="dropdown-menu dropdown-menu-end profile-notification" ngbDropdownMenu>
                 <div class="pro-head">
@@ -85,7 +85,8 @@
                     </a>
                 </div>
                 <ul class="pro-body">
-                    <li><a href="javascript:" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                    <li><a routerLink="/profile" class="dropdown-item"><i class="feather icon-user"></i> Profile</a>
+                    </li>
                     <li><a href="javascript:" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a>
                     </li>
                     <li><a href="javascript:" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a>

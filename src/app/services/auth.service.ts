@@ -60,7 +60,6 @@ export class AuthService {
     signIn(email: string, password: string) {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then((result) => {
-                this.updateUserData(result.user);
                 this.afAuth.authState.subscribe((user) => {
                     if (user) {
                         this.router.navigate(['/dashboard']);
@@ -117,8 +116,8 @@ export class AuthService {
         const userData: User = {
             uid: user.uid,
             email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
+            displayName: user.displayName ? user.displayName : '',
+            photoURL: user.photoURL ? user.photoURL : '',
             emailVerified: user.emailVerified
         };
 
