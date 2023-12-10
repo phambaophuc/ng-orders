@@ -4,6 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { User } from '../common/user';
 import * as auth from 'firebase/auth';
+import { Shop } from '../common/shop';
 
 @Injectable({
     providedIn: 'root'
@@ -136,6 +137,14 @@ export class AuthService {
         };
 
         return userRef.update(userData);
+    }
+
+    updateUserShop(user: any, shopId: string) {
+        const userRef = this.afDb.object(`Users/${user.uid}`);
+
+        user.shopId = shopId;
+
+        return userRef.update(user);
     }
 
     // signout

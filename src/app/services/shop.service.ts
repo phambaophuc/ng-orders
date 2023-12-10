@@ -26,10 +26,27 @@ export class ShopService {
     }
 
     addShop(newShop: Shop): Promise<any> {
-        const foodKey = this.shopRef.push(null!).key;
+        const shopKey = this.shopRef.push(null!).key;
         newShop.ratingScore = 0;
-        return this.db.object(`${this.baseObject}/${foodKey}`).set(newShop);
+        return this.db.object(`${this.baseObject}/${shopKey}`).set(newShop);
     }
+
+    createShop(newShop: Shop): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const shopKey = this.shopRef.push(null!).key;
+            newShop.ratingScore = 0;
+
+            this.db.object(`${this.baseObject}/${shopKey}`).set(newShop)
+                .then(() => {
+                    newShop.key = shopKey!;
+                    resolve(newShop);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
 
     deleteShop(key: string): Promise<any> {
         return this.shopRef.remove(key);

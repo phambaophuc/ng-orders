@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 
@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class AuthGuard {
 
     constructor(public authService: AuthService, public router: Router) { }
-    
+
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
@@ -18,6 +18,15 @@ export class AuthGuard {
         if (this.authService.isLoggedIn !== true) {
             this.router.navigate(['/auth/sign-in']);
         }
-        return true;
+
+        return this.authService.getCurrentUser().pipe(
+            take(1), map((user: any) => {
+                if (!user || !user.shopId) {
+                    this.router.navigate(['/register-shop']);
+                    return false;
+                }
+                return true;
+            })
+        );
     }
 }

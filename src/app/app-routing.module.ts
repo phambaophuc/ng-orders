@@ -11,6 +11,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
 import { ChartComponent } from './pages/chart/chart.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RegisterShopComponent } from './pages/shop/register-shop/register-shop.component';
 
 const routes: Routes = [
     {
@@ -72,6 +73,10 @@ const routes: Routes = [
             {
                 path: 'auth/forgot-password',
                 component: ForgotPasswordComponent
+            },
+            {
+                path: 'register-shop',
+                component: RegisterShopComponent
             }
         ]
     },
