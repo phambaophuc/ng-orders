@@ -20,6 +20,22 @@ export class DetailOrderComponent implements OnInit {
 
     calculateTotalAmount() {
         this.totalAmount = this.data.foods
-            .reduce((sum: number, item: { foodPrice: number; quantity: number; }) => sum + (item.foodPrice * item.quantity), 0);
+            .reduce((sum: number, foodItem: { foodPrice: number; quantity: number; options: { optionList: { price: number; }[] }[] }) => {
+                // Tính tổng số tiền từ giá và số lượng của món ăn
+                sum += foodItem.foodPrice * foodItem.quantity;
+
+                // Kiểm tra và tính giá từ options
+                if (foodItem.options && foodItem.options.length > 0) {
+                    foodItem.options.forEach(option => {
+                        if (option.optionList && option.optionList.length > 0) {
+                            option.optionList.forEach(optionItem => {
+                                sum += optionItem.price * foodItem.quantity;
+                            });
+                        }
+                    });
+                }
+
+                return sum;
+            }, 0);
     }
 }
