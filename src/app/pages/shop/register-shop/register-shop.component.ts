@@ -18,7 +18,7 @@ export class RegisterShopComponent {
 
     constructor(
         private shopService: ShopService,
-        private authService: AuthService,
+        public authService: AuthService,
         private router: Router,
         private fb: FormBuilder
     ) { }

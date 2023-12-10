@@ -12,6 +12,7 @@ import { ForgotPasswordComponent } from './pages/authentication/forgot-password/
 import { ChartComponent } from './pages/chart/chart.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterShopComponent } from './pages/shop/register-shop/register-shop.component';
+import { AuthShopGuard } from './guard/auth-shop.guard';
 
 const routes: Routes = [
     {
@@ -76,7 +77,8 @@ const routes: Routes = [
             },
             {
                 path: 'register-shop',
-                component: RegisterShopComponent
+                component: RegisterShopComponent,
+                canActivate: [AuthShopGuard]
             }
         ]
     },
