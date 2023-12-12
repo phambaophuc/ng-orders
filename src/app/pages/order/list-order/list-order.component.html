@@ -49,7 +49,9 @@
             <ng-container matColumnDef="address">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Địa chỉ </th>
                 <td mat-cell *matCellDef="let order" class="text-truncate" title="{{ order.address }}">
-                    {{ order.address }}
+                    <a href="javascript:" (click)="openGoogleMapDialog(order.address)">
+                        {{ order.address }}
+                    </a>
                 </td>
             </ng-container>
 

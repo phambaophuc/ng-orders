@@ -15,13 +15,15 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { DataFilterPipe } from './filter/data-filter.pipe';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { LoadingDotsComponent } from './components/loading-dots/loading-dots.component';
+import { MapDialogComponent } from './components/map-dialog/map-dialog.component';
 
 
 @NgModule({
     declarations: [
         DataFilterPipe,
         SpinnerComponent,
-        LoadingDotsComponent
+        LoadingDotsComponent,
+        MapDialogComponent
     ],
     imports: [
         CommonModule,

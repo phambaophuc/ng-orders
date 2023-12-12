@@ -13,6 +13,7 @@ import { Status } from 'src/app/common/status.enum';
 import { DatePipe } from '@angular/common';
 import { Payment } from 'src/app/common/payment.enum';
 import { MatSelectChange } from '@angular/material/select';
+import { MapDialogComponent } from 'src/app/theme/shared/components/map-dialog/map-dialog.component';
 
 @Component({
     selector: 'app-list-order',
@@ -79,6 +80,14 @@ export class ListOrderComponent implements OnInit {
 
     openOrderDetails(data: any) {
         this.dialog.open(DetailOrderComponent, { data });
+    }
+
+    openGoogleMapDialog(address: string): void {
+        const googleMapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDqDqn8Op87YfKOjIvWTNA1MpYmn3htW9M&q=${encodeURIComponent(address)}`;
+        
+        this.dialog.open(MapDialogComponent, {
+            data: { googleMapUrl },
+        });
     }
 
     announceSortChange(sortState: Sort) {
