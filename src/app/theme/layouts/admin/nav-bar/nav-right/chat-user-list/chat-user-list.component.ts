@@ -1,5 +1,5 @@
-import { Component, EventEmitter, NgIterable, OnInit, Output } from '@angular/core';
-import { FriendsList } from 'src/app/fack-db/friends-list';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,11 +15,14 @@ export class ChatUserListComponent implements OnInit {
 
     users: any[] = [];
 
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService, private authService: AuthService) { }
 
     ngOnInit(): void {
         this.userService.getUsers().subscribe((users: any) => {
-            this.users = users;
+            const currentUser = this.authService.getCurrentUser()
+                .subscribe((currentUser: any) => {
+                    this.users = users.filter((user: any) => user.uid !== currentUser.uid);
+                });
         });
     }
 
