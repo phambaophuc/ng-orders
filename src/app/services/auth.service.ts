@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../common/user';
 import * as auth from 'firebase/auth';
 import { Shop } from '../common/shop';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +37,7 @@ export class AuthService {
         );
     }
 
-    getCurrentUser() {
+    getCurrentUser(): Observable<any> {
         const storedUser = localStorage.getItem('user');
         const user = storedUser ? JSON.parse(storedUser) : null;
         const userId = user.uid;

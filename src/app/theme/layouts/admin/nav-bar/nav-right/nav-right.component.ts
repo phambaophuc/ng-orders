@@ -27,7 +27,7 @@ export class NavRightComponent implements DoCheck, OnInit {
     // public props
     visibleUserList: boolean;
     chatMessage: boolean;
-    friendId!: number;
+    friendId!: string;
     gradientConfig = GradientConfig;
 
     user: any;
@@ -52,7 +52,7 @@ export class NavRightComponent implements DoCheck, OnInit {
     }
 
     // public method
-    onChatToggle(friendID: number) {
+    onChatToggle(friendID: string) {
         this.friendId = friendID;
         this.chatMessage = !this.chatMessage;
     }

@@ -7,19 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class FriendComponent {
 
-    @Input() friends!: friendsList;
+    @Input() friends!: any;
     @Output() ChatOn = new EventEmitter();
 
-    public innerChatToggle(friends: friendsList) {
-        this.ChatOn.emit(friends.id);
+    public innerChatToggle(friends: any) {
+        this.ChatOn.emit(friends.key);
     }
-}
-
-interface friendsList {
-    id: number;
-    photo: string;
-    name: string;
-    new: number;
-    status: number;
-    time: string;
 }

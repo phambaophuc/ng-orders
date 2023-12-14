@@ -1,5 +1,5 @@
 <div class="h-list-header">
-    <h6>{{ chatMessage.name }}</h6>
+    <!-- <h6>{{ chatMessage.receiverID }}</h6> -->
     <a href="javascript:" class="h-back-user-list" (click)="this.ChatToggle.emit()"><i
             class="feather icon-chevron-left"></i></a>
 </div>
@@ -16,33 +16,20 @@
                     </div>
                 </div>
             </ng-template>
-            <ng-container *ngIf="chatMessage.chat; else CHATNOTFOUND">
+            <ng-container *ngIf="chatMessage; else CHATNOTFOUND">
                 <ng-scrollbar style="height: calc(100vh - 170px)" visibility="hover">
-                    <div *ngFor="let messages of chatMessage.chat">
+                    <div *ngFor="let messages of chatMessage">
                         <div class="media chat-messages">
-                            <a *ngIf="messages.type" class="media-left photo-table" href="javascript:">
-                                <img class="media-object img-radius img-radius m-t-5" src="{{ chatMessage.photo }}"
-                                    alt="{{ chatMessage.name }}" />
+                            <a *ngIf="messages.senderID" class="media-left photo-table" href="javascript:">
+                                <img class="media-object img-radius img-radius m-t-5"
+                                    src="assets/images/user/avatar-1.jpg" alt="" />
                             </a>
                             <div class="media-body"
-                                [ngClass]="{ 'chat-menu-content': messages.type, 'chat-menu-reply': !messages.type }">
+                                [ngClass]="{ 'chat-menu-content': messages.senderID, 'chat-menu-reply': !messages.senderID }">
                                 <div class="">
-                                    <p class="chat-cont">{{ messages.msg }}</p>
+                                    <p class="chat-cont">{{ messages.message }}</p>
                                 </div>
-                                <p class="chat-time">{{ messages.time }}</p>
                             </div>
-                        </div>
-                    </div>
-                    <div #newChat [innerHTML]="newReplay"></div>
-                    <div *ngIf="friendWriting" class="media chat-messages typing">
-                        <a class="media-left photo-table" href="javascript:"><img
-                                class="media-object img-radius img-radius m-t-5" src="{{ chatMessage.photo }}"
-                                alt="{{ chatMessage.name }}" /></a>
-                        <div class="media-body chat-menu-content">
-                            <div class="rem-msg">
-                                <p class="chat-cont">Typing . . .</p>
-                            </div>
-                            <p class="chat-time">now</p>
                         </div>
                     </div>
                 </ng-scrollbar>
