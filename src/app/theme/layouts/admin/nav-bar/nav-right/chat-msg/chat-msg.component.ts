@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { NgScrollbar } from 'ngx-scrollbar';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
@@ -7,13 +8,15 @@ import { ChatService } from 'src/app/services/chat.service';
     templateUrl: './chat-msg.component.html',
     styleUrls: ['./chat-msg.component.scss']
 })
-export class ChatMsgComponent implements OnInit {
+export class ChatMsgComponent implements AfterViewInit {
 
     @Input() friendId!: string;
     @Output() ChatToggle = new EventEmitter();
     @Output() messageSent = new EventEmitter<string>();
-    @ViewChild('newChat', { read: ElementRef, static: false }) newChat!: ElementRef;
-    // eslint-disable-next-line
+
+    @ViewChild('scrollbar', { static: false }) scrollbar!: NgScrollbar;
+    @ViewChild('scrollContainer', { static: false }) scrollContainer!: NgScrollbar;
+
     chatMessage: any;
     message!: string;
     message_error!: boolean;
@@ -23,20 +26,28 @@ export class ChatMsgComponent implements OnInit {
 
     constructor(
         private chatService: ChatService,
-        private authService: AuthService
+        private authService: AuthService,
+        private renderer: Renderer2
     ) {
-        authService.getCurrentUser().subscribe(
+        this.getMessages();
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => {
+            this.scrollbar.scrollTo({ top: Number.MAX_SAFE_INTEGER, duration: 0 });
+        }, 1000);
+    }
+
+    getMessages() {
+        this.authService.getCurrentUser().subscribe(
             (user: any) => {
                 this.currentUser = user;
-                chatService.getMessages(this.friendId, user.shopId)
+                this.chatService.getMessages(this.friendId, user.shopId)
                     .subscribe((chatMessage: any) => {
                         this.chatMessage = chatMessage;
                     });
             }
         );
-    }
-
-    ngOnInit(): void {
     }
 
     sentMsg(flag: number) {
@@ -54,6 +65,7 @@ export class ChatMsgComponent implements OnInit {
                     timestamp: Date.now(),
                 };
                 this.chatService.sendMessage(message);
+                this.ngAfterViewInit();
                 this.messageSent.emit(this.message);
                 this.message = '';
             }

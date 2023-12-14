@@ -17,7 +17,7 @@
                 </div>
             </ng-template>
             <ng-container *ngIf="chatMessage; else CHATNOTFOUND">
-                <ng-scrollbar style="height: calc(100vh - 170px)" visibility="hover">
+                <ng-scrollbar #scrollbar style="height: calc(100vh - 170px)" visibility="hover">
                     <div *ngFor="let messages of chatMessage">
                         <div class="media chat-messages">
                             <a *ngIf="messages.senderID" class="media-left photo-table" href="javascript:">
