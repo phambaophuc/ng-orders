@@ -20,12 +20,12 @@
                 <ng-scrollbar #scrollbar style="height: calc(100vh - 170px)" visibility="hover">
                     <div *ngFor="let messages of chatMessage">
                         <div class="media chat-messages">
-                            <a *ngIf="messages.senderID" class="media-left photo-table" href="javascript:">
+                            <a *ngIf="!messages.senderID" class="media-left photo-table" href="javascript:">
                                 <img class="media-object img-radius img-radius m-t-5"
                                     src="{{ user?.photoURL || 'assets/images/user/avatar-1.jpg'}}" alt="" />
                             </a>
                             <div class="media-body"
-                                [ngClass]="{ 'chat-menu-content': messages.senderID, 'chat-menu-reply': !messages.senderID }">
+                                [ngClass]="{ 'chat-menu-content': !messages.senderID, 'chat-menu-reply': messages.senderID }">
                                 <div class="">
                                     <p class="chat-cont">{{ messages.message }}</p>
                                 </div>
