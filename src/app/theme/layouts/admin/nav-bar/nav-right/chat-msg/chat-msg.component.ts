@@ -60,8 +60,8 @@ export class ChatMsgComponent implements AfterViewInit {
                 this.message_error = false;
                 const message = {
                     message: this.message,
-                    senderId: this.currentUser.shopId,
-                    receiverId: this.friendId,
+                    senderID: this.currentUser.shopId,
+                    receiverID: this.friendId,
                     timestamp: Date.now(),
                 };
                 this.chatService.sendMessage(message);

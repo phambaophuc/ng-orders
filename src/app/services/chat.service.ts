@@ -15,7 +15,7 @@ export class ChatService {
     }
 
     sendMessage(message: any) {
-        const chatId = `${message.receiverId}_${message.senderId}`;
+        const chatId = `${message.receiverID}_${message.senderID}`;
         this.db.list(`Messages/${chatId}`).push(message);
     }
 }
