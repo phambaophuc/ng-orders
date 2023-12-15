@@ -1,21 +1,21 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-chat-msg',
     templateUrl: './chat-msg.component.html',
     styleUrls: ['./chat-msg.component.scss']
 })
-export class ChatMsgComponent implements AfterViewInit {
+export class ChatMsgComponent implements OnInit, AfterViewInit {
 
     @Input() friendId!: string;
     @Output() ChatToggle = new EventEmitter();
     @Output() messageSent = new EventEmitter<string>();
 
     @ViewChild('scrollbar', { static: false }) scrollbar!: NgScrollbar;
-    @ViewChild('scrollContainer', { static: false }) scrollContainer!: NgScrollbar;
 
     chatMessage: any;
     message!: string;
@@ -23,19 +23,32 @@ export class ChatMsgComponent implements AfterViewInit {
 
     currentUser: any;
     users: any;
+    user: any;
 
     constructor(
         private chatService: ChatService,
         private authService: AuthService,
-        private renderer: Renderer2
+        private userService: UserService
     ) {
         this.getMessages();
+    }
+
+    ngOnInit(): void {
+        this.getUserByKey();
     }
 
     ngAfterViewInit(): void {
         setTimeout(() => {
             this.scrollbar.scrollTo({ top: Number.MAX_SAFE_INTEGER, duration: 0 });
         }, 1000);
+    }
+
+    getUserByKey() {
+        this.userService.getUserByKey(this.friendId).subscribe(
+            (user) => {
+                this.user = user;
+            }
+        )
     }
 
     getMessages() {

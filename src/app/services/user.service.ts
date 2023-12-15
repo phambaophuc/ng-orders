@@ -17,4 +17,13 @@ export class UserService {
             }))
         );
     }
+
+    getUserByKey(key: string): Observable<any> {
+        return this.db.object(`Users/${key}`).snapshotChanges().pipe(
+            map(snapshot => {
+                const data: any = snapshot.payload.val();
+                return { key: snapshot.payload.key, ...data };
+            })
+        );
+    }
 }

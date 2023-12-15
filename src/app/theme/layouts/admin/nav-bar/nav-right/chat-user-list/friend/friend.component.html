@@ -1,12 +1,11 @@
 <div class="media userlist-box ripple" (click)="innerChatToggle(friends)" [attr.data-id]="friends.key"
     [attr.data-username]="friends.displayName">
     <a class="media-left" href="javascript:"><img class="media-object img-radius"
-            src="{{ friends.photoURL ? friends.photoURL : 'assets/images/user/avatar-1.jpg'}}"
-            alt="{{ friends.displayName }}" />
+            src="{{ friends.photoURL || 'assets/images/user/avatar-1.jpg'}}" alt="{{ friends.displayName }}" />
     </a>
     <div class="media-body">
         <h6 class="chat-header">
-            {{ friends.displayName ? friends.displayName : 'Người bí ẩn' }}
+            {{ friends.displayName || 'Người bí ẩn' }}
             <!-- <small class="d-block" *ngIf="friends.time"
                 [ngClass]="{ 'text-c-green': friends.status, 'text-c-red': !friends.status }">
                 {{ friends.time }}

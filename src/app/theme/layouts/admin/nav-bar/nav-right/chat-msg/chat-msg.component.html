@@ -1,5 +1,5 @@
 <div class="h-list-header">
-    <!-- <h6>{{ chatMessage.receiverID }}</h6> -->
+    <h6>{{ user?.displayName || 'Người bí ẩn' }}</h6>
     <a href="javascript:" class="h-back-user-list" (click)="this.ChatToggle.emit()"><i
             class="feather icon-chevron-left"></i></a>
 </div>
@@ -22,7 +22,7 @@
                         <div class="media chat-messages">
                             <a *ngIf="messages.senderID" class="media-left photo-table" href="javascript:">
                                 <img class="media-object img-radius img-radius m-t-5"
-                                    src="assets/images/user/avatar-1.jpg" alt="" />
+                                    src="{{ user?.photoURL || 'assets/images/user/avatar-1.jpg'}}" alt="" />
                             </a>
                             <div class="media-body"
                                 [ngClass]="{ 'chat-menu-content': messages.senderID, 'chat-menu-reply': !messages.senderID }">
