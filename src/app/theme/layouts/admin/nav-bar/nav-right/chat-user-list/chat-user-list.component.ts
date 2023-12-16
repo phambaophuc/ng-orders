@@ -18,12 +18,18 @@ export class ChatUserListComponent implements OnInit {
     constructor(private userService: UserService, private authService: AuthService) { }
 
     ngOnInit(): void {
-        this.userService.getUsers().subscribe((users: any) => {
-            const currentUser = this.authService.getCurrentUser()
-                .subscribe((currentUser: any) => {
-                    this.users = users.filter((user: any) => user.uid !== currentUser.uid);
-                });
-        });
+        this.getUsersChat();
+    }
+
+    getUsersChat() {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                this.userService.getUsersByMessagesKeySuffix(user.shopId)
+                    .subscribe((users: any) => {
+                        this.users = users;
+                    })
+            }
+        )
     }
 
     ChatOn(friendKey: string) {
