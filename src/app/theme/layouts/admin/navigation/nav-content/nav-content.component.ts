@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { NavigationItem, NavigationItems } from '../navigation';
+import { NavigationItem, NavigationItems, NavigationItemsAdmin } from '../navigation';
 import { Location, LocationStrategy } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-nav-content',
@@ -13,7 +14,7 @@ export class NavContentComponent implements OnInit {
     title = 'Demo application for version numbering';
 
     // public pops
-    navigations: NavigationItem[];
+    navigations!: NavigationItem[];
     wrapperWidth!: number;
     windowWidth: number;
 
@@ -22,10 +23,19 @@ export class NavContentComponent implements OnInit {
     // constructor
     constructor(
         private location: Location,
-        private locationStrategy: LocationStrategy
+        private locationStrategy: LocationStrategy,
+        private authService: AuthService
     ) {
         this.windowWidth = window.innerWidth;
-        this.navigations = NavigationItems;
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                if (user.isAdmin) {
+                    this.navigations = NavigationItemsAdmin;
+                } else {
+                    this.navigations = NavigationItems;
+                }
+            }
+        )
     }
 
     ngOnInit(): void {

@@ -39,16 +39,7 @@ export const NavigationItems: NavigationItem[] = [
                 title: 'Cửa hàng',
                 type: 'item',
                 url: '/shop',
-                icon: 'fas fa-store',
-                // children: [
-                //     {
-                //         id: 'danh-sach-cua-hang',
-                //         title: 'Danh sách',
-                //         type: 'item',
-                //         url: '/shop',
-                //         icon: 'fas fa-list-ul'
-                //     }
-                // ]
+                icon: 'fas fa-store'
             },
             {
                 id: 'san-pham',
@@ -70,22 +61,6 @@ export const NavigationItems: NavigationItem[] = [
                 type: 'item',
                 icon: 'fas fa-file-invoice',
                 url: '/invoice'
-                // children: [
-                //     {
-                //         id: 'chi-tiet-hoa-don',
-                //         title: 'Chi tiết',
-                //         type: 'item',
-                //         url: '#',
-                //         icon: 'fas fa-file-alt'
-                //     },
-                //     {
-                //         id: 'thong-ke-hoa-don',
-                //         title: 'Thống kê',
-                //         type: 'item',
-                //         url: '#',
-                //         icon: 'fas fa-chart-bar'
-                //     }
-                // ]
             }
         ]
     },
@@ -101,22 +76,24 @@ export const NavigationItems: NavigationItem[] = [
                 type: 'item',
                 icon: 'fas fa-chart-line',
                 url: '/chart'
-                // children: [
-                //     {
-                //         id: 'doanh-thu-theo-thang',
-                //         title: 'Theo tháng',
-                //         type: 'item',
-                //         url: '#',
-                //         icon: 'fas fa-calendar-alt'
-                //     },
-                //     {
-                //         id: 'doanh-thu-theo-nam',
-                //         title: 'Theo năm',
-                //         type: 'item',
-                //         url: '#',
-                //         icon: 'fas fa-dollar-sign'
-                //     }
-                // ]
+            },
+        ]
+    }
+];
+
+export const NavigationItemsAdmin: NavigationItem[] = [
+    {
+        id: 'admin',
+        title: 'admin',
+        type: 'group',
+        icon: 'icon-group',
+        children: [
+            {
+                id: 'dashboard',
+                title: 'Dashboard',
+                type: 'item',
+                url: '/admin/dashboard',
+                icon: 'feather icon-home'
             },
         ]
     }

@@ -112,11 +112,6 @@ export class AuthService {
         return user !== null && user.emailVerified !== false ? true : false;
     }
 
-    get isRegisterShop(): boolean {
-        const user = JSON.parse(localStorage.getItem('user')!);
-        return user !== null && user.shopId !== false ? true : false;
-    }
-
     setUserData(user: any) {
         const userRef = this.afDb.object(`Users/${user.uid}`);
 
