@@ -27,6 +27,7 @@ export class UserService {
         );
     }
 
+    // Lấy các user đang chat với cửa hàng
     getUsersByMessagesKeySuffix(suffix: string): Observable<any[]> {
         return this.db.list('Messages').snapshotChanges().pipe(
             map((messages) => messages

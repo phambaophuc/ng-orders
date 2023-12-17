@@ -13,6 +13,7 @@ import { ChartComponent } from './pages/chart/chart.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterShopComponent } from './pages/shop/register-shop/register-shop.component';
 import { AuthShopGuard } from './guard/auth-shop.guard';
+import { AuthAdminGuard } from './guard/auth-admin.guard';
 
 const routes: Routes = [
     {
@@ -52,6 +53,11 @@ const routes: Routes = [
             {
                 path: 'invoice',
                 loadChildren: () => import('./pages/invoice/invoice.module').then(m => m.InvoiceModule)
+            },
+            {
+                path: 'account',
+                loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule),
+                canActivate: [AuthAdminGuard]
             }
         ]
     },
