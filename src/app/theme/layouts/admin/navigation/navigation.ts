@@ -92,9 +92,23 @@ export const NavigationItemsAdmin: NavigationItem[] = [
                 id: 'dashboard',
                 title: 'Dashboard',
                 type: 'item',
-                url: '/admin/dashboard',
+                url: '/dashboard',
                 icon: 'feather icon-home'
             },
+            {
+                id: 'account',
+                title: 'Tài khoản',
+                type: 'item',
+                url: '/account',
+                icon: 'fas fa-user-circle'
+            },
+            {
+                id: 'shop',
+                title: 'Cửa hàng',
+                type: 'item',
+                url: '/shop',
+                icon: 'fas fa-store'
+            }
         ]
     }
 ];

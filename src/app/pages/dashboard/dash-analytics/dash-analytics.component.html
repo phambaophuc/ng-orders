@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center" *ngIf="!isAdmin; else contentAdmin">
     <div class="row justify-content-center">
         <!-- order-card start -->
         <div class="col-md-6 col-xl-3">
@@ -62,3 +62,40 @@
         </div>
     </div>
 </div>
+
+<ng-template #contentAdmin>
+    <div class="row justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-xl-3">
+                <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
+                    <h6>Tổng số cửa hàng đã đăng ký</h6>
+                    <h2 class="text-end"><i class="fas fa-store float-start"></i>
+                        <span>{{ totalShop }}</span>
+                    </h2>
+                    <p class="m-b-0">Số cửa hàng chưa được chấp thuận <span class="float-end">0</span>
+                    </p>
+                </app-card>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
+                    <h6>Tổng tài khoản</h6>
+                    <h2 class="text-end"><i class="fas fa-user-circle float-start"></i>
+                        <span>{{ totalAccount }}</span>
+                    </h2>
+                    <p class="m-b-0">Số tài khoản bị ban<span class="float-end">0</span></p>
+                </app-card>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <app-card [hidHeader]="true" cardClass="bg-c-green order-card">
+                    <h6>Tổng số voucher</h6>
+                    <h2 class="text-end"><i class="fas fa-gift float-start"></i>
+                        <span>30</span>
+                    </h2>
+                    <p class="m-b-0">Số voucher đã sử dụng<span class="float-end">0</span></p>
+                </app-card>
+            </div>
+        </div>
+    </div>
+</ng-template>

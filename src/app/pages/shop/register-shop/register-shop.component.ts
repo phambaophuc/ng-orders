@@ -15,7 +15,6 @@ export class RegisterShopComponent {
     signUpShopForm: FormGroup = new FormGroup({});
 
     newShop: Shop = new Shop();
-    isRegisterShop: boolean = false;
 
     constructor(
         private shopService: ShopService,
@@ -29,13 +28,6 @@ export class RegisterShopComponent {
             shopName: new FormControl('', [Validators.required]),
             shopAddress: new FormControl('', [Validators.required])
         })
-        this.authService.getCurrentUser().subscribe(
-            (user: any) => {
-                if (user.shopId) {
-                    this.isRegisterShop = true;
-                }
-            }
-        )
     }
 
     get shopName() { return this.signUpShopForm.get('shopName'); }

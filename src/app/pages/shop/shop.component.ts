@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-shop',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class ShopComponent {
 
+    isAdmin: boolean = false;
+
+    constructor(private authService: AuthService) {
+        this.authService.getCurrentUser().subscribe(
+            (user: any) => {
+                if (user.isAdmin) {
+                    this.isAdmin = true;
+                }
+            }
+        )
+    }
 }

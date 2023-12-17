@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -17,6 +17,22 @@ export class AuthShopGuard {
         if (!this.authService.isLoggedIn) {
             this.router.navigate(['/auth/sign-in']);
         }
-        return true;
+
+        return this.authService.getCurrentUser().pipe(
+            take(1),
+            map((user: any) => {
+                if (user.isAdmin) {
+                    this.router.navigate(['/dashboard']);
+                    return false;
+                }
+
+                if (user.shopId) {
+                    this.router.navigate(['/dashboard']);
+                    return false;
+                }
+
+                return true;
+            })
+        );
     }
 }

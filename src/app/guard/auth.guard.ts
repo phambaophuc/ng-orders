@@ -15,16 +15,19 @@ export class AuthGuard {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
-        if (this.authService.isLoggedIn !== true) {
-            this.router.navigate(['/auth/sign-in']);
-        }
-
         return this.authService.getCurrentUser().pipe(
-            take(1), map((user: any) => {
-                if (!user.shopId) {
+            take(1),
+            map((user: any) => {
+                if (!user.shopId && !user.isAdmin) {
                     this.router.navigate(['/register-shop']);
                     return false;
                 }
+
+                if (!this.authService.isLoggedIn) {
+                    this.router.navigate(['/auth/sign-in']);
+                    return false;
+                }
+
                 return true;
             })
         );

@@ -11,6 +11,7 @@ import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-se
 import { EditShopComponent } from '../edit-shop/edit-shop.component';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { MapDialogComponent } from 'src/app/theme/shared/components/map-dialog/map-dialog.component';
 
 @Component({
     selector: 'app-list-shop',
@@ -22,7 +23,15 @@ export class ListShopComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     displayedColumns: string[] = [
-        'key', 'shopName', 'sections', 'shopAddress', 'ratingScore', 'openingTime', 'closingTime', 'isOpening', 'actions'
+        'key',
+        'shopName',
+        // 'sections',
+        'shopAddress',
+        'ratingScore',
+        'openingTime',
+        'closingTime',
+        'isOpening',
+        'actions'
     ];
 
     dataSource!: MatTableDataSource<any>;
@@ -51,7 +60,9 @@ export class ListShopComponent implements OnInit {
     }
 
     deleteShop(shopKey: string) {
-        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: { title: 'Xoá cửa hàng?', message: 'Bạn có chắc muốn xoá cửa hàng này?' }
+        });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
@@ -87,6 +98,14 @@ export class ListShopComponent implements OnInit {
             if (result) {
                 this.addSection(shop);
             }
+        });
+    }
+
+    openGoogleMapDialog(address: string): void {
+        const googleMapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDqDqn8Op87YfKOjIvWTNA1MpYmn3htW9M&q=${encodeURIComponent(address)}`;
+
+        this.dialog.open(MapDialogComponent, {
+            data: { googleMapUrl },
         });
     }
 
