@@ -5,12 +5,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ShopService } from 'src/app/services/shop.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-section-dialog.component';
 import { EditShopComponent } from '../edit-shop/edit-shop.component';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-list-shop',
@@ -32,8 +32,8 @@ export class ListShopComponent implements OnInit {
     constructor(
         private shopService: ShopService,
         private _liveAnnouncer: LiveAnnouncer,
-        private snackbarSerice: SnackBarService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -57,7 +57,7 @@ export class ListShopComponent implements OnInit {
             if (result) {
                 this.shopService.deleteShop(shopKey)
                     .then(() => {
-                        this.snackbarSerice.openSnackBar('Cửa hàng đã được xoá!', 'DONE');
+                        this.toastr.error('Cửa hàng đã được xoá.', 'Đã xoá!');
                     });
             }
         });
@@ -70,7 +70,7 @@ export class ListShopComponent implements OnInit {
     addSection(shop: Shop) {
         this.shopService.addSectionShop(shop, this.section)
             .then(() => {
-                this.snackbarSerice.openSnackBar('Thêm section thành công.');
+                this.toastr.success('Section đã được thêm.', 'Thêm thành công!');
             })
             .catch(error => {
                 console.log(error);

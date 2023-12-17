@@ -4,10 +4,10 @@ import { Food } from 'src/app/common/food';
 import { Option } from 'src/app/common/option';
 import { OptionItem } from 'src/app/common/option-item';
 import { FoodService } from 'src/app/services/food.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddOptionItemComponent } from '../../add-food/add-option-item/add-option-item.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-option-details',
@@ -23,22 +23,21 @@ export class OptionDetailsComponent {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { food: Food, option: Option, index: number },
         private foodService: FoodService,
-        private snackbarService: SnackBarService,
         private dialog: MatDialog,
         private afStorage: AngularFireStorage,
-        private snackbarSerice: SnackBarService
+        private toastr: ToastrService
     ) { }
 
     deleteOptionItem(food: Food, optionIndex: number, optionItem: OptionItem) {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-            data: { title: 'Xoá Item?', message: 'Bạn có chắc muốn xoá item này?' }
+            data: { title: 'Xoá item?', message: 'Bạn có chắc muốn xoá Item này?' }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.foodService.deleteOptionItemFood(food, optionIndex, optionItem)
                     .then(() => {
-                        this.snackbarService.openSnackBar('Item đã được delete!', 'DONE');
+                        this.toastr.error('Item đã được xoá.', 'Đã xoá!');
                     })
                     .catch(error => {
                         console.log(error);
@@ -51,7 +50,7 @@ export class OptionDetailsComponent {
         this.foodService.AddOptionItemFood(food, optionIndex, this.optionItem)
             .then(() => {
                 this.addingSuccess = false;
-                this.snackbarSerice.openSnackBar('Thêm item vào Option thành công.');
+                this.toastr.success('Đã thêm item vào Option.', 'Thành công!');
                 this.optionItem = {};
             })
             .catch(error => {

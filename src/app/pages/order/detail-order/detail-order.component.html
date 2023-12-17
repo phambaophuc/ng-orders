@@ -1,13 +1,13 @@
-<div class="p-5 order-list">
+<div class="p-4 order-list">
     <div class="d-flex justify-content-around">
         <h4 class="text-center mb-4">Chi tiết đơn hàng</h4>
     </div>
 
     <div class="row" *ngFor="let food of data.foods; let last = last">
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <img [src]="food.foodImage" class="mx-auto d-block" width="100px">
+        <div class="col-md-6 d-flex align-items-center">
+            <img [src]="food.foodImage" class="mx-auto d-block" width="150px">
         </div>
-        <div class="col-md-6 d-flex justify-content-start align-items-center">
+        <div class="col-md-6 d-flex align-items-center">
             <div class="me-3">
                 <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ food.foodName }}</p>
                 <p class="mb-0 text-truncate"><strong>Giá:</strong>
@@ -20,15 +20,16 @@
                     {{ food.foodNote }}
                 </p>
                 <div *ngIf="food.options" class="mb-0 text-truncate"><strong>Lựa chọn:</strong>
-                    <ul *ngFor="let option of food.options" class="m-0">
-                        <li>
-                            {{ option.optionName }}:
-                            <span *ngFor="let item of option.optionList; let last = last">
-                                {{ item.name }}
-                                <ng-container *ngIf="!last">, </ng-container>
-                            </span>
+                    <ol>
+                        <li *ngFor="let option of food.options" class="m-0">
+                            {{ option.optionName }}
+                            <ul>
+                                <li *ngFor="let item of option.optionList; let last = last">
+                                    {{ item.name }}
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
+                    </ol>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
     selector: 'app-profile',
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private afStorage: AngularFireStorage,
-        private snackbarSerice: SnackBarService
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
     saveUser() {
         this.authService.updateUserData(this.user).then(
             () => {
-                this.snackbarSerice.openSnackBar('Cập nhật thông tin thành công.');
+                this.toastr.info('Thông tin đã được cập nhật.', 'Cập nhật thành công!');
             }
         );
     }

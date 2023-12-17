@@ -6,14 +6,13 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Food } from 'src/app/common/food';
 import { FoodService } from 'src/app/services/food.service';
-import { ShopService } from 'src/app/services/shop.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { EditFoodComponent } from '../edit-food/edit-food.component';
 import { OptionDetailsComponent } from './option-details/option-details.component';
 import { OptionDialogComponent } from '../add-food/option-dialog/option-dialog.component';
 import { Option } from 'src/app/common/option';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-list-food',
@@ -36,10 +35,9 @@ export class ListFoodComponent implements OnInit {
 
     constructor(
         private foodService: FoodService,
-        private shopService: ShopService,
         private authService: AuthService,
         private _liveAnnouncer: LiveAnnouncer,
-        private snackbarSerice: SnackBarService,
+        private toastr: ToastrService,
         private dialog: MatDialog
     ) { }
 
@@ -87,7 +85,7 @@ export class ListFoodComponent implements OnInit {
             if (result) {
                 this.foodService.deleteFood(foodKey)
                     .then(() => {
-                        this.snackbarSerice.openSnackBar('Sản phẩm đã được xoá!', 'DONE');
+                        this.toastr.error('Sản phẩm đã được xoá.', 'Đã xoá!');
                     });
             }
         });
@@ -111,7 +109,7 @@ export class ListFoodComponent implements OnInit {
         this.option.optionList = [];
         this.foodService.addOptionFood(food, this.option)
             .then(() => {
-                this.snackbarSerice.openSnackBar('Thêm Option thành công.');
+                this.toastr.success('Thêm Option thành công.', 'Thành công!');
             })
             .catch(error => {
                 console.log(error);
@@ -140,7 +138,7 @@ export class ListFoodComponent implements OnInit {
             if (result) {
                 this.foodService.deleteOptionFood(food, option)
                     .then(() => {
-                        this.snackbarSerice.openSnackBar('Option đã được xoá !', 'DONE');
+                        this.toastr.error('Option đã được xoá.', 'Đã xoá!');
                     })
                     .catch(error => {
                         console.log(error);

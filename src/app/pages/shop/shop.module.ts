@@ -27,6 +27,7 @@ import { AddSectionDialogComponent } from './add-shop/add-section-dialog/add-sec
 import { EditShopComponent } from './edit-shop/edit-shop.component';
 import { DetailShopComponent } from './detail-shop/detail-shop.component';
 import { RegisterShopComponent } from './register-shop/register-shop.component';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 @NgModule({
@@ -59,7 +60,11 @@ import { RegisterShopComponent } from './register-shop/register-shop.component';
         MatProgressSpinnerModule,
         MatBadgeModule,
         SharedModule,
-        NgxMatTimepickerModule
-    ]
+        NgxMatTimepickerModule,
+        ToastrModule.forRoot({
+            timeOut: 3000
+        })
+    ],
+    providers: [ToastrService]
 })
 export class ShopModule { }

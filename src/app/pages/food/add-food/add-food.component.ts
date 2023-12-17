@@ -9,10 +9,10 @@ import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { OptionDialogComponent } from './option-dialog/option-dialog.component';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddOptionItemComponent } from './add-option-item/add-option-item.component';
 import { Section } from 'src/app/common/section';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-add-food',
@@ -45,10 +45,10 @@ export class AddFoodComponent implements OnInit {
         private foodService: FoodService,
         private shopService: ShopService,
         private authService: AuthService,
-        private snackbarSerice: SnackBarService,
         private afStorage: AngularFireStorage,
         private fb: FormBuilder,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -130,7 +130,7 @@ export class AddFoodComponent implements OnInit {
         this.foodService.addFood(this.food).then(() => {
             this.resetForm(formDirective);
             this.addingFood = false;
-            this.snackbarSerice.openSnackBar('Thêm sản phẩm thành công');
+            this.toastr.success('Sản phẩm đã được thêm.', 'Thêm thành công!');
         }).catch(error => {
             console.log(error);
             this.addingFood = false;

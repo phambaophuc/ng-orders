@@ -3,11 +3,11 @@ import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { AuthService } from 'src/app/services/auth.service';
 import { ShopService } from 'src/app/services/shop.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-section-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-detail-shop',
@@ -29,9 +29,9 @@ export class DetailShopComponent implements OnInit {
     constructor(
         private shopService: ShopService,
         private authService: AuthService,
-        private snackbar: SnackBarService,
         private dialog: MatDialog,
-        private afStorage: AngularFireStorage
+        private afStorage: AngularFireStorage,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -67,7 +67,7 @@ export class DetailShopComponent implements OnInit {
     updateShop(shop: Shop) {
         this.shopService.updateShop(shop.key!, shop)
             .then(() => {
-                this.snackbar.openSnackBar('Cập nhật cửa hàng thành công.');
+                this.toastr.info('Thông tin cửa hàng đã được cập nhật', 'Cập nhật thành công!');
             })
             .catch(error => {
                 console.error(error);
@@ -77,7 +77,7 @@ export class DetailShopComponent implements OnInit {
     addSection(shop: Shop) {
         this.shopService.addSectionShop(shop, this.section)
             .then(() => {
-                this.snackbar.openSnackBar('Đã thêm phần ăn cho cửa hàng.');
+                this.toastr.success('Đã thêm phần ăn cho cửa hàng.', 'Thêm thành công!');
             })
             .catch(error => {
                 console.log(error);
@@ -106,7 +106,7 @@ export class DetailShopComponent implements OnInit {
             if (result) {
                 this.shopService.deleteSectionShop(shop, section)
                     .then(() => {
-                        this.snackbar.openSnackBar('Section đã được xoá !', 'DONE');
+                        this.toastr.error('Phần ăn đã được xoá.', 'Đã xoá!');
                     })
                     .catch(error => {
                         console.log(error);

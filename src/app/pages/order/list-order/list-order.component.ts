@@ -8,12 +8,13 @@ import { Order } from 'src/app/common/order';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { DetailOrderComponent } from '../detail-order/detail-order.component';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { Status } from 'src/app/common/status.enum';
 import { DatePipe } from '@angular/common';
 import { Payment } from 'src/app/common/payment.enum';
 import { MatSelectChange } from '@angular/material/select';
 import { MapDialogComponent } from 'src/app/theme/shared/components/map-dialog/map-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-list-order',
@@ -53,8 +54,8 @@ export class ListOrderComponent implements OnInit {
         private authService: AuthService,
         private _liveAnnouncer: LiveAnnouncer,
         private dialog: MatDialog,
-        private snackbar: SnackBarService,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -84,7 +85,7 @@ export class ListOrderComponent implements OnInit {
 
     openGoogleMapDialog(address: string): void {
         const googleMapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDqDqn8Op87YfKOjIvWTNA1MpYmn3htW9M&q=${encodeURIComponent(address)}`;
-        
+
         this.dialog.open(MapDialogComponent, {
             data: { googleMapUrl },
         });
@@ -123,7 +124,7 @@ export class ListOrderComponent implements OnInit {
 
         this.orderService.updateOrder(order.key!, order)
             .then(() => {
-                this.snackbar.openSnackBar('Đã xác nhận đơn hàng.');
+                this.toastr.success('Đã xác nhận đơn hàng.', 'Thành công!');
             })
             .catch(error => {
                 console.error(error);
@@ -131,21 +132,29 @@ export class ListOrderComponent implements OnInit {
     }
 
     deniedOrder(order: Order) {
-        order.status = Status.DENIED;
-        this.orderService.updateOrder(order.key!, order)
-            .then(() => {
-                this.snackbar.openSnackBar('Đơn hàng đã bị huỷ.', 'DONE');
-            })
-            .catch(error => {
-                console.error(error);
-            })
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: { title: 'Huỷ đơn hàng?', message: 'Bạn có chắc muốn huỷ đơn hàng này?' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                order.status = Status.DENIED;
+                this.orderService.updateOrder(order.key!, order)
+                    .then(() => {
+                        this.toastr.error('Đơn hàng đã bị huỷ.', 'Đã huỷ!');
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+            }
+        });
     }
 
     deliveringOrder(order: Order) {
         order.status = Status.DELIVERING;
         this.orderService.updateOrder(order.key!, order)
             .then(() => {
-                this.snackbar.openSnackBar('Đơn hàng đã được giao!', 'DONE');
+                this.toastr.success('Đơn hàng đã được giao.', 'Thành công!');
             })
             .catch(error => {
                 console.error(error);

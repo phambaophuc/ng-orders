@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { ShopService } from 'src/app/services/shop.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddSectionDialogComponent } from './add-section-dialog/add-section-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-add-shop',
@@ -28,10 +28,10 @@ export class AddShopComponent implements OnInit {
 
     constructor(
         private shopService: ShopService,
-        private snackbarSerice: SnackBarService,
         private afStorage: AngularFireStorage,
         private fb: FormBuilder,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -82,7 +82,7 @@ export class AddShopComponent implements OnInit {
         this.shopService.addShop(this.shop).then(() => {
             this.resetForm(formDirective);
             this.addingShop = false;
-            this.snackbarSerice.openSnackBar('Thêm cửa hàng thành công');
+            this.toastr.success('Cửa hàng đã được thêm.', 'Thêm thành công!');
         }).catch(error => {
             console.log(error);
             this.addingShop = false;

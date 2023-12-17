@@ -2,12 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { Option } from 'src/app/common/option';
 import { Section } from 'src/app/common/section';
 import { Shop } from 'src/app/common/shop';
 import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
     selector: 'app-edit-food',
@@ -33,9 +33,9 @@ export class EditFoodComponent implements OnInit {
         private afStorage: AngularFireStorage,
         private dialogRef: MatDialogRef<EditFoodComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private snackbarService: SnackBarService,
         private foodService: FoodService,
-        private shopService: ShopService
+        private shopService: ShopService,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -94,7 +94,7 @@ export class EditFoodComponent implements OnInit {
     updateFood() {
         this.foodService.updateFood(this.data.key, this.editForm.value)
             .then(() => {
-                this.snackbarService.openSnackBar('Thông tin sản phẩm đã được cập nhật!');
+                this.toastr.info('Thông tin sản phẩm đã được cập nhật.', 'Cập nhật thành công!');
                 this.dialogRef.close();
                 this.addingFood = false;
             })

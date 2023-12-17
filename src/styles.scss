@@ -48,6 +48,10 @@ $manage-shop-theme: mat.define-light-theme((color: (primary: $manage-shop-primar
 @import 'scss/themes/generic';
 @import 'scss/themes/minixs/function';
 
+// regular style toast
+@import 'ngx-toastr/toastr';
+@import 'ngx-toastr/toastr-bs5-alert';
+
 // icon
 @import 'scss/themes/font/datta-icon';
 @import 'scss/themes/font/feather';
