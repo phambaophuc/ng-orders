@@ -5,9 +5,9 @@ import { Option } from 'src/app/common/option';
 import { OptionItem } from 'src/app/common/option-item';
 import { FoodService } from 'src/app/services/food.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { ConfirmDeleteComponent } from '../../confirm-delete/confirm-delete.component';
 import { AddOptionItemComponent } from '../../add-food/add-option-item/add-option-item.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-option-details',
@@ -30,7 +30,9 @@ export class OptionDetailsComponent {
     ) { }
 
     deleteOptionItem(food: Food, optionIndex: number, optionItem: OptionItem) {
-        const dialogRef = this.dialog.open(ConfirmDeleteComponent);
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: { title: 'Xoá Item?', message: 'Bạn có chắc muốn xoá item này?' }
+        });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {

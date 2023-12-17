@@ -5,20 +5,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Food } from 'src/app/common/food';
-import { Shop } from 'src/app/common/shop';
 import { FoodService } from 'src/app/services/food.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { EditFoodComponent } from '../edit-food/edit-food.component';
 import { OptionDetailsComponent } from './option-details/option-details.component';
 import { OptionDialogComponent } from '../add-food/option-dialog/option-dialog.component';
 import { Option } from 'src/app/common/option';
-import { OptionItem } from 'src/app/common/option-item';
-import { AddOptionItemComponent } from '../add-food/add-option-item/add-option-item.component';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Section } from 'src/app/common/section';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-list-food',
@@ -84,7 +79,7 @@ export class ListFoodComponent implements OnInit {
     }
 
     deleteFood(foodKey: string) {
-        const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             data: { title: 'Xoá Sản phẩm?', message: 'Bạn có chắc muốn xoá Sản phẩm này?' }
         });
 
@@ -137,7 +132,7 @@ export class ListFoodComponent implements OnInit {
     }
 
     deleteOption(food: Food, option: Option) {
-        const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             data: { title: 'Xoá Option?', message: 'Bạn có chắc muốn xoá Option này?' }
         });
 

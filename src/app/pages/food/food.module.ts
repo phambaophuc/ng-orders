@@ -22,7 +22,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { AddFoodComponent } from './add-food/add-food.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { OptionDialogComponent } from './add-food/option-dialog/option-dialog.component';
-import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import { EditFoodComponent } from './edit-food/edit-food.component';
 import { ListFoodComponent } from './list-food/list-food.component';
 import { OptionDetailsComponent } from './list-food/option-details/option-details.component';
@@ -34,7 +33,6 @@ import { AddOptionItemComponent } from './add-food/add-option-item/add-option-it
         FoodComponent,
         AddFoodComponent,
         OptionDialogComponent,
-        ConfirmDeleteComponent,
         EditFoodComponent,
         ListFoodComponent,
         OptionDetailsComponent,

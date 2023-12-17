@@ -16,6 +16,9 @@ import { DataFilterPipe } from './filter/data-filter.pipe';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { LoadingDotsComponent } from './components/loading-dots/loading-dots.component';
 import { MapDialogComponent } from './components/map-dialog/map-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { MapDialogComponent } from './components/map-dialog/map-dialog.component
         DataFilterPipe,
         SpinnerComponent,
         LoadingDotsComponent,
-        MapDialogComponent
+        MapDialogComponent,
+        ConfirmDialogComponent
     ],
     imports: [
         CommonModule,
@@ -35,7 +39,9 @@ import { MapDialogComponent } from './components/map-dialog/map-dialog.component
         NgClickOutsideDirective,
         NgbDropdownModule,
         NgbNavModule,
-        NgbModule
+        NgbModule,
+        MatDialogModule,
+        MatButtonModule
     ],
     exports: [
         CommonModule,

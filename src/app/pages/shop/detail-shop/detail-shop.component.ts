@@ -6,8 +6,8 @@ import { ShopService } from 'src/app/services/shop.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AddSectionDialogComponent } from '../add-shop/add-section-dialog/add-section-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDeleteComponent } from '../../food/confirm-delete/confirm-delete.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-detail-shop',
@@ -98,7 +98,7 @@ export class DetailShopComponent implements OnInit {
     }
 
     deleteSection(shop: Shop, section: Section) {
-        const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             data: { title: 'Xoá Section?', message: 'Bạn có chắc muốn xoá Section này?' }
         });
 
