@@ -561,6 +561,9 @@ MIT
 ngx-mat-timepicker
 MIT
 
+ngx-pagination
+MIT
+
 ngx-scrollbar
 MIT
 
