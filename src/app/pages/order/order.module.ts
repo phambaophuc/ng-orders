@@ -22,7 +22,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { DetailOrderComponent } from './detail-order/detail-order.component';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 @NgModule({
@@ -35,9 +34,6 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
         CommonModule,
         OrderRoutingModule,
         SharedModule,
-        ToastrModule.forRoot({
-            timeOut: 3000
-        }),
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
@@ -55,6 +51,6 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
         MatProgressSpinnerModule,
         MatBadgeModule,
     ],
-    providers: [DatePipe, ToastrService]
+    providers: [DatePipe]
 })
 export class OrderModule { }

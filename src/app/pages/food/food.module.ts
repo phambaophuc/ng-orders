@@ -26,7 +26,6 @@ import { EditFoodComponent } from './edit-food/edit-food.component';
 import { ListFoodComponent } from './list-food/list-food.component';
 import { OptionDetailsComponent } from './list-food/option-details/option-details.component';
 import { AddOptionItemComponent } from './add-food/add-option-item/add-option-item.component';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 @NgModule({
@@ -58,11 +57,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
         MatCardModule,
         MatProgressSpinnerModule,
         MatBadgeModule,
-        SharedModule,
-        ToastrModule.forRoot({
-            timeOut: 3000
-        })
+        SharedModule
     ],
-    providers: [ToastrService]
+    providers: []
 })
 export class FoodModule { }
