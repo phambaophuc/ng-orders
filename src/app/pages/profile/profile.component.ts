@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/common/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-    user: any;
+    user: User = {};
 
     selectedImage: File | null = null;
     selectedImageSrc: string | null = null;
@@ -37,26 +38,23 @@ export class ProfileComponent implements OnInit {
             uploadTask.snapshotChanges().subscribe(
                 (snapshot) => {
                     if (snapshot?.state === 'success') {
-                        imageRef.getDownloadURL().subscribe(
-                            (downloadUrl) => {
-                                this.user.photoURL = downloadUrl;
-                                this.saveUser();
-                            }
-                        )
+                        imageRef.getDownloadURL().subscribe((downloadUrl) => {
+                            this.user.photoURL = downloadUrl;
+                            this.saveUser();
+                        });
                     }
                 }
-            )
+            );
         } else {
             this.saveUser();
         }
     }
 
     saveUser() {
-        this.authService.updateUserData(this.user).then(
-            () => {
+        this.authService.updateProfileUser(this.user)
+            .then(() => {
                 this.toastr.info('Thông tin đã được cập nhật.', 'Cập nhật thành công!');
-            }
-        );
+            });
     }
 
     onImageSelected(event: any) {

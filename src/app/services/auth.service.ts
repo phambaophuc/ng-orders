@@ -82,7 +82,7 @@ export class AuthService {
             })
             .catch((error) => {
                 window.alert(error.message);
-            })
+            });
     }
 
     // signout
@@ -90,7 +90,7 @@ export class AuthService {
         return this.afAuth.signOut().then(() => {
             localStorage.removeItem('user');
             this.router.navigate(['/auth/sign-in']);
-        })
+        });
     }
 
     // send email verfificaiton when new user sign up
@@ -137,12 +137,9 @@ export class AuthService {
 
     updateUserData(user: any) {
         const userRef = this.afDb.object(`Users/${user.uid}`);
-        console.log(user);
         const userData: User = {
             uid: user.uid,
             email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
             emailVerified: user.emailVerified,
             lastLoginAt: parseInt(user.metadata.lastLoginAt)
         };
@@ -150,9 +147,13 @@ export class AuthService {
         return userRef.update(userData);
     }
 
+    updateProfileUser(user: any) {
+        const userRef = this.afDb.object(`Users/${user.uid}`);
+        return userRef.update(user);
+    }
+
     updateUserShop(user: any, shopId: string) {
         const userRef = this.afDb.object(`Users/${user.uid}`);
-
         user.shopId = shopId;
 
         return userRef.update(user);
@@ -162,10 +163,10 @@ export class AuthService {
         return this.afAuth
             .signInWithPopup(provider)
             .then((result) => {
-                this.updateUserData(result.user);
+                this.updateProfileUser(result.user);
             })
             .catch((error) => {
                 window.alert(error);
-            })
+            });
     }
 }

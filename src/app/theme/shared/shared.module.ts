@@ -20,6 +20,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DateFormatPipe } from './filter/date-format.pipe';
+import { TimeFormatPipe } from './filter/time-format.pipe';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { DateFormatPipe } from './filter/date-format.pipe';
         LoadingDotsComponent,
         MapDialogComponent,
         ConfirmDialogComponent,
-        DateFormatPipe
+        DateFormatPipe,
+        TimeFormatPipe
     ],
     imports: [
         CommonModule,
@@ -59,7 +61,8 @@ import { DateFormatPipe } from './filter/date-format.pipe';
         NgbNavModule,
         NgScrollbarModule,
         NgClickOutsideDirective,
-        DateFormatPipe
+        DateFormatPipe,
+        TimeFormatPipe
     ]
 })
 export class SharedModule { }

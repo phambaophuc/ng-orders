@@ -6,7 +6,7 @@
     <div class="media-body">
         <h6 class="chat-header">
             {{ friends.displayName || 'Người bí ẩn' }}
-            <small class="d-block" *ngIf="friends.lastLoginAt">
+            <small class="d-block text-c-green" *ngIf="friends.lastLoginAt">
                 {{ friends.lastLoginAt | dateFormat }}
             </small>
         </h6>
