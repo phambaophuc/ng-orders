@@ -14,8 +14,29 @@ export class ChatService {
         return this.db.list(`Messages/${chatId}`).valueChanges();
     }
 
-    sendMessage(message: any) {
-        const chatId = `${message.receiverID}_${message.senderID}`;
-        this.db.list(`Messages/${chatId}`).push(message);
+    sendMessage(message: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const chatId = `${message.receiverID}_${message.senderID}`;
+            this.db.list(`Messages/${chatId}`).push(message)
+                .then(() => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    }
+
+    sendMessageAdmin(message: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const chatId = `${message.senderID}_${message.receiverID}`;
+            this.db.list(`Messages/${chatId}`).push(message)
+                .then(() => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
     }
 }

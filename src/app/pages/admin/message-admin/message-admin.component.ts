@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { UserService } from 'src/app/services/user.service';
@@ -8,20 +8,34 @@ import { UserService } from 'src/app/services/user.service';
     templateUrl: './message-admin.component.html',
     styleUrls: ['./message-admin.component.scss']
 })
-export class MessageAdminComponent {
+export class MessageAdminComponent implements OnInit, AfterViewChecked {
 
-    currentUser: any;
-    users: any[] = [];
+    @ViewChild('scrollChat', { static: false }) scrollChat!: ElementRef;
+
     user: any;
+    users: any[] = [];
+    currentUser: any;
 
     messages: any[] = [];
+    message!: string;
+
+    private doScroll = false;
 
     constructor(
         private userService: UserService,
         private chatService: ChatService,
         private authService: AuthService
-    ) {
+    ) { }
+
+    ngOnInit(): void {
         this.getUsersShop();
+    }
+
+    ngAfterViewChecked(): void {
+        if (this.doScroll) {
+            this.scrollToBottom();
+            this.doScroll = false;
+        }
     }
 
     getUsersShop() {
@@ -39,6 +53,7 @@ export class MessageAdminComponent {
                 this.chatService.getMessages(user.uid, this.user?.shopId)
                     .subscribe((messages) => {
                         this.messages = messages;
+                        this.doScroll = true;
                     });
             }
         );
@@ -47,5 +62,25 @@ export class MessageAdminComponent {
     changeUserId(user: any) {
         this.user = user;
         this.getChatMessage();
+    }
+
+    sentMsg() {
+        const message = {
+            message: this.message,
+            senderID: this.currentUser.uid,
+            receiverID: this.user.shopId,
+            timestamp: Date.now(),
+        };
+        this.chatService.sendMessageAdmin(message).then(() => {
+            this.scrollToBottom();
+            this.message = '';
+        });
+    }
+
+    scrollToBottom() {
+        if (this.scrollChat) {
+            const element = this.scrollChat.nativeElement;
+            element.scrollTop = element.scrollHeight;
+        }
     }
 }

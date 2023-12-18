@@ -40,7 +40,7 @@ export class ChatMsgComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         setTimeout(() => {
             this.scrollbar.scrollTo({ top: Number.MAX_SAFE_INTEGER, duration: 0 });
-        }, 1000);
+        }, 10);
     }
 
     getUserByKey() {
@@ -77,10 +77,11 @@ export class ChatMsgComponent implements OnInit, AfterViewInit {
                     receiverID: this.friendId,
                     timestamp: Date.now(),
                 };
-                this.chatService.sendMessage(message);
-                this.ngAfterViewInit();
-                this.messageSent.emit(this.message);
-                this.message = '';
+                this.chatService.sendMessage(message).then(() => {
+                    this.ngAfterViewInit();
+                    this.messageSent.emit(this.message);
+                    this.message = '';
+                });
             }
         }
     }

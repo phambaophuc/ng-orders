@@ -19,6 +19,7 @@ import { MapDialogComponent } from './components/map-dialog/map-dialog.component
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { DateFormatPipe } from './filter/date-format.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
         SpinnerComponent,
         LoadingDotsComponent,
         MapDialogComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        DateFormatPipe
     ],
     imports: [
         CommonModule,
@@ -56,7 +58,8 @@ import { MatButtonModule } from '@angular/material/button';
         NgbDropdownModule,
         NgbNavModule,
         NgScrollbarModule,
-        NgClickOutsideDirective
+        NgClickOutsideDirective,
+        DateFormatPipe
     ]
 })
 export class SharedModule { }
