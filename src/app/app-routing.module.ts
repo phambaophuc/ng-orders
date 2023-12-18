@@ -55,8 +55,8 @@ const routes: Routes = [
                 loadChildren: () => import('./pages/invoice/invoice.module').then(m => m.InvoiceModule)
             },
             {
-                path: 'account',
-                loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule),
+                path: 'a',
+                loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
                 canActivate: [AuthAdminGuard]
             }
         ]

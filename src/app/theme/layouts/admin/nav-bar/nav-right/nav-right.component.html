@@ -58,7 +58,7 @@
             </div>
         </div>
     </li>
-    <li (click)="this.visibleUserList = !this.visibleUserList">
+    <li *ngIf="!isAdmin" (click)="this.visibleUserList = !this.visibleUserList">
         <div class="dropdown">
             <a href="javascript:" class="displayChatbox dropdown-toggle">
                 <i class="icon feather icon-mail" title="Mail InBox"></i><span class="badge bg-success"><span

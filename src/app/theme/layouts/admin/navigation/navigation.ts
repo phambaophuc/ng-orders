@@ -99,7 +99,7 @@ export const NavigationItemsAdmin: NavigationItem[] = [
                 id: 'account',
                 title: 'Tài khoản',
                 type: 'item',
-                url: '/account',
+                url: '/a/account',
                 icon: 'fas fa-user-circle'
             },
             {
@@ -108,6 +108,21 @@ export const NavigationItemsAdmin: NavigationItem[] = [
                 type: 'item',
                 url: '/shop',
                 icon: 'fas fa-store'
+            }
+        ]
+    },
+    {
+        id: 'other',
+        title: 'other',
+        type: 'group',
+        icon: 'icon-group',
+        children: [
+            {
+                id: 'messages',
+                title: 'Nhắn tin',
+                type: 'item',
+                url: '/a/messages',
+                icon: 'fas fa-comments'
             }
         ]
     }

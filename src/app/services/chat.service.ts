@@ -9,8 +9,8 @@ export class ChatService {
 
     constructor(private db: AngularFireDatabase) { }
 
-    getMessages(receiverId: string, senderId: string) {
-        const chatId = `${receiverId}_${senderId}`;
+    getMessages(userId: string, shopId: string) {
+        const chatId = `${userId}_${shopId}`;
         return this.db.list(`Messages/${chatId}`).valueChanges();
     }
 

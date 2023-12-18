@@ -32,6 +32,7 @@ export class NavRightComponent implements DoCheck, OnInit {
 
     user: any;
     isLoggedIn?: boolean;
+    isAdmin: boolean = false;
 
     constructor(public authService: AuthService) {
         this.visibleUserList = false;
@@ -65,6 +66,9 @@ export class NavRightComponent implements DoCheck, OnInit {
         this.authService.getCurrentUser().subscribe(
             (user: any) => {
                 this.user = user;
+                if (user.isAdmin) {
+                    this.isAdmin = true;
+                }
             }
         );
     }

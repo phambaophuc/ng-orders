@@ -191,7 +191,7 @@
                 <strong>{{ option.optionName }}
                     <sup>
                         <a class="me-1" href="javascript:" (click)="deleteOption(i)">
-                            <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
+                            <i class="fas fa-close" style="color: #e60f0f;"></i>
                         </a>
                     </sup>:
                 </strong>
@@ -205,8 +205,8 @@
                         {{ item.name }}
                     </button>
                     <sup>
-                        <a class="me-1" href="javascript:" (click)="deleteOptionItem(option, index)">
-                            <i class="fas fa-delete-left" style="color: #e60f0f;"></i>
+                        <a href="javascript:" (click)="deleteOptionItem(option, index)">
+                            <i class="fas fa-close" style="color: #e60f0f;"></i>
                         </a>
                     </sup>
                     <ng-container *ngIf="!last">, </ng-container>
