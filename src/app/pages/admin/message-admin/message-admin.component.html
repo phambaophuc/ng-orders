@@ -22,7 +22,10 @@
                                 class="rounded-circle me-1" alt="{{ user.displayName }}" width="40" height="40">
                             <div class="flex-grow-1 ms-3">
                                 {{ user.displayName || 'Người bí ẩn' }}
-                                <div class="small"><span class="fas fa-circle text-success"></span> Online</div>
+                                <div class="small" *ngIf="user.lastLoginAt">
+                                    <span class="fas fa-circle text-success"></span>
+                                    {{ user.lastLoginAt | dateFormat }}
+                                </div>
                             </div>
                         </div>
                     </a>

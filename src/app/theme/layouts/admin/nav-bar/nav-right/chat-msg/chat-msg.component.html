@@ -18,7 +18,7 @@
             </ng-template>
             <ng-container *ngIf="chatMessage; else CHATNOTFOUND">
                 <ng-scrollbar #scrollbar style="height: calc(100vh - 170px)" visibility="hover">
-                    <div *ngFor="let messages of chatMessage">
+                    <div *ngFor="let messages of chatMessage; let i = index">
                         <div class="media chat-messages">
                             <a *ngIf="!(messages.senderID === currentUser.shopId)" class="media-left photo-table"
                                 href="javascript:">
@@ -30,6 +30,7 @@
                                 <div class="">
                                     <p class="chat-cont">{{ messages.message }}</p>
                                 </div>
+                                <!-- <p class="chat-time">{{ messages.timestamp | dateFormat }}</p> -->
                             </div>
                         </div>
                     </div>

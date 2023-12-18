@@ -4,7 +4,6 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { User } from '../common/user';
 import * as auth from 'firebase/auth';
-import { Shop } from '../common/shop';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -64,6 +63,7 @@ export class AuthService {
             .then((result) => {
                 this.afAuth.authState.subscribe((user) => {
                     if (user) {
+                        this.updateUserData(result.user);
                         this.router.navigate(['/dashboard']);
                     }
                 });
@@ -83,6 +83,14 @@ export class AuthService {
             .catch((error) => {
                 window.alert(error.message);
             })
+    }
+
+    // signout
+    signOut() {
+        return this.afAuth.signOut().then(() => {
+            localStorage.removeItem('user');
+            this.router.navigate(['/auth/sign-in']);
+        })
     }
 
     // send email verfificaiton when new user sign up
@@ -120,7 +128,8 @@ export class AuthService {
             email: user.email,
             displayName: user.displayName ? user.displayName : '',
             photoURL: user.photoURL ? user.photoURL : '',
-            emailVerified: user.emailVerified
+            emailVerified: user.emailVerified,
+            lastLoginAt: parseInt(user.metadata.lastLoginAt)
         };
 
         return userRef.set(userData);
@@ -128,13 +137,14 @@ export class AuthService {
 
     updateUserData(user: any) {
         const userRef = this.afDb.object(`Users/${user.uid}`);
-
+        console.log(user);
         const userData: User = {
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
-            emailVerified: user.emailVerified
+            emailVerified: user.emailVerified,
+            lastLoginAt: parseInt(user.metadata.lastLoginAt)
         };
 
         return userRef.update(userData);
@@ -146,14 +156,6 @@ export class AuthService {
         user.shopId = shopId;
 
         return userRef.update(user);
-    }
-
-    // signout
-    signOut() {
-        return this.afAuth.signOut().then(() => {
-            localStorage.removeItem('user');
-            this.router.navigate(['/auth/sign-in']);
-        })
     }
 
     authLogin(provider: any) {
