@@ -5,4 +5,5 @@ export class User {
     photoURL?: string;
     emailVerified?: boolean;
     lastLoginAt?: number;
+    phoneNumber?: string;
 }

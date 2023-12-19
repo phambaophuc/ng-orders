@@ -44,7 +44,13 @@
                         <div class="mb-3">
                             <label class="small mb-1" for="inputEmailAddress">Email address</label>
                             <input class="form-control" id="inputEmailAddress" type="email"
-                                placeholder="Enter your email address" value="{{ user.email }}">
+                                placeholder="Enter your email address" value="{{ user.email }}" disabled>
+                        </div>
+                        <!-- Form Group (phone number)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputPhoneNumber">Phone number</label>
+                            <input class="form-control" id="inputPhoneNumber" type="text"
+                                placeholder="Enter your phone number" value="{{ user.phoneNumber }}">
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="button" (click)="onSubmit()">Save changes</button>

@@ -23,7 +23,7 @@ export class ListAccountComponent {
     getAllUsers() {
         this.userService.getUsers().subscribe(
             (users) => {
-                this.users = users;
+                this.users = users.filter(user => !user.isAdmin);
             }
         )
     }

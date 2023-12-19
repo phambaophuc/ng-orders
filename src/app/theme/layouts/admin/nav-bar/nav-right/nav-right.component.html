@@ -31,7 +31,7 @@
                     </li>
                     <li class="notification">
                         <div class="media">
-                            <img class="img-radius" src="assets/images/user/avatar-2.jpg"
+                            <img class="img-radius" src="assets/images/user/avatar-1.jpg"
                                 alt="Generic placeholder image" />
                             <div class="media-body">
                                 <p><strong>Joseph William</strong><span class="n-time text-muted"><i
@@ -42,7 +42,7 @@
                     </li>
                     <li class="notification">
                         <div class="media">
-                            <img class="img-radius" src="assets/images/user/avatar-3.jpg"
+                            <img class="img-radius" src="assets/images/user/avatar-1.jpg"
                                 alt="Generic placeholder image" />
                             <div class="media-body">
                                 <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i
@@ -70,13 +70,13 @@
     <li *ngIf="isLoggedIn">
         <div class="dropdown drp-user" ngbDropdown placement="auto">
             <a href="javascript:" ngbDropdownToggle>
-                <img src="{{ user?.photoURL || 'https://lh3.googleusercontent.com/a/ACg8ocKWmSrGjYufaK5Z-qTXfBeewGwG1bRUNdabvHF1a9iBrXk=s96-c' }}"
-                    class="img-radius" width="40px" height="40px" alt="User-Profile-Image" />
+                <img src="{{ user?.photoURL || 'assets/images/user/avatar-1.jpg' }}" class="img-radius" width="40px"
+                    height="40px" alt="User-Profile-Image" />
             </a>
             <div class="dropdown-menu dropdown-menu-end profile-notification" ngbDropdownMenu>
                 <div class="pro-head">
-                    <img src="{{ user?.photoURL || 'https://lh3.googleusercontent.com/a/ACg8ocKWmSrGjYufaK5Z-qTXfBeewGwG1bRUNdabvHF1a9iBrXk=s96-c' }}"
-                        class="img-radius" alt="User-Profile-Image" />
+                    <img src="{{ user?.photoURL || 'assets/images/user/avatar-1.jpg' }}" class="img-radius"
+                        alt="User-Profile-Image" />
                     <span>
                         {{ user?.displayName || (user?.email.split('@')[0]) }}
                     </span>

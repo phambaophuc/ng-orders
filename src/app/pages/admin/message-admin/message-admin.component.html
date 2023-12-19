@@ -18,10 +18,10 @@
                         class="list-group-item list-group-item-action border-0 mb-3">
                         <!-- <div class="badge bg-success float-end me-2">5</div> -->
                         <div class="d-flex align-items-start ms-3">
-                            <img src="{{ user.photoURL || 'assets/images/user/avatar-1.jpg' }}"
+                            <img src="{{ user.shopImage || 'assets/images/user/avatar-1.jpg' }}"
                                 class="rounded-circle me-1" alt="{{ user.displayName }}" width="40" height="40">
                             <div class="flex-grow-1 ms-3">
-                                {{ user.displayName || 'Người bí ẩn' }}
+                                {{ user.shopName || 'Người bí ẩn' }}
                                 <div class="small" *ngIf="user.lastLoginAt">
                                     <span class="fas fa-circle text-success"></span>
                                     {{ user.lastLoginAt | dateFormat }}

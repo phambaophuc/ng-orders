@@ -1,6 +1,7 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
+import { ShopService } from 'src/app/services/shop.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class MessageAdminComponent implements OnInit, AfterViewChecked {
     constructor(
         private userService: UserService,
         private chatService: ChatService,
-        private authService: AuthService
+        private authService: AuthService,
+        private shopService: ShopService
     ) { }
 
     ngOnInit(): void {
@@ -39,12 +41,21 @@ export class MessageAdminComponent implements OnInit, AfterViewChecked {
     }
 
     getUsersShop() {
-        this.userService.getUsers().subscribe(
-            (users) => {
-                this.users = users.filter(user => user.shopId);
-            }
-        );
+        this.userService.getUsers().subscribe((users) => {
+            this.shopService.getAllShops().subscribe((shops) => {
+                this.users = users.filter(user => user.shopId)
+                    .map(user => {
+                        const shop = shops.find((shop: any) => shop.key === user.shopId);
+                        return {
+                            ...user,
+                            shopName: shop ? shop.shopName : '',
+                            shopImage: shop ? shop.shopImage : '',
+                        };
+                    });
+            });
+        });
     }
+
 
     getChatMessage() {
         this.authService.getCurrentUser().subscribe(

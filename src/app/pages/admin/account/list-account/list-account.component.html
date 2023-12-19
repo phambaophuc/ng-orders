@@ -69,6 +69,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Position</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
                                 <th scope="col" style="width: 200px;">Action</th>
                             </tr>
                         </thead>
@@ -82,8 +83,8 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <img src="{{ user.photoURL || 'https://bootdey.com/img/Content/avatar/avatar1.png' }}"
-                                        alt="" class="avatar-sm rounded-circle me-2" />
+                                    <img src="{{ user.photoURL || 'assets/images/user/avatar-1.jpg' }}" alt=""
+                                        class="avatar-sm rounded-circle me-2" />
                                     <a href="javascript:" class="text-body">{{ user.displayName || 'Người bí ẩn' }}</a>
                                 </td>
                                 <td>
@@ -92,7 +93,8 @@
                                         {{ user.shopId ? 'Quản lý cửa hàng' : 'Người dùng' }}
                                     </span>
                                 </td>
-                                <td>{{ user.email }}</td>
+                                <td>{{ user.email || 'Chưa cập nhật' }}</td>
+                                <td>{{ user.phoneNumber || 'Chưa cập nhật' }}</td>
                                 <td>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
