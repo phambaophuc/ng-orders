@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1702912914797,
+  "timestamp": 1702962820377,
   "index": "/angular-manage-food-shop/index.html",
   "assetGroups": [
     {
@@ -11,7 +11,7 @@
         "ignoreVary": true
       },
       "urls": [
-        "/angular-manage-food-shop/373.ac5f8c66892dbbb4.js",
+        "/angular-manage-food-shop/28.9f88ca8a82297630.js",
         "/angular-manage-food-shop/53.23c6b184a6246398.js",
         "/angular-manage-food-shop/736.a57429f8bd12a228.js",
         "/angular-manage-food-shop/751.22825c3da5beb3a5.js",
@@ -20,10 +20,10 @@
         "/angular-manage-food-shop/common.b57ae46dc03df386.js",
         "/angular-manage-food-shop/favicon.ico",
         "/angular-manage-food-shop/index.html",
-        "/angular-manage-food-shop/main.bd392ae4ae0aba8b.js",
+        "/angular-manage-food-shop/main.82cc00554b378f40.js",
         "/angular-manage-food-shop/manifest.webmanifest",
         "/angular-manage-food-shop/polyfills.1606e2e8a78a53fc.js",
-        "/angular-manage-food-shop/runtime.47fc19e729655767.js",
+        "/angular-manage-food-shop/runtime.f73e14392ef16a7d.js",
         "/angular-manage-food-shop/styles.2aff6651d790b23b.css"
       ],
       "patterns": []
@@ -198,7 +198,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/angular-manage-food-shop/373.ac5f8c66892dbbb4.js": "b12f4e5021e40b0f02feec6a0135dacfb0c93083",
+    "/angular-manage-food-shop/28.9f88ca8a82297630.js": "de88fd06f2059a325e35d11bb553d26f8c9eb4c6",
     "/angular-manage-food-shop/53.23c6b184a6246398.js": "6e6c930658fed2b0f7a889108ef04d5ee9f179a1",
     "/angular-manage-food-shop/736.a57429f8bd12a228.js": "7f569bb64d5e46e273b13b29fc43402b42804194",
     "/angular-manage-food-shop/751.22825c3da5beb3a5.js": "f398612e7d8c43ab5051521d14bf3363f158cf5a",
@@ -351,8 +351,8 @@
     "/angular-manage-food-shop/feather.93dd86b54a27fdb2.ttf": "28ab955241342557409385f350f6664770d764c3",
     "/angular-manage-food-shop/feather.b7eeb2cd2e07d7e2.woff": "22574b7f62823253ef1189c6f6846011596d0443",
     "/angular-manage-food-shop/img-auth-big.f575e0e17383ebee.jpg": "f599d8f6bf895f39638a55fc0b5ed7ea4e92379b",
-    "/angular-manage-food-shop/index.html": "fc9845d68e219917e57e5aaeb2e3bed953aaf552",
-    "/angular-manage-food-shop/main.bd392ae4ae0aba8b.js": "140fec3b3c7c758b48d5dc889cce82380a03afda",
+    "/angular-manage-food-shop/index.html": "8c20784f6d6e9e620fd04521280f0c2008b5e077",
+    "/angular-manage-food-shop/main.82cc00554b378f40.js": "1725eef253837a17dc54b794a7c47db1d76cf92e",
     "/angular-manage-food-shop/manifest.webmanifest": "9778b2ef00f3ba15e412719e693b9384bb054995",
     "/angular-manage-food-shop/pct.0ecdae2a64e46a8e.woff": "610a109f1d95d2c6d586234d0baa7d6db859031a",
     "/angular-manage-food-shop/pct.617e81ce5615e497.ttf": "73f7e7a5716d68c21a5241b909006e52c3aac3ca",
@@ -366,7 +366,7 @@
     "/angular-manage-food-shop/pxiByp8kv8JHgFVrLGT9Z1xlFQ.29eae96f1045a170.woff2": "7c949455fa86a8819b3f896f373601454fc7b10d",
     "/angular-manage-food-shop/pxiEyp8kv8JHgFVrJJfecg.4ed36e88dc7d70fb.woff2": "eec7a97bc1319b123a7addb438fa8a231469b511",
     "/angular-manage-food-shop/pxiEyp8kv8JHgFVrJJnecmNE.bb0e88331414ae61.woff2": "b775d4b1a914096aef0047a3b1b269378f81ac9c",
-    "/angular-manage-food-shop/runtime.47fc19e729655767.js": "53fc2409718d61e8feea4fb578fabf2f6579facc",
+    "/angular-manage-food-shop/runtime.f73e14392ef16a7d.js": "7622e4b7fb59e88c4c6a3cbbda912c6bb63f7d12",
     "/angular-manage-food-shop/styles.2aff6651d790b23b.css": "82ab31fdab8bde029e228e511d5fbd6f674eca3f"
   },
   "navigationUrls": [
