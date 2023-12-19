@@ -13,6 +13,8 @@ import { Option } from 'src/app/common/option';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import * as XLSX from 'xlsx';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
     selector: 'app-list-food',
@@ -36,6 +38,7 @@ export class ListFoodComponent implements OnInit {
     constructor(
         private foodService: FoodService,
         private authService: AuthService,
+        private excelService: ExcelService,
         private _liveAnnouncer: LiveAnnouncer,
         private toastr: ToastrService,
         private dialog: MatDialog
@@ -153,5 +156,33 @@ export class ListFoodComponent implements OnInit {
         } else {
             this._liveAnnouncer.announce('Sorting cleared');
         }
+    }
+
+    // Thêm dữ liệu food từ excel
+    onFileChange(event: any) {
+        const file = event.target.files[0];
+
+        if (file) {
+            this.excelService.readFileDataFood(file).then((data: any[]) => {
+                const processedData = data.map(
+                    item => ({
+                        ...item,
+                        shopId: String(item.shopId),
+                        sectionId: String(item.sectionId)
+                    })
+                );
+                this.foodService.addFoodsFromExcel(processedData);
+            });
+        }
+    }
+
+    openFileInput() {
+        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+        fileInput.click();
+    }
+
+    // Tải file ví dụ
+    downloadSampleDataFoodExcel() {
+        this.excelService.downloadSampleDataFoodExcel();
     }
 }

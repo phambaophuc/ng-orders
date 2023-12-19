@@ -101,4 +101,48 @@ export class ExcelService {
 
         XLSX.writeFile(workbook, fileName);
     }
+
+    readFileDataFood(file: File): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+
+            reader.onload = (e: any) => {
+                const workbook = XLSX.read(e.target.result, { type: 'binary' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(sheet, { raw: true });
+                resolve(jsonData);
+            };
+
+            reader.onerror = (error) => reject(error);
+
+            reader.readAsBinaryString(file);
+        });
+    }
+
+    downloadSampleDataFoodExcel() {
+        const sampleData = [
+            {
+                foodDescription: 'Sample Description',
+                foodImage: 'Sample Image URL',
+                foodName: 'Sample Food',
+                foodPrice: 10000,
+                foodType: 'Sample Type',
+                foodNote: 'Sample Note',
+                isOutOfStock: false,
+                sectionId: 'Sample Section ID',
+                shopId: 'Sample Shop ID'
+            },
+        ];
+
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(sampleData);
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+
+        const now = new Date();
+        const fileName = `sample_excel_${now.getFullYear()}_${now.getMonth() + 1}_${now.getDate()}.xlsx`;
+        XLSX.writeFile(workbook, fileName);
+    }
 }

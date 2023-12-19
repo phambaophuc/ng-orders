@@ -71,46 +71,49 @@ export class DetailShopComponent implements OnInit {
             })
             .catch(error => {
                 console.error(error);
-            })
-    }
-
-    addSection(shop: Shop) {
-        this.shopService.addSectionShop(shop, this.section)
-            .then(() => {
-                this.toastr.success('Đã thêm phần ăn cho cửa hàng.', 'Thêm thành công!');
-            })
-            .catch(error => {
-                console.log(error);
             });
-        this.section = {};
     }
 
-    openAddSection(shop: Shop) {
+    addSection() {
+        this.shop.sections?.push(this.section);
+        // this.shopService.addSectionShop(shop, this.section)
+        //     .then(() => {
+        //         this.toastr.success('Đã thêm phần ăn cho cửa hàng.', 'Thêm thành công!');
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
+        // this.section = {};
+    }
+
+    openAddSection() {
         const dialogRef = this.dialog.open(AddSectionDialogComponent, {
             data: { section: this.section },
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.addSection(shop);
+                this.addSection();
             }
         });
     }
 
-    deleteSection(shop: Shop, section: Section) {
+    deleteSection(index: number) {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             data: { title: 'Xoá Section?', message: 'Bạn có chắc muốn xoá Section này?' }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.shopService.deleteSectionShop(shop, section)
-                    .then(() => {
-                        this.toastr.error('Phần ăn đã được xoá.', 'Đã xoá!');
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                // this.shopService.deleteSectionShop(shop, section)
+                //     .then(() => {
+                //         this.toastr.error('Phần ăn đã được xoá.', 'Đã xoá!');
+                //     })
+                //     .catch(error => {
+                //         console.log(error);
+                //     });
+
+                this.shop.sections?.splice(index, 1);
             }
         });
     }

@@ -16,18 +16,26 @@
                     <mat-card-content>
                         <div class="d-inline-flex justify-content-around" *ngIf="!isEditModeShop">
                             <div class="me-3 fw-bold text-end">
+                                <p>Mã cửa hàng: </p>
                                 <p>Tên cửa hàng: </p>
                                 <p>Địa chỉ cửa hàng: </p>
                                 <p>Thời gian mở cửa: </p>
                                 <p>Thời gian đóng cửa: </p>
                                 <p>Trạng thái: </p>
+                                <p *ngIf="shop.sections!.length > 0">Phần ăn: </p>
                             </div>
                             <div>
+                                <p>{{ shop.key }}</p>
                                 <p>{{ shop.shopName }}</p>
                                 <p>{{ shop.shopAddress }}</p>
                                 <p>{{ shop.openingTime }}</p>
                                 <p>{{ shop.closingTime }}</p>
                                 <p>{{ shop.isOpening ? 'Mở cửa' : 'Đóng cửa' }}</p>
+                                <ol class="custom-list" *ngIf="shop.sections!.length > 0">
+                                    <li *ngFor="let item of shop.sections;">
+                                        {{ item.sectionName }}
+                                    </li>
+                                </ol>
                             </div>
                         </div>
 
@@ -56,6 +64,24 @@
                                 </mat-icon>
                                 <ngx-mat-timepicker color="accent" #closingTime></ngx-mat-timepicker>
                             </mat-form-field>
+
+                            <div class="my-3" *ngIf="shop.sections!.length > 0">
+                                <span *ngFor="let item of shop.sections; let i = index; let last = last">
+                                    {{ item.sectionName }}
+                                    <sup *ngIf="isEditModeShop">
+                                        <a href="javascript:" title="Xoá Section" (click)="deleteSection(i)">
+                                            <i class="fas fa-close" style="color: #e60f0f;"></i>
+                                        </a>
+                                    </sup>
+                                    <ng-container *ngIf="!last">, </ng-container>
+                                </span>
+                                <sup class="ms-1" *ngIf="isEditModeShop">
+                                    <button mat-button color="accent" type="button" (click)="openAddSection()">
+                                        Thêm phần ăn
+                                    </button>
+                                </sup>
+                            </div>
+
                             <mat-checkbox [(ngModel)]="shop.isOpening">
                                 Is Opening
                             </mat-checkbox>
@@ -67,34 +93,6 @@
                             </button>
                             <button mat-icon-button color="warn" (click)="close()" *ngIf="isEditModeShop">
                                 <mat-icon>close</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-
-            <div class="position-relative mt-1">
-                <h5 class="text-center">Danh sách Phần ăn</h5>
-                <mat-card>
-                    <mat-card-content>
-                        <span *ngFor="let item of shop.sections; let last = last">
-                            {{ item.sectionName }}
-                            <sup *ngIf="isEditModeSection">
-                                <a href="javascript:" title="Xoá Section" (click)="deleteSection(shop, item)">
-                                    <i class="fas fa-close" style="color: #e60f0f;"></i>
-                                </a>
-                            </sup>
-                            <ng-container *ngIf="!last">, </ng-container>
-                        </span>
-                        <sup class="ms-1" *ngIf="isEditModeSection">
-                            <button mat-button color="accent" type="button" (click)="openAddSection(shop)">
-                                Thêm phần ăn
-                            </button>
-                        </sup>
-
-                        <div class="position-absolute top-0 end-0">
-                            <button mat-icon-button color="primary" (click)="toggleEditModeSection()">
-                                <mat-icon>{{ isEditModeSection ? 'close' : 'edit' }}</mat-icon>
                             </button>
                         </div>
                     </mat-card-content>

@@ -1,4 +1,13 @@
 <div class="mt-4">
+    <div>
+        <input type="file" #fileInput style="display:none" (change)="onFileChange($event)" />
+        <button mat-button color="primary" (click)="fileInput.click()" style="color: #3498db;">
+            <i class="fas fa-cloud-upload"></i>Upload data
+        </button>
+        <button mat-button (click)="downloadSampleDataFoodExcel()" style="color: #2ecc71;">
+            <i class="fas fa-cloud-download"></i>Download sample data
+        </button>
+    </div>
     <div class="table-responsive">
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 

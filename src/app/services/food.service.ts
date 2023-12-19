@@ -35,6 +35,13 @@ export class FoodService {
             })));
     }
 
+    addFoodsFromExcel(data: any[]) {
+        const foodsRef = this.foodRef;
+
+        data.forEach(item => {
+            foodsRef.push(item);
+        });
+    }
 
     addFood(newFood: Food): Promise<any> {
         const foodKey = this.foodRef.push(null!).key;
