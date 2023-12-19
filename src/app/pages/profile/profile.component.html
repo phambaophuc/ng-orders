@@ -49,8 +49,8 @@
                         <!-- Form Group (phone number)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputPhoneNumber">Phone number</label>
-                            <input class="form-control" id="inputPhoneNumber" type="text"
-                                placeholder="Enter your phone number" value="{{ user.phoneNumber }}">
+                            <input class="form-control" id="inputPhoneNumber" placeholder="Enter your phone number"
+                                name="phoneNumber" [(ngModel)]="user.phoneNumber" value="{{ user.phoneNumber }}">
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="button" (click)="onSubmit()">Save changes</button>
