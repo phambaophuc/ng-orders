@@ -101,6 +101,10 @@
                     <span [ngClass]="getStatusClass(order.status)">
                         <i class="me-1 fas" [ngClass]="getStatusIcon(order.status)"></i>
                         {{ getStatusTranslation(order.status) }}
+                        <p class="text-center text-info m-0" style="font-size: 10px; font-style: italic;"
+                            *ngIf="order.status.toLowerCase() === 'denied'">
+                            Lý do: {{ order.cancellationReason }}
+                        </p>
                     </span>
                 </td>
             </ng-container>

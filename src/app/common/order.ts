@@ -12,6 +12,7 @@ export class Order {
     phoneNumber?: string;
     shopId?: string;
     status?: string;
+    cancellationReason?: string;
     acceptedTime?: string;
     acceptedDate?: string;
     userId?: string;

@@ -21,6 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DateFormatPipe } from './filter/date-format.pipe';
 import { TimeFormatPipe } from './filter/time-format.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { InputDialogComponent } from './components/input-dialog/input-dialog.component';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { TimeFormatPipe } from './filter/time-format.pipe';
         MapDialogComponent,
         ConfirmDialogComponent,
         DateFormatPipe,
-        TimeFormatPipe
+        TimeFormatPipe,
+        InputDialogComponent
     ],
     imports: [
         CommonModule,
@@ -45,7 +48,8 @@ import { TimeFormatPipe } from './filter/time-format.pipe';
         NgbNavModule,
         NgbModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatInputModule
     ],
     exports: [
         CommonModule,

@@ -15,6 +15,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { MapDialogComponent } from 'src/app/theme/shared/components/map-dialog/map-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/theme/shared/components/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { InputDialogComponent } from 'src/app/theme/shared/components/input-dialog/input-dialog.component';
 
 @Component({
     selector: 'app-list-order',
@@ -132,20 +133,25 @@ export class ListOrderComponent implements OnInit {
     }
 
     deniedOrder(order: Order) {
-        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-            data: { title: 'Huỷ đơn hàng?', message: 'Bạn có chắc muốn huỷ đơn hàng này?' }
+        const dialogRef = this.dialog.open(InputDialogComponent, {
+            data: {
+                title: 'Huỷ đơn hàng?',
+                content: 'Vui lòng nhập lý do huỷ đơn hàng!',
+                inputValue: ''
+            }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 order.status = Status.DENIED;
+                order.cancellationReason = result;
                 this.orderService.updateOrder(order.key!, order)
                     .then(() => {
                         this.toastr.error('Đơn hàng đã bị huỷ.', 'Đã huỷ!');
                     })
                     .catch(error => {
                         console.error(error);
-                    })
+                    });
             }
         });
     }
