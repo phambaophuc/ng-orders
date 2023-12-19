@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1702980215930,
+  "timestamp": 1702995523723,
   "index": "/angular-manage-food-shop/index.html",
   "assetGroups": [
     {
@@ -13,17 +13,17 @@
       "urls": [
         "/angular-manage-food-shop/28.9f88ca8a82297630.js",
         "/angular-manage-food-shop/53.23c6b184a6246398.js",
-        "/angular-manage-food-shop/736.a57429f8bd12a228.js",
+        "/angular-manage-food-shop/736.acff02e80797c3b1.js",
         "/angular-manage-food-shop/751.340d715bfbc88d3b.js",
         "/angular-manage-food-shop/85.92091f01fe76413d.js",
-        "/angular-manage-food-shop/875.0d59b2dc107af1ad.js",
+        "/angular-manage-food-shop/875.2453b1c20bee87a0.js",
         "/angular-manage-food-shop/common.b57ae46dc03df386.js",
         "/angular-manage-food-shop/favicon.ico",
         "/angular-manage-food-shop/index.html",
-        "/angular-manage-food-shop/main.772b20a6e64951e2.js",
+        "/angular-manage-food-shop/main.5243c0c62138b099.js",
         "/angular-manage-food-shop/manifest.webmanifest",
         "/angular-manage-food-shop/polyfills.1606e2e8a78a53fc.js",
-        "/angular-manage-food-shop/runtime.85a061bc220304bf.js",
+        "/angular-manage-food-shop/runtime.805ad168a0e24b3e.js",
         "/angular-manage-food-shop/styles.2aff6651d790b23b.css"
       ],
       "patterns": []
@@ -128,10 +128,10 @@
   "hashTable": {
     "/angular-manage-food-shop/28.9f88ca8a82297630.js": "de88fd06f2059a325e35d11bb553d26f8c9eb4c6",
     "/angular-manage-food-shop/53.23c6b184a6246398.js": "6e6c930658fed2b0f7a889108ef04d5ee9f179a1",
-    "/angular-manage-food-shop/736.a57429f8bd12a228.js": "7f569bb64d5e46e273b13b29fc43402b42804194",
+    "/angular-manage-food-shop/736.acff02e80797c3b1.js": "129f31c8e805f147f89b5bf97f50c2a6fd4fe838",
     "/angular-manage-food-shop/751.340d715bfbc88d3b.js": "44e8d4f4e65dc800b9e526e559165bc0e61ad41d",
     "/angular-manage-food-shop/85.92091f01fe76413d.js": "b46e972f5df806d8ac54ef46082567a66949acd4",
-    "/angular-manage-food-shop/875.0d59b2dc107af1ad.js": "71fba4044f3aa33138459d0f6bcff26e789d482b",
+    "/angular-manage-food-shop/875.2453b1c20bee87a0.js": "fbb398b7beffe08524402f478b0c6e73e8811b7d",
     "/angular-manage-food-shop/Flaticon.338c89fb388f777f.svg": "7d21f2b3513b3cd2504599adf68255788bff0b0d",
     "/angular-manage-food-shop/Flaticon.7486237cbe8c84ed.ttf": "f4cb7da8c2a4db76421d0d89210752ab866124c1",
     "/angular-manage-food-shop/Flaticon.78353dafb6ba9ddc.woff": "7dac3da773b099bf73689d88b85f58dd886af69e",
@@ -207,8 +207,8 @@
     "/angular-manage-food-shop/feather.93dd86b54a27fdb2.ttf": "28ab955241342557409385f350f6664770d764c3",
     "/angular-manage-food-shop/feather.b7eeb2cd2e07d7e2.woff": "22574b7f62823253ef1189c6f6846011596d0443",
     "/angular-manage-food-shop/img-auth-big.f575e0e17383ebee.jpg": "f599d8f6bf895f39638a55fc0b5ed7ea4e92379b",
-    "/angular-manage-food-shop/index.html": "3cfd21037a99c1cad1b39e0865fec16c49cb5b42",
-    "/angular-manage-food-shop/main.772b20a6e64951e2.js": "fbc6f63664500a488f98058ab20b9e25833bcd48",
+    "/angular-manage-food-shop/index.html": "bb65deafd69322d31680dddacdd8c8ce3fa474dd",
+    "/angular-manage-food-shop/main.5243c0c62138b099.js": "2dc6cd848256ed2079199c9debdbb47ae4713cd1",
     "/angular-manage-food-shop/manifest.webmanifest": "9778b2ef00f3ba15e412719e693b9384bb054995",
     "/angular-manage-food-shop/pct.0ecdae2a64e46a8e.woff": "610a109f1d95d2c6d586234d0baa7d6db859031a",
     "/angular-manage-food-shop/pct.617e81ce5615e497.ttf": "73f7e7a5716d68c21a5241b909006e52c3aac3ca",
@@ -222,7 +222,7 @@
     "/angular-manage-food-shop/pxiByp8kv8JHgFVrLGT9Z1xlFQ.29eae96f1045a170.woff2": "7c949455fa86a8819b3f896f373601454fc7b10d",
     "/angular-manage-food-shop/pxiEyp8kv8JHgFVrJJfecg.4ed36e88dc7d70fb.woff2": "eec7a97bc1319b123a7addb438fa8a231469b511",
     "/angular-manage-food-shop/pxiEyp8kv8JHgFVrJJnecmNE.bb0e88331414ae61.woff2": "b775d4b1a914096aef0047a3b1b269378f81ac9c",
-    "/angular-manage-food-shop/runtime.85a061bc220304bf.js": "abccd776ce34e4799823322364914b034c723170",
+    "/angular-manage-food-shop/runtime.805ad168a0e24b3e.js": "61d0410cf4e27dffed5ee20fad2e27e7e723705f",
     "/angular-manage-food-shop/styles.2aff6651d790b23b.css": "82ab31fdab8bde029e228e511d5fbd6f674eca3f"
   },
   "navigationUrls": [
