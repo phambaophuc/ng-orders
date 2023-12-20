@@ -18,6 +18,7 @@ import {
     ApexMarkers,
     NgApexchartsModule
 } from 'ng-apexcharts';
+import { Invoice } from 'src/app/common/invoice';
 import { Status } from 'src/app/common/status.enum';
 import { AuthService } from 'src/app/services/auth.service';
 import { FoodService } from 'src/app/services/food.service';
@@ -62,6 +63,7 @@ export class DashAnalyticsComponent {
     totalShop: number = 0;
     totalAccount: number = 0;
     totalVoucher: number = 0;
+    totalInvoicesPrice: number = 0;
 
     isAdmin: boolean = false;
 
@@ -86,6 +88,8 @@ export class DashAnalyticsComponent {
 
         this.calculateTotalQuantityShop();
         this.calculateTotalQuantityAccount();
+
+        this.getAllInvoices();
 
         authService.getCurrentUser().subscribe(
             (user: any) => {
@@ -209,5 +213,18 @@ export class DashAnalyticsComponent {
 
     goToPage(url: string) {
         this.router.navigate([url]);
+    }
+
+    getAllInvoices() {
+        this.authService.getCurrentUser().subscribe((user: any) => {
+            this.invoiceService.getInvoicesByShopId(user.shopId)
+                .subscribe(invoices => {
+                    this.totalInvoicesPrice = this.calculateTotalInvoicesPrice(invoices);
+                });
+        });
+    }
+
+    calculateTotalInvoicesPrice(invoices: Invoice[]): number {
+        return invoices.reduce((total, invoice) => total + (invoice.totalPrice || 0), 0);
     }
 }

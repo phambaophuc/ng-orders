@@ -1,17 +1,27 @@
 <div class="row justify-content-center" *ngIf="!isAdmin; else contentAdmin">
     <div class="row justify-content-center">
         <!-- order-card start -->
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-3 col-xl-3">
+            <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
+                <h6>Doanh thu</h6>
+                <h2 class="text-end"><i class="fas fa-chart-line float-start"></i>
+                    <span>{{ totalInvoicesPrice | currency: 'VND' }}</span>
+                </h2>
+                <p class="m-b-0">Tăng trưởng <span class="float-end">0%</span></p>
+            </app-card>
+        </div>
+        <div class="col-md-3 col-xl-3">
             <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
                 <h6>Số lượng Đồ ăn</h6>
                 <h2 class="text-end"><i class="fas fa-utensils float-start"></i>
                     <span>{{ totalFood }}</span>
                 </h2>
-                <p class="m-b-0">Số lượng Đồ ăn đạt 5 sao <span class="float-end">0</span>
+                <p class="m-b-0">Số lượng đồ ăn 5 sao
+                    <span class="float-end">0</span>
                 </p>
             </app-card>
         </div>
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-3 col-xl-3">
             <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
                 <h6>Số lượng Đơn Hàng</h6>
                 <h2 class="text-end"><i class="feather icon-shopping-cart float-start"></i>
@@ -20,7 +30,7 @@
                 <p class="m-b-0">Đơn hàng đã hoàn thành<span class="float-end">{{ totalOrderCompleted }}</span></p>
             </app-card>
         </div>
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-3 col-xl-3">
             <app-card [hidHeader]="true" cardClass="bg-c-green order-card">
                 <h6>Tổng Hoá Đơn</h6>
                 <h2 class="text-end"><i class="fas fa-money-bill float-start"></i>
