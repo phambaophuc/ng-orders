@@ -34,6 +34,7 @@ export class ListFoodComponent implements OnInit {
     addingSuccess: boolean = false;
 
     isLoading: boolean = false;
+    shopId?: string;
 
     constructor(
         private foodService: FoodService,
@@ -68,6 +69,7 @@ export class ListFoodComponent implements OnInit {
         this.isLoading = true;
         this.authService.getCurrentUser().subscribe(
             (user: any) => {
+                this.shopId = user.shopId;
                 this.foodService.getFoodsByShopId(user.shopId)
                     .subscribe(data => {
                         this.dataSource = new MatTableDataSource(data);
@@ -183,6 +185,8 @@ export class ListFoodComponent implements OnInit {
 
     // Tải file ví dụ
     downloadSampleDataFoodExcel() {
-        this.excelService.downloadSampleDataFoodExcel();
+        if (this.shopId) {
+            this.excelService.downloadSampleDataFoodExcel(this.shopId);
+        }
     }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
+import * as XLSXJSStyle from 'xlsx-js-style';
 
 @Injectable({
     providedIn: 'root'
@@ -120,29 +121,40 @@ export class ExcelService {
         });
     }
 
-    downloadSampleDataFoodExcel() {
-        const sampleData = [
+    downloadSampleDataFoodExcel(shopId: string) {
+        const data = [
             {
+                shopId: shopId,
+                foodName: 'Sample Food',
                 foodDescription: 'Sample Description',
                 foodImage: 'Sample Image URL',
-                foodName: 'Sample Food',
-                foodPrice: 10000,
                 foodType: 'Sample Type',
-                foodNote: 'Sample Note',
-                isOutOfStock: false,
-                sectionId: 'Sample Section ID',
-                shopId: 'Sample Shop ID'
+                foodPrice: 10000,
+                sectionId: 'Sample Section ID(mã số phần ăn -1)',
+                isOutOfStock: false
             },
         ];
 
-        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(sampleData);
-        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
 
-        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+        // Thiết lập độ rộng của cột A
+        const columnCount = XLSX.utils.decode_range(ws['!ref']!).e.c + 1;
+        ws['!cols'] = [];
+        for (let i = 0; i < columnCount; i++) {
+            ws['!cols'].push({ wch: 25 });
+        }
 
-        const now = new Date();
-        const fileName = `sample_excel_${now.getFullYear()}_${now.getMonth() + 1}_${now.getDate()}.xlsx`;
-        XLSX.writeFile(workbook, fileName);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        // Tạo Blob từ workbook với type là 'array'
+        const blob = XLSXJSStyle.write(wb, { bookType: 'xlsx', type: 'array' });
+
+        // Tạo URL từ Blob và tải về
+        const url = URL.createObjectURL(new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sample-data.xlsx';
+        a.click();
     }
 }
