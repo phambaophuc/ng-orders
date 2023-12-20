@@ -36,7 +36,35 @@
         <mat-divider class="my-3" *ngIf="!last"></mat-divider>
     </div>
 
+    <hr>
+
     <div class="text-end mt-4">
-        <h4>Tổng tiền: <span>{{ totalAmount | currency: 'VND' }}</span></h4>
+        <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-around">
+                <div class="me-3">
+                    <h5 style="font-size: 1em; color: #555;">
+                        Tổng cộng ({{ data.foods.length }} món):
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        Giảm giá:
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        Phí ship:
+                    </h5>
+                </div>
+                <div>
+                    <h5 style="font-size: 1em; color: #555;">
+                        {{ totalAmount | currency: 'VND' }}
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        -{{ discount | currency: 'VND' }}
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        {{ shoppingFee | currency: 'VND' }}
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <h4>Tổng cộng: <span class="total-amount">{{ totalPrice | currency: 'VND' }}</span></h4>
     </div>
 </div>

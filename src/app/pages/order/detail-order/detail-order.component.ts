@@ -9,13 +9,20 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class DetailOrderComponent implements OnInit {
 
     totalAmount: number = 0;
+    totalPrice: number = 0;
+    shoppingFee: number = 0;
+    discount: number = 0;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) { }
+    ) {
+        this.shoppingFee = this.data.shippingFee || 0;
+        this.discount = this.data.discount || 0;
+    }
 
     ngOnInit(): void {
         this.calculateTotalAmount();
+        this.calculateTotalPrice();
     }
 
     calculateTotalAmount() {
@@ -37,5 +44,9 @@ export class DetailOrderComponent implements OnInit {
 
                 return sum;
             }, 0);
+    }
+
+    calculateTotalPrice() {
+        this.totalPrice = (this.totalAmount + this.shoppingFee) - this.discount;
     }
 }

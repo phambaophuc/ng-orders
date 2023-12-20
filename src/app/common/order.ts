@@ -15,5 +15,7 @@ export class Order {
     cancellationReason?: string;
     acceptedTime?: string;
     acceptedDate?: string;
+    discount?: number;
+    shippingFee?: number;
     userId?: string;
 }
