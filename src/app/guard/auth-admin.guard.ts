@@ -18,7 +18,7 @@ export class AuthAdminGuard {
             take(1),
             map((user: any) => {
                 if (!user.isAdmin) {
-                    this.router.navigate(['/auth/sign-in']);
+                    this.router.navigate(['/404']);
                     return false;
                 }
                 return true;

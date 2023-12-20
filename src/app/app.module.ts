@@ -31,6 +31,27 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { VoucherComponent } from './pages/voucher/voucher.component';
+import { AddVoucherComponent } from './pages/voucher/add-voucher/add-voucher.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+
+
+export const MY_DATE_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MMMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    },
+};
 
 @NgModule({
     declarations: [
@@ -50,7 +71,9 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
         NavGroupComponent,
         NavItemComponent,
         NotFoundComponent,
-        ProfileComponent
+        ProfileComponent,
+        VoucherComponent,
+        AddVoucherComponent
     ],
     imports: [
         BrowserModule,
@@ -73,9 +96,15 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
         }),
         ToastrModule.forRoot({
             timeOut: 3000
-        })
+        }),
+        MatSelectModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MomentDateModule
     ],
-    providers: [ToastrService],
+    providers: [ToastrService, { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

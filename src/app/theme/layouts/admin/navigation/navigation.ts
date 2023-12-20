@@ -65,6 +65,36 @@ export const NavigationItems: NavigationItem[] = [
         ]
     },
     {
+        id: 'other',
+        title: 'other',
+        type: 'group',
+        icon: 'icon-group',
+        children: [
+            {
+                id: 'voucher',
+                title: 'Voucher',
+                type: 'collapse',
+                icon: 'fas fa-tag',
+                children: [
+                    {
+                        id: 'list-voucher',
+                        title: 'Vouchers',
+                        type: 'item',
+                        icon: 'fas fa-ticket-alt',
+                        url: '/voucher'
+                    },
+                    {
+                        id: 'add-voucher',
+                        title: 'Tạo Voucher',
+                        type: 'item',
+                        icon: 'fas fa-plus',
+                        url: '/voucher/create'
+                    }
+                ]
+            }
+        ]
+    },
+    {
         id: 'chart',
         title: 'biểu đồ',
         type: 'group',

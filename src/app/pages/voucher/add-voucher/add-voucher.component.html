@@ -1,0 +1,93 @@
+<section class="container">
+    <h1>Vouchers</h1>
+    <div class="row d-flex justify-content-center">
+        <article class="card fl-left ms-3">
+            <section class="date">
+                <time datetime="23th feb">
+                    <span>23</span><span>feb</span>
+                </time>
+            </section>
+            <section class="card-cont">
+                <small>{{ voucher.voucherType || 'Loại voucher' }}</small>
+                <h3>{{ voucher.voucherName || 'Tên voucher' }}</h3>
+                <div class="even-date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="ms-2">
+                        {{ convertDateString(voucher.startDate!) }}
+                    </span> to
+                    <span>{{ convertDateString(voucher.endDate!) }}</span>
+                </div>
+                <div class="even-info">
+                    <i class="fas fa-ticket"></i>
+                    <p class="ms-2">{{ voucher.voucherCode || 'CODE' }}</p>
+                    <i class="fas fa-dollar-sign"></i>
+                    <p class="ms-2">{{ voucher.value || 'Giá trị' }}
+                        <span *ngIf="voucher.voucherType?.toLowerCase() === 'percent'"> %</span>
+                    </p>
+                </div>
+                <i class="fas fa-file-contract me-2"></i>
+                <span>Đơn hàng từ {{ voucher.orderCondition | currency: 'VND' }}</span>
+
+                <div class="d-flex justify-content-start">
+                    <input class="me-2" type="checkbox" id="isShipping" name="isShipping"
+                        [(ngModel)]="voucher.isShipping">
+                    <label for="isShipping"> Is Shipping</label>
+                </div>
+
+                <a href="javascript:" style="background-color: #037FDD" (click)="createVoucher()">
+                    Tạo voucher
+                </a>
+            </section>
+        </article>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <div>
+
+            <div style="text-align: center;">
+                <mat-form-field class="col me-2" style="height: fit-content;">
+                    <mat-label>Dạng Voucher</mat-label>
+                    <mat-select [(ngModel)]="voucher.voucherType" (change)="updateDiscountType()">
+                        <mat-option value="percent">PERCENT</mat-option>
+                        <mat-option value="amount">AMOUNT</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col me-2" style="height: fit-content;">
+                    <mat-label>Tên Voucher</mat-label>
+                    <input matInput type="text" [(ngModel)]="voucher.voucherName">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="col me-2" style="height: fit-content;">
+                    <mat-label>Mã Voucher</mat-label>
+                    <input matInput type="text" [(ngModel)]="voucher.voucherCode">
+                </mat-form-field>
+                <mat-form-field class="col me-2" style="height: fit-content;">
+                    <mat-label>Giá trị</mat-label>
+                    <input matInput type="number" [(ngModel)]="voucher.value" [max]="getMaxValue()">
+                </mat-form-field>
+                <mat-form-field class="col">
+                    <mat-label>Điều kiện sử dụng</mat-label>
+                    <input matInput type="number" [(ngModel)]="voucher.orderCondition">
+                </mat-form-field>
+            </div>
+
+            <div style="text-align: center;">
+                <mat-form-field class="col me-2" style="height: fit-content;">
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input matInput [matDatepicker]="startDate" [(ngModel)]="voucher.startDate">
+                    <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="col" style="height: fit-content;">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input matInput [matDatepicker]="endDate" [(ngModel)]="voucher.endDate">
+                    <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+    </div>
+</section>

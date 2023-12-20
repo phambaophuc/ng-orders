@@ -14,6 +14,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterShopComponent } from './pages/shop/register-shop/register-shop.component';
 import { AuthShopGuard } from './guard/auth-shop.guard';
 import { AuthAdminGuard } from './guard/auth-admin.guard';
+import { VoucherComponent } from './pages/voucher/voucher.component';
+import { AddVoucherComponent } from './pages/voucher/add-voucher/add-voucher.component';
 
 const routes: Routes = [
     {
@@ -37,6 +39,14 @@ const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent
+            },
+            {
+                path: 'voucher',
+                component: VoucherComponent
+            },
+            {
+                path: 'voucher/create',
+                component: AddVoucherComponent
             },
             {
                 path: 'food',

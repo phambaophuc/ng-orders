@@ -21,7 +21,8 @@
                             "bezier-easing",
                             "mousetrap",
                             "apexcharts",
-                            "moment"
+                            "moment",
+                            "xlsx-js-style"
                         ],
                         "outputPath": "dist/manage-shop",
                         "index": "src/index.html",
@@ -49,7 +50,7 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "4mb",
+                                    "maximumWarning": "5mb",
                                     "maximumError": "5mb"
                                 },
                                 {

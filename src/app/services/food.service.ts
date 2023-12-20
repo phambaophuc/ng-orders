@@ -37,7 +37,6 @@ export class FoodService {
 
     addFoodsFromExcel(data: any[]) {
         const foodsRef = this.foodRef;
-
         data.forEach(item => {
             foodsRef.push(item);
         });
@@ -45,7 +44,6 @@ export class FoodService {
 
     addFood(newFood: Food): Promise<any> {
         const foodKey = this.foodRef.push(null!).key;
-
         return this.db.object(`${this.baseObject}/${foodKey}`).set(newFood);
     }
 

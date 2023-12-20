@@ -1,0 +1,35 @@
+<section class="container">
+    <h1>Vouchers</h1>
+    <div class="row">
+        <article class="col-md-6 card fl-left ms-3" *ngFor="let item of vouchers">
+            <section class="date">
+                <time datetime="23th feb">
+                    <span>23</span><span>feb</span>
+                </time>
+            </section>
+            <section class="card-cont">
+                <small>{{ item.voucherType }}</small>
+                <h3 [ngClass]="{ 'line-through': isEndDatePast(item.endDate!) }">{{ item.voucherName }}</h3>
+                <div class="even-date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="ms-2">{{ item.startDate }}</span> to <span>{{ item.endDate }}</span>
+                </div>
+                <div class="even-info">
+                    <i class="fas fa-ticket"></i>
+                    <p class="ms-2">
+                        {{ item.voucherCode }}
+                    </p>
+                    <i class="fas fa-dollar-sign"></i>
+                    <p class="ms-2">{{ item.value }}
+                        <span *ngIf="item.voucherType?.toLowerCase() === 'percent'">%</span>
+                    </p>
+                </div>
+                <i class="fas fa-file-contract me-2"></i>
+                <span>Đơn hàng từ {{ item.orderCondition | currency: 'VND' }}</span>
+                <a href="javascript:" style="background-color: #F8504C" (click)="deleteVoucher(item.key!)">
+                    Xoá voucher
+                </a>
+            </section>
+        </article>
+    </div>
+</section>
