@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { differenceInDays, parse } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { Voucher } from 'src/app/common/voucher';
 import { AuthService } from 'src/app/services/auth.service';
@@ -61,5 +62,12 @@ export class VoucherComponent implements OnInit {
                 });
             }
         });
+    }
+
+    calculateDays(startDate: string, endDate: string): number {
+        const startDateObj = parse(startDate, 'dd/MM/yyyy', new Date());
+        const endDateObj = parse(endDate, 'dd/MM/yyyy', new Date());
+
+        return differenceInDays(endDateObj, startDateObj);
     }
 }

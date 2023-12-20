@@ -3,8 +3,9 @@
     <div class="row">
         <article class="col-md-6 card fl-left ms-3" *ngFor="let item of vouchers">
             <section class="date">
-                <time datetime="23th feb">
-                    <span>23</span><span>feb</span>
+                <time>
+                    <span>{{ calculateDays(item.startDate!, item.endDate!) }}</span>
+                    <span>day</span>
                 </time>
             </section>
             <section class="card-cont">

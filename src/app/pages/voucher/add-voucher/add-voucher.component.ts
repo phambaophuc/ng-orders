@@ -42,7 +42,7 @@ export class AddVoucherComponent {
             this.voucher.shopId = user.shopId;
             this.voucher.startDate = this.convertDateString(this.voucher.startDate!);
             this.voucher.endDate = this.convertDateString(this.voucher.endDate!);
-            
+
             this.voucherService.createVoucher(this.voucher)
                 .then(() => {
                     this.toastr.success('Tạo voucher thành công.', 'Thành công!');
