@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1703148695206,
+  "timestamp": 1703149770740,
   "index": "/angular-manage-food-shop/index.html",
   "assetGroups": [
     {
@@ -209,7 +209,7 @@
     "/angular-manage-food-shop/feather.b7eeb2cd2e07d7e2.woff": "22574b7f62823253ef1189c6f6846011596d0443",
     "/angular-manage-food-shop/firebase-messaging-sw.js": "4deeaca05951981b59b990bf85f2d248e05f9b5e",
     "/angular-manage-food-shop/img-auth-big.f575e0e17383ebee.jpg": "f599d8f6bf895f39638a55fc0b5ed7ea4e92379b",
-    "/angular-manage-food-shop/index.html": "42e5d473ecb8faccb226be6bdcb5a74d985a2ec9",
+    "/angular-manage-food-shop/index.html": "0b0ec28bbe1db6ace0b72b91268fc166443a64b2",
     "/angular-manage-food-shop/main.045c7035ceb69b1d.js": "b697fafd98c6fd4ac2e393500eeed885bb81548f",
     "/angular-manage-food-shop/manifest.webmanifest": "9778b2ef00f3ba15e412719e693b9384bb054995",
     "/angular-manage-food-shop/pct.0ecdae2a64e46a8e.woff": "610a109f1d95d2c6d586234d0baa7d6db859031a",
