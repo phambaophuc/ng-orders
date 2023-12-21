@@ -156,6 +156,9 @@ Apache-2.0
 @firebase/messaging
 Apache-2.0
 
+@firebase/messaging-compat
+Apache-2.0
+
 @firebase/storage
 Apache-2.0
 
@@ -297,6 +300,8 @@ firebase/compat/app
 firebase/compat/auth
 
 firebase/compat/database
+
+firebase/compat/messaging
 
 firebase/compat/storage
 

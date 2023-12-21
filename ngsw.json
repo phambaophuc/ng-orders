@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1703150927840,
+  "timestamp": 1703152685091,
   "index": "/angular-manage-food-shop/index.html",
   "assetGroups": [
     {
@@ -11,20 +11,21 @@
         "ignoreVary": true
       },
       "urls": [
-        "/angular-manage-food-shop/28.19d2f4dd415f62c4.js",
-        "/angular-manage-food-shop/53.293def93ff8bd60e.js",
-        "/angular-manage-food-shop/736.fc8cc410dc034bfe.js",
-        "/angular-manage-food-shop/751.d95989a5addf99a5.js",
+        "/angular-manage-food-shop/28.56e7bcf08d79427a.js",
+        "/angular-manage-food-shop/29.0fe8a46058027768.js",
+        "/angular-manage-food-shop/53.14038fb2114d11f4.js",
+        "/angular-manage-food-shop/736.a6d02167273b0d98.js",
+        "/angular-manage-food-shop/751.7d3628183e0e42b2.js",
         "/angular-manage-food-shop/85.92091f01fe76413d.js",
-        "/angular-manage-food-shop/875.132942b346fd0c5b.js",
+        "/angular-manage-food-shop/875.f1eced4c722691be.js",
         "/angular-manage-food-shop/common.ab620ae925522baf.js",
         "/angular-manage-food-shop/favicon.ico",
         "/angular-manage-food-shop/firebase-messaging-sw.js",
         "/angular-manage-food-shop/index.html",
-        "/angular-manage-food-shop/main.045c7035ceb69b1d.js",
+        "/angular-manage-food-shop/main.655066442fbc8370.js",
         "/angular-manage-food-shop/manifest.webmanifest",
         "/angular-manage-food-shop/polyfills.1606e2e8a78a53fc.js",
-        "/angular-manage-food-shop/runtime.41ea4c0e7bdd69c4.js",
+        "/angular-manage-food-shop/runtime.edbedf96401518e3.js",
         "/angular-manage-food-shop/styles.2aff6651d790b23b.css"
       ],
       "patterns": []
@@ -127,12 +128,13 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/angular-manage-food-shop/28.19d2f4dd415f62c4.js": "3eb5f1c48769cfd0f4c2bd02f4e01d491f3325ee",
-    "/angular-manage-food-shop/53.293def93ff8bd60e.js": "a7ff71692756436516e73742462c996def96f13e",
-    "/angular-manage-food-shop/736.fc8cc410dc034bfe.js": "51854b74e86b6df734c51b06d10dddeaa30750cf",
-    "/angular-manage-food-shop/751.d95989a5addf99a5.js": "540aa2696d92f9d6999b0ae0e08f3ebc2522d870",
+    "/angular-manage-food-shop/28.56e7bcf08d79427a.js": "9c5a5ca93903e3a2a4f2fea85c37ae60dead401f",
+    "/angular-manage-food-shop/29.0fe8a46058027768.js": "13e616e21f1c3b1a91d1612d517fc17ef8db8adf",
+    "/angular-manage-food-shop/53.14038fb2114d11f4.js": "ca32600f7e26f5b2148c9b4eef16463ac2da6407",
+    "/angular-manage-food-shop/736.a6d02167273b0d98.js": "f7e12911d96f69bebdd224814c731c8ddfb8dbcf",
+    "/angular-manage-food-shop/751.7d3628183e0e42b2.js": "321d0572189cef7ddfbe7b7bf8df387656de58f2",
     "/angular-manage-food-shop/85.92091f01fe76413d.js": "b46e972f5df806d8ac54ef46082567a66949acd4",
-    "/angular-manage-food-shop/875.132942b346fd0c5b.js": "e34226abd0c2c4436db417ab2930f1d529454bd3",
+    "/angular-manage-food-shop/875.f1eced4c722691be.js": "d189c895625ef302c6d6d5b05f6f99cc4fd8f8fc",
     "/angular-manage-food-shop/Flaticon.338c89fb388f777f.svg": "7d21f2b3513b3cd2504599adf68255788bff0b0d",
     "/angular-manage-food-shop/Flaticon.7486237cbe8c84ed.ttf": "f4cb7da8c2a4db76421d0d89210752ab866124c1",
     "/angular-manage-food-shop/Flaticon.78353dafb6ba9ddc.woff": "7dac3da773b099bf73689d88b85f58dd886af69e",
@@ -209,9 +211,9 @@
     "/angular-manage-food-shop/feather.b7eeb2cd2e07d7e2.woff": "22574b7f62823253ef1189c6f6846011596d0443",
     "/angular-manage-food-shop/firebase-messaging-sw.js": "4deeaca05951981b59b990bf85f2d248e05f9b5e",
     "/angular-manage-food-shop/img-auth-big.f575e0e17383ebee.jpg": "f599d8f6bf895f39638a55fc0b5ed7ea4e92379b",
-    "/angular-manage-food-shop/index.html": "0b0ec28bbe1db6ace0b72b91268fc166443a64b2",
-    "/angular-manage-food-shop/main.045c7035ceb69b1d.js": "b697fafd98c6fd4ac2e393500eeed885bb81548f",
-    "/angular-manage-food-shop/manifest.webmanifest": "9778b2ef00f3ba15e412719e693b9384bb054995",
+    "/angular-manage-food-shop/index.html": "830add1b602a624dafe3a78d0ebdf7a55a830dad",
+    "/angular-manage-food-shop/main.655066442fbc8370.js": "938ca37c814f00f83bcb596ec79dc9a5f6632e23",
+    "/angular-manage-food-shop/manifest.webmanifest": "881e824fa2d1c4d829c5481b908ed79bd4f9d824",
     "/angular-manage-food-shop/pct.0ecdae2a64e46a8e.woff": "610a109f1d95d2c6d586234d0baa7d6db859031a",
     "/angular-manage-food-shop/pct.617e81ce5615e497.ttf": "73f7e7a5716d68c21a5241b909006e52c3aac3ca",
     "/angular-manage-food-shop/pct.f975e079d287f799.svg": "857d12ba5a5ef0d7b758affc97e82d07f91b93f4",
@@ -224,7 +226,7 @@
     "/angular-manage-food-shop/pxiByp8kv8JHgFVrLGT9Z1xlFQ.29eae96f1045a170.woff2": "7c949455fa86a8819b3f896f373601454fc7b10d",
     "/angular-manage-food-shop/pxiEyp8kv8JHgFVrJJfecg.4ed36e88dc7d70fb.woff2": "eec7a97bc1319b123a7addb438fa8a231469b511",
     "/angular-manage-food-shop/pxiEyp8kv8JHgFVrJJnecmNE.bb0e88331414ae61.woff2": "b775d4b1a914096aef0047a3b1b269378f81ac9c",
-    "/angular-manage-food-shop/runtime.41ea4c0e7bdd69c4.js": "85c107898aa5f8eef955b34448bde042d1adaaa2",
+    "/angular-manage-food-shop/runtime.edbedf96401518e3.js": "1bfd0f9520f0e53d41eaac39a5db3c317216a562",
     "/angular-manage-food-shop/styles.2aff6651d790b23b.css": "82ab31fdab8bde029e228e511d5fbd6f674eca3f"
   },
   "navigationUrls": [
