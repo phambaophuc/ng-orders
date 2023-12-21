@@ -147,7 +147,13 @@ Apache-2.0
 @firebase/database-compat
 Apache-2.0
 
+@firebase/installations
+Apache-2.0
+
 @firebase/logger
+Apache-2.0
+
+@firebase/messaging
 Apache-2.0
 
 @firebase/storage
@@ -293,6 +299,8 @@ firebase/compat/auth
 firebase/compat/database
 
 firebase/compat/storage
+
+firebase/messaging
 
 hammerjs
 MIT
