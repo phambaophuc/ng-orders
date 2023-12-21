@@ -1,3 +1,4 @@
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
@@ -10,21 +11,36 @@ export class MessagingService {
 
     currentMessage = new BehaviorSubject<any>(null);
 
-    constructor() { }
+    constructor(private afm: AngularFireMessaging) { }
 
-    async requestPermission(): Promise<string | null> {
-        const messaging = getMessaging();
-        try {
-            const currentToken = await getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey });
-            
-            if (currentToken) {
-                return currentToken;
-            } else {
-                return null;
-            }
-        } catch (err) {
-            return null;
-        }
+    // async requestPermission(): Promise<string | null> {
+    //     const messaging = getMessaging();
+    //     try {
+    //         const currentToken = await getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey });
+
+    //         if (currentToken) {
+    //             return currentToken;
+    //         } else {
+    //             return null;
+    //         }
+    //     } catch (err) {
+    //         return null;
+    //     }
+    // }
+
+    requestPermission(): Promise<string | null> {
+        return new Promise((resolve, reject) => {
+            const subscription = this.afm.requestToken.subscribe({
+                next: (token) => {
+                    subscription.unsubscribe();
+                    resolve(token);
+                },
+                error: (err) => {
+                    subscription.unsubscribe();
+                    reject(null);
+                }
+            });
+        });
     }
 
     listen() {

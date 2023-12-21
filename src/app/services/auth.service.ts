@@ -180,7 +180,6 @@ export class AuthService {
             .then((result) => {
                 this.message.requestPermission()
                     .then((token) => {
-                        console.log(token);
                         this.updateToken(result.user, token!);
                     });
             })
