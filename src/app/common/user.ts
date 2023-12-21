@@ -6,4 +6,5 @@ export class User {
     emailVerified?: boolean;
     lastLoginAt?: number;
     phoneNumber?: string;
+    token?: string;
 }

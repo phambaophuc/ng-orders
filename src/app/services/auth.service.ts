@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../common/user';
 import * as auth from 'firebase/auth';
 import { Observable } from 'rxjs';
+import { MessagingService } from './messaging.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
     constructor(
         private afDb: AngularFireDatabase,
         private afAuth: AngularFireAuth,
+        private message: MessagingService,
         private router: Router
     ) {
         this.initAuthState();
@@ -159,11 +161,27 @@ export class AuthService {
         return userRef.update(user);
     }
 
+    updateToken(user: any, token: string) {
+        const userRef = this.afDb.object(`Users/${user.uid}`);
+        const userData: User = {
+            uid: user.uid,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            lastLoginAt: parseInt(user.metadata.lastLoginAt),
+            token: token
+        };
+
+        return userRef.update(userData);
+    }
+
     authLogin(provider: any) {
         return this.afAuth
             .signInWithPopup(provider)
             .then((result) => {
-                this.updateProfileUser(result.user);
+                this.message.requestPermission()
+                    .then((token) => {
+                        this.updateToken(result.user, token!);
+                    });
             })
             .catch((error) => {
                 window.alert(error);
